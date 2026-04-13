@@ -13,10 +13,13 @@
       home.stateVersion = "25.11"; # Please read the comment before changing.
 
       home.packages = with pkgs; [
-        fastfetch
-        lazygit
-        neovide
+        lazydocker
         nixfmt
+        tealdeer
       ];
+
+      programs.fastfetch.enable = true;
+      programs.lazygit.enable = true;
+      programs.neovide.enable = true;
     };
 }
