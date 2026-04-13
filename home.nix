@@ -77,4 +77,5 @@
   programs.btop.enable = true;
   programs.fastfetch.enable = true;
   programs.lazydocker.enable = true;
+  programs.tealdeer.enable = true;
 }
