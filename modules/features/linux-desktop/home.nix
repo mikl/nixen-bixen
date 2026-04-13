@@ -15,6 +15,7 @@
       home.packages = with pkgs; [
         go-task
         just
+        kamal
         lazydocker
         nixfmt
         tealdeer
