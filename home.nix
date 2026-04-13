@@ -36,6 +36,8 @@
     # '')
     pkgs.go-task
     pkgs.just
+    pkgs.kamal
+    pkgs.nixfmt
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
