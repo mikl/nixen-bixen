@@ -13,6 +13,8 @@
       home.stateVersion = "25.11"; # Please read the comment before changing.
 
       home.packages = with pkgs; [
+        go-task
+        just
         lazydocker
         nixfmt
         tealdeer
