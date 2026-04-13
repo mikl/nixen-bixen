@@ -73,6 +73,23 @@
     # EDITOR = "emacs";
   };
 
+  home.shellAliases = {
+    # Replace ls with eza.
+    ls = "eza";
+    ll = "eza -l";
+    la = "eza -lAh";
+    l = "eza -CF";
+
+    # Replace cat with bat.
+    cat = "bat --plain";
+
+    # NeoVim shortcuts.
+    ni = "nvim";
+    vi = "nvim";
+
+    lg = "lazygit";
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
