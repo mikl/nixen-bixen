@@ -21,6 +21,13 @@
         tealdeer
       ];
 
+      programs.bat = {
+        enable = true;
+        config = {
+          paging = "never";
+        };
+      };
+
       home.shellAliases = {
         # Replace ls with eza.
         ls = "eza";
