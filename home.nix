@@ -95,6 +95,13 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.bat = {
+    enable = true;
+    config = {
+      paging = "never";
+    };
+  };
+
   programs.btop.enable = true;
   programs.fastfetch.enable = true;
   programs.lazydocker.enable = true;
