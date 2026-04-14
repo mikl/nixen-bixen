@@ -14,6 +14,7 @@
 
       home.packages = with pkgs; [
         go-task
+        httpie
         just
         kamal
         lazydocker
