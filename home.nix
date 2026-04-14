@@ -35,6 +35,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     pkgs.go-task
+    pkgs.httpie
     pkgs.just
     pkgs.kamal
     pkgs.nixfmt
