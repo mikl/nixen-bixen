@@ -88,7 +88,11 @@
   users.users.mikl = {
     isNormalUser = true;
     description = "Mikkel T. Høgh";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    shell = pkgs.fish;
     packages = with pkgs; [
       ddev
       delta
@@ -97,7 +101,6 @@
       eza
       fastfetch
       fd
-      fish
       fzf
       ghostty
       httpie
@@ -109,6 +112,8 @@
       zoxide
     ];
   };
+
+  programs.fish.enable = true;
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -149,7 +154,6 @@
       #AllowUsers = [ "cwmyUser" ];
     };
   };
-
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
