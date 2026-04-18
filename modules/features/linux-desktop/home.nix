@@ -5,6 +5,7 @@
     {
       imports = [
         self.homeModules.gitHomeConfig
+        self.homeModules.luxusShellHomeManager
       ];
 
       # This value determines the Home Manager release that your configuration is
@@ -25,31 +26,6 @@
         nixfmt
         tealdeer
       ];
-
-      programs.bat = {
-        enable = true;
-        config = {
-          paging = "never";
-        };
-      };
-
-      home.shellAliases = {
-        # Replace ls with eza.
-        ls = "eza";
-        ll = "eza -l";
-        la = "eza -lAh";
-        l = "eza -CF";
-
-        # Replace cat with bat.
-        cat = "bat --plain";
-
-        # NeoVim shortcuts.
-        ni = "nvim";
-        vi = "nvim";
-
-        lg = "lazygit";
-      };
-
       programs.fastfetch.enable = true;
       programs.lazygit.enable = true;
       programs.neovide.enable = true;
