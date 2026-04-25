@@ -1,31 +1,23 @@
+# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
-  description = "Nix setup by Mikkel T. Hoegh";
+
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+    den.url = "github:vic/den";
+    flake-file.url = "github:vic/flake-file";
+    flake-parts = {
+      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
+      url = "github:hercules-ci/flake-parts";
     };
+    home-manager = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+    };
+    import-tree.url = "github:vic/import-tree";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    nixpkgs-lib.follows = "nixpkgs";
   };
 
-  outputs =
-    { nixpkgs, home-manager, ... }:
-    let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      homeConfigurations."mikl" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-      };
-    };
 }
