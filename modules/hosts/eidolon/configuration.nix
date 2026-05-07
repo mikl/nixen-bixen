@@ -75,11 +75,12 @@
           "wheel"
         ];
         shell = pkgs.fish;
-        packages = with pkgs; [
-          fastfetch
-          neovide
-        ];
       };
+
+      home-manager.users.mikl = self.homeModules.linuxDesktopMikl;
+
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
 
       # Install firefox.
       programs.firefox.enable = true;
