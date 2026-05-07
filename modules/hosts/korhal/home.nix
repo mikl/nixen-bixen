@@ -22,6 +22,12 @@
 
       programs.fastfetch.enable = true;
       programs.home-manager.enable = true;
+
+      programs.nh = {
+        enable = true;
+        homeFlake = "/Volumes/Code/Nix/nixen-bixen#korhal";
+      };
+
       programs.lazydocker.enable = true;
       programs.tealdeer.enable = true;
     };
