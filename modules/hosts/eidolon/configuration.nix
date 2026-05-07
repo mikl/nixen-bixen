@@ -6,6 +6,7 @@
     {
       # import any other modules from here
       imports = [
+        inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         self.nixosModules.eidolonHardware
       ];
 
@@ -73,6 +74,7 @@
           "networkmanager"
           "wheel"
         ];
+        shell = pkgs.fish;
         packages = with pkgs; [
           fastfetch
           neovide
@@ -94,6 +96,8 @@
         neovim
         wget
       ];
+
+      programs.fish.enable = true;
 
       programs.nh = {
         enable = true;
