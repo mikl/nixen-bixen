@@ -4,6 +4,7 @@
     { pkgs, ... }:
     {
       imports = [
+        self.homeModules.localdevHomeManager
         self.homeModules.luxusShellHomeManager
       ];
 
@@ -13,10 +14,6 @@
 
       home.packages = [
         pkgs.btop
-        pkgs.go-task
-        pkgs.httpie
-        pkgs.just
-        pkgs.kamal
         pkgs.nixfmt
       ];
 
@@ -27,8 +24,6 @@
         enable = true;
         homeFlake = "/home/mikl/Projects/Nix/nixen-bixen#korhal";
       };
-
-      programs.lazydocker.enable = true;
       programs.tealdeer.enable = true;
     };
 }

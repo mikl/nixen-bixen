@@ -18,8 +18,6 @@
         # NeoVim shortcuts.
         ni = "nvim";
         vi = "nvim";
-
-        lg = "lazygit";
       };
 
       programs.bat = {
