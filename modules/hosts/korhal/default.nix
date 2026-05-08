@@ -1,6 +1,6 @@
 /**
- * Host “Korhal”, M1 MacBook Pro, old development machine.
- */
+  Host “Korhal”, M1 MacBook Pro, old development machine.
+*/
 { self, inputs, ... }:
 {
   flake.homeConfigurations.korhal = inputs.home-manager.lib.homeManagerConfiguration {

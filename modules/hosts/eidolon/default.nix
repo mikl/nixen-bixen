@@ -1,6 +1,6 @@
 /**
- * Host “Eidolon”, home lab compact PC, mostly for experimentation.
- */
+  Host “Eidolon”, home lab compact PC, mostly for experimentation.
+*/
 { self, inputs, ... }:
 {
   flake.nixosConfigurations.eidolon = inputs.nixpkgs.lib.nixosSystem {
