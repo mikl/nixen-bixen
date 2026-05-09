@@ -42,9 +42,6 @@
       programs.starship = {
         enable = true;
         enableFishIntegration = true;
-        presets = [
-          "nerd-font-symbols"
-        ];
         settings = {
           aws.disabled = true;
           azure.disabled = true;
