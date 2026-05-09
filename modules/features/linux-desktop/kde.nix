@@ -13,6 +13,7 @@
         krdc
         marble
         okular
+        plasma-thunderbolt
         spectacle
       ];
     };

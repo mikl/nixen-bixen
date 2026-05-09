@@ -122,6 +122,8 @@
         flake = "/home/mikl/Projects/Nix/nixen-bixen#tarsonis"; # sets NH_OS_FLAKE variable for you
       };
 
+      services.hardware.bolt.enable = true;
+
       # Enable the OpenSSH daemon.
       services.openssh = {
         enable = true;
