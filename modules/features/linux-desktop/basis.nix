@@ -30,6 +30,8 @@
         lazydocker
         nixfmt
         tealdeer
+        todoist-electron
+        xclip
         zed-editor
 
         # Browsers.
