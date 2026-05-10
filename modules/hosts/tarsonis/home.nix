@@ -9,6 +9,7 @@
       imports = [
         self.homeModules.linuxDesktopBasis
         self.homeModules.linuxDesktopKDE
+        self.homeModules.linuxDesktopSyncthing
       ];
     };
 }
