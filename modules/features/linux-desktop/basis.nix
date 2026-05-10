@@ -29,6 +29,7 @@
         kamal
         lazydocker
         nixfmt
+        obsidian
         tealdeer
         todoist-electron
         xclip
