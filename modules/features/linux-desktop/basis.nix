@@ -30,6 +30,11 @@
         nixfmt
         tealdeer
         zed-editor
+
+        # Browsers.
+        brave
+        librewolf
+        vivaldi
       ];
 
       programs.fastfetch.enable = true;
