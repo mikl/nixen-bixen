@@ -22,12 +22,7 @@
       home.stateVersion = "25.11"; # Please read the comment before changing.
 
       home.packages = with pkgs; [
-        go-task
-        httpie
-        just
         ghostty
-        kamal
-        lazydocker
         nixfmt
         obsidian
         tealdeer

@@ -8,6 +8,7 @@
     {
       imports = [
         self.homeModules.linuxDesktopBasis
+        self.homeModules.linuxDesktopDevelop
         self.homeModules.linuxDesktopKDE
         self.homeModules.linuxDesktopSyncthing
       ];
