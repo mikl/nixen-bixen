@@ -7,7 +7,7 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        # TODO: upsun and lagoon CLIs
+        # TODO: lagoon CLI
         _1password-cli
         ddev
         docker-buildx
@@ -17,10 +17,14 @@
         go-task
         httpie
         jetbrains.phpstorm
+        jq
         just
         kamal
+        mkcert
         mise
         lazydocker
+        upsun
+        yq
       ];
     };
 }
