@@ -8,6 +8,7 @@
     {
       imports = [
         self.homeModules.gitHomeConfig
+        self.homeModules.linuxDesktopTypography
         self.homeModules.luxusShellHomeManager
       ];
 
