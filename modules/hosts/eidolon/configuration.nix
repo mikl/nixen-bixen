@@ -8,6 +8,7 @@
       imports = [
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         self.nixosModules.eidolonHardware
+        self.nixosModules.nixOSWallpaper
       ];
 
       # Bootloader.
