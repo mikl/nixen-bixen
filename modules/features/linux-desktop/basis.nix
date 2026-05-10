@@ -25,6 +25,7 @@
         go-task
         httpie
         just
+        ghostty
         kamal
         lazydocker
         nixfmt
