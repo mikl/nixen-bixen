@@ -9,6 +9,7 @@
         inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         self.nixosModules.nixOSWallpaper
+        self.nixosModules.tailscaleConfiguration
         self.nixosModules.tarsonisHardware
       ];
 
