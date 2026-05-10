@@ -1,24 +1,27 @@
 { self, inputs, ... }:
 {
 
-  flake.nixosModules.eidolonConfiguration =
+  flake.nixosModules.tarsonisConfiguration =
     { pkgs, lib, ... }:
     {
       # import any other modules from here
       imports = [
+        inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
-        self.nixosModules.eidolonHardware
         self.nixosModules.nixOSWallpaper
+        self.nixosModules.tarsonisHardware
       ];
 
       # Bootloader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
+      boot.initrd.luks.devices."luks-e0cefc69-fbde-4c4f-bf27-89b5b7a49dfe".device =
+        "/dev/disk/by-uuid/e0cefc69-fbde-4c4f-bf27-89b5b7a49dfe";
 
       # Use latest kernel.
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
-      networking.hostName = "eidolon";
+      networking.hostName = "tarsonis";
 
       # Use NetworkManager for WiFi and Ethernet.
       networking.networkmanager.enable = true;
@@ -57,6 +60,9 @@
         variant = "mac-iso";
       };
 
+      # Enable CUPS to print documents.
+      services.printing.enable = true;
+
       # Enable sound with pipewire.
       services.pulseaudio.enable = false;
       security.rtkit.enable = true;
@@ -78,13 +84,22 @@
         shell = pkgs.fish;
       };
 
-      home-manager.users.mikl = self.homeModules.eidolon;
+      home-manager.users.mikl = self.homeModules.tarsonis;
+      home-manager.backupFileExtension = "bak";
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
 
       # Install firefox.
       programs.firefox.enable = true;
+
+      programs._1password.enable = true;
+      programs._1password-gui = {
+        enable = true;
+        # Certain features, including CLI integration and system authentication support,
+        # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+        polkitPolicyOwners = [ "mikl" ];
+      };
 
       # Allow unfree packages
       nixpkgs.config.allowUnfree = true;
@@ -105,8 +120,10 @@
         enable = true;
         clean.enable = true;
         clean.extraArgs = "--keep-since 30d --keep 10";
-        flake = "/home/mikl/Projects/Nix/nixen-bixen"; # sets NH_OS_FLAKE variable for you
+        flake = "/home/mikl/Projects/Nix/nixen-bixen#tarsonis"; # sets NH_OS_FLAKE variable for you
       };
+
+      services.hardware.bolt.enable = true;
 
       # Enable the OpenSSH daemon.
       services.openssh = {

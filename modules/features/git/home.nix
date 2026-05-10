@@ -31,7 +31,6 @@
             editor = "nvim";
             hooksPath = ".githooks";
             legacyheaders = "false";
-            pager = "delta";
             quotepath = "false";
           };
           format.numbered = "auto";

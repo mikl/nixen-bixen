@@ -1,10 +1,14 @@
+/**
+  Shared basis for all Linux desktop configurations.
+*/
 { self, inputs, ... }:
 {
-  flake.homeModules.linuxDesktopMikl =
+  flake.homeModules.linuxDesktopBasis =
     { pkgs, ... }:
     {
       imports = [
         self.homeModules.gitHomeConfig
+        self.homeModules.linuxDesktopTypography
         self.homeModules.luxusShellHomeManager
       ];
 
@@ -21,11 +25,21 @@
         go-task
         httpie
         just
+        ghostty
         kamal
         lazydocker
         nixfmt
         tealdeer
+        todoist-electron
+        xclip
+        zed-editor
+
+        # Browsers.
+        brave
+        librewolf
+        vivaldi
       ];
+
       programs.fastfetch.enable = true;
       programs.lazygit.enable = true;
       programs.neovide.enable = true;
