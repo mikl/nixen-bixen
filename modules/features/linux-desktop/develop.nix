@@ -8,6 +8,7 @@
     {
       home.packages = with pkgs; [
         # TODO: upsun and lagoon CLIs
+        _1password-cli
         ddev
         docker-buildx
         docker-client
