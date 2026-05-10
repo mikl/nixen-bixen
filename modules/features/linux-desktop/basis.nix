@@ -38,6 +38,10 @@
         brave
         librewolf
         vivaldi
+
+        # Communication.
+        signal-desktop
+        zulip
       ];
 
       programs.fastfetch.enable = true;
