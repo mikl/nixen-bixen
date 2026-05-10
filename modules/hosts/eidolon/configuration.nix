@@ -77,7 +77,7 @@
         shell = pkgs.fish;
       };
 
-      home-manager.users.mikl = self.homeModules.linuxDesktopMikl;
+      home-manager.users.mikl = self.homeModules.eidolon;
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;

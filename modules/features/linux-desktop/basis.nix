@@ -1,6 +1,9 @@
+/**
+  Shared basis for all Linux desktop configurations.
+*/
 { self, inputs, ... }:
 {
-  flake.homeModules.linuxDesktopMikl =
+  flake.homeModules.linuxDesktopBasis =
     { pkgs, ... }:
     {
       imports = [
@@ -26,6 +29,7 @@
         nixfmt
         tealdeer
       ];
+
       programs.fastfetch.enable = true;
       programs.lazygit.enable = true;
       programs.neovide.enable = true;

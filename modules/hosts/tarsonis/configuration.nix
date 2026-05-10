@@ -83,7 +83,7 @@
         shell = pkgs.fish;
       };
 
-      home-manager.users.mikl = self.homeModules.linuxDesktopMikl;
+      home-manager.users.mikl = self.homeModules.tarsonis;
       home-manager.backupFileExtension = "bak";
 
       home-manager.useGlobalPkgs = true;
