@@ -29,6 +29,7 @@
         lazydocker
         nixfmt
         tealdeer
+        zed-editor
       ];
 
       programs.fastfetch.enable = true;
