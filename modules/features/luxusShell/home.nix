@@ -46,6 +46,10 @@
 
       programs.fish = {
         enable = true;
+        # Disable fish greeting.
+        interactiveShellInit = ''
+          set fish_greeting ""
+        '';
       };
 
       programs.fzf = {
