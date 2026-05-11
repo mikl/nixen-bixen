@@ -8,6 +8,13 @@
         enableGitIntegration = true;
       };
 
+      programs.difftastic = {
+        enable = true;
+        options = {
+          tab-width = 2;
+        };
+      };
+
       programs.git = {
         enable = true;
         settings = {
@@ -59,6 +66,32 @@
             name = "Mikkel T. Hoegh";
             email = "mikkel@hoegh.org";
           };
+        };
+      };
+
+      programs.lazygit = {
+        enable = true;
+        settings = {
+          gui = {
+            timeFormat = "_2. Jan 06";
+            shortTimeFormat = "15:04";
+            nerdFontsVersion = "3";
+          };
+          git = {
+            pagers = [
+              {
+                pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
+              }
+              { externalDiffCommand = "difft --color=always"; }
+            ];
+            # Disable autofetch, only fetch manually.
+            autoFetch = false;
+            # Custom GPG handling since we rely on 1Password’s agent.
+            overrideGpg = true;
+          };
+          # Disable self-update checks, since installation is managed by Nix.
+          update.method = "never";
+          os.editPreset = "nvim";
         };
       };
     };
