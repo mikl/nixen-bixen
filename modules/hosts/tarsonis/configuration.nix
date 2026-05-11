@@ -111,6 +111,7 @@
       environment.etc = {
         "1password/custom_allowed_browsers" = {
           text = ''
+            librewolf
             vivaldi-bin
           '';
           mode = "0755";
