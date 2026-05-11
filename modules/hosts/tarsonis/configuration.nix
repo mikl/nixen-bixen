@@ -9,6 +9,7 @@
         inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         self.nixosModules.en_DA_locale
+        self.nixosModules.keyboard
         self.nixosModules.nixOSWallpaper
         self.nixosModules.tailscaleConfiguration
         self.nixosModules.tarsonisHardware
@@ -41,12 +42,6 @@
       # Enable the KDE Plasma Desktop Environment.
       services.displayManager.sddm.enable = true;
       services.desktopManager.plasma6.enable = true;
-
-      # Configure keymap in X11
-      services.xserver.xkb = {
-        layout = "us";
-        variant = "mac-iso";
-      };
 
       # Enable CUPS to print documents.
       services.printing.enable = true;

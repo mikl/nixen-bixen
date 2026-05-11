@@ -8,6 +8,7 @@
       imports = [
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         self.nixosModules.en_DA_locale
+        self.nixosModules.keyboard
         self.nixosModules.eidolonHardware
         self.nixosModules.nixOSWallpaper
       ];
@@ -37,12 +38,6 @@
       # Enable the KDE Plasma Desktop Environment.
       services.displayManager.sddm.enable = true;
       services.desktopManager.plasma6.enable = true;
-
-      # Configure keymap in X11
-      services.xserver.xkb = {
-        layout = "us";
-        variant = "mac-iso";
-      };
 
       # Enable sound with pipewire.
       services.pulseaudio.enable = false;
