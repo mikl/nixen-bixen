@@ -21,6 +21,7 @@
         just
         kamal
         mkcert
+        nil # Language server for Nix.
         lazydocker
         upsun
         yq
