@@ -17,6 +17,30 @@
 
       programs.git = {
         enable = true;
+        attributes = [
+          "*.css eol=lf diff=css"
+          "*.md eol=lf diff=markdown"
+          "*.php eol=lf diff=php"
+          "*.py eol=lf diff=python"
+          "*.ex eol=lf diff=elixir"
+          "*.exs eol=lf diff=elixir"
+          "mix.lock merge=binary"
+        ];
+        ignores = [
+          "*.komodoproject"
+          "*.orig"
+          "*.py[co]"
+          "*.swp"
+          "*~"
+          ".DS_Store"
+          "._*"
+          ".elixir-tools"
+          ".elixir_ls"
+          ".idea"
+          ".sass-cache"
+          ".svn"
+          "npm-debug.log"
+        ];
         settings = {
           alias = {
             br = "branch";
