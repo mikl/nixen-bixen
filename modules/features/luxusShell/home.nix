@@ -1,8 +1,12 @@
-{ self, inputs, ... }:
+{ ... }:
 {
   flake.homeModules.luxusShellHomeManager =
     { pkgs, ... }:
     {
+      home.packages = with pkgs; [
+        ncdu # TUI-alternative to du.
+      ];
+
       home.shell.enableFishIntegration = true;
 
       home.shellAliases = {
@@ -20,6 +24,7 @@
         vi = "nvim";
       };
 
+      # Modern replacement for cat.
       programs.bat = {
         enable = true;
         config = {
@@ -27,6 +32,7 @@
         };
       };
 
+      # Modern replacement for ls.
       programs.eza = {
         enable = true;
         enableFishIntegration = true;
@@ -35,9 +41,22 @@
         ];
       };
 
+      # Modern replacement for find.
+      programs.fd.enable = true;
+
       programs.fish = {
         enable = true;
       };
+
+      programs.fzf = {
+        enable = true;
+        enableFishIntegration = true;
+        changeDirWidgetCommand = "fd --type d";
+        defaultCommand = "fd --type f";
+        fileWidgetCommand = "fd --type f";
+      };
+
+      programs.ripgrep.enable = true;
 
       programs.starship = {
         enable = true;
