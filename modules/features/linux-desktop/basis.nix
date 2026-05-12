@@ -34,6 +34,7 @@
 
         # Browsers.
         brave
+        browsers
         librewolf
         vivaldi
 
