@@ -7,6 +7,7 @@
     { pkgs, ... }:
     {
       imports = [
+        inputs.zen-browser.homeModules.beta
         self.homeModules.dictionaries
         self.homeModules.gitHomeConfig
         self.homeModules.linuxDesktopTypography
@@ -43,5 +44,10 @@
 
       programs.fastfetch.enable = true;
       programs.neovide.enable = true;
+
+      programs.zen-browser = {
+        enable = true;
+        setAsDefaultBrowser = false;
+      };
     };
 }

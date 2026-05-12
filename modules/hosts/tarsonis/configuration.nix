@@ -95,6 +95,7 @@
           text = ''
             librewolf
             vivaldi-bin
+            .zen-beta-wrapped
           '';
           mode = "0755";
         };
