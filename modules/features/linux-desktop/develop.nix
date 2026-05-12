@@ -10,6 +10,7 @@
         # TODO: lagoon CLI
         _1password-cli
         ddev
+        devenv
         docker-buildx
         docker-client
         docker-compose
@@ -26,16 +27,5 @@
         upsun
         yq
       ];
-
-      programs.mise = {
-        enable = true;
-        enableFishIntegration = true;
-        globalConfig = {
-          settings.idiomatic_version_file_enable_tools = [
-            "node"
-            "ruby"
-          ];
-        };
-      };
     };
 }
