@@ -13,5 +13,10 @@
         self.homeModules.linuxDesktopKDE
         self.homeModules.linuxDesktopSyncthing
       ];
+
+      home.packages = with pkgs; [
+        # Apple Studio Display brightness control.
+        asdbctl
+      ];
     };
 }
