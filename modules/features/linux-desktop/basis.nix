@@ -35,8 +35,7 @@
         # Browsers.
         brave
         browsers
-        librewolf
-        vivaldi
+        firefox
 
         # Communication.
         signal-desktop

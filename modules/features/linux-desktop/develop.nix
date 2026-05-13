@@ -27,6 +27,11 @@
         lazydocker
         upsun
         yq
+
+        # Extra browsers for software development
+        chromium
+        librewolf
+        vivaldi
       ];
     };
 }
