@@ -1,7 +1,7 @@
 /**
   Software development tools.
 */
-{ self, inputs, ... }:
+{ ... }:
 {
   flake.homeModules.linuxDesktopDevelop =
     { pkgs, ... }:
@@ -22,6 +22,7 @@
         just
         kamal
         mkcert
+        nodejs_24 # General installation for use outside devenvs.
         nil # Language server for Nix.
         lazydocker
         upsun
