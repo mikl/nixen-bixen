@@ -8,6 +8,7 @@
       imports = [
         inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
+        inputs.ldddns.nixosModules.default
         self.nixosModules.en_DA_locale
         self.nixosModules.keyboard
         self.nixosModules.keydConfiguration
@@ -123,7 +124,20 @@
         flake = "/home/mikl/Projects/Nix/nixen-bixen#tarsonis"; # sets NH_OS_FLAKE variable for you
       };
 
+      # Enable Avahi for use with ldddns.
+      services.avahi = {
+        enable = true;
+        nssmdns4 = true; # plugs avahi into NSS for .local lookups.
+        publish = {
+          # lddds needs user services enabled.
+          enable = true;
+          addresses = true;
+          userServices = true;
+        };
+      };
+
       services.hardware.bolt.enable = true;
+      services.ldddns.enable = true;
 
       # Enable the OpenSSH daemon.
       services.openssh = {
@@ -133,6 +147,17 @@
           #KbdInteractiveAuthentication = false;
           PermitRootLogin = "no";
           #AllowUsers = [ "cwmyUser" ];
+        };
+      };
+
+      services.resolved = {
+        enable = true;
+        # Tell resolved to leave .local alone, avoid overlap with Avahi.
+        settings = {
+          Resolve = {
+            LLMNR = "no";
+            MulticastDNS = "no";
+          };
         };
       };
 
