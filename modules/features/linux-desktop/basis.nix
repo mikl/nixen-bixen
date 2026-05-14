@@ -50,8 +50,24 @@
         installVimSyntax = true;
         settings = {
           theme = "Eldritch";
+          background-blur = true;
+          background-opacity = "0.95";
           font-family = "Iosevka Term Slab";
           font-size = 11;
+
+          # Don’t ask before quitting, just quit.
+          confirm-close-surface = false;
+          notify-on-command-finish-action = "bell,notify";
+
+          # Inherit working directory for splits only.
+          window-inherit-working-directory = false;
+          tab-inherit-working-directory = false;
+          split-inherit-working-directory = true;
+
+          # Windowless fullscreen, essentially.
+          maximize = true;
+          window-decoration = false;
+
           keybind = [
             # macOS style keyboard shortcuts on Linux.
             "super+a=select_all"
