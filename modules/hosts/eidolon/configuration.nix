@@ -10,6 +10,7 @@
         self.nixosModules.en_DA_locale
         self.nixosModules.keyboard
         self.nixosModules.eidolonHardware
+        self.nixosModules.linuxDesktopSyncthing
         self.nixosModules.nixOSWallpaper
       ];
 
@@ -64,6 +65,7 @@
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.backupFileExtension = "bak";
 
       # Install firefox.
       programs.firefox.enable = true;

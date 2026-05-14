@@ -1,7 +1,7 @@
-{ self, inputs, ... }:
+{ ... }:
 {
   flake.homeModules.linuxDesktopSyncthing =
-    { pkgs, ... }:
+    { ... }:
     {
       services.syncthing = {
         enable = true;
@@ -11,6 +11,16 @@
           # Remove once on 26.05.
           "--allow-newer-config"
         ];
+      };
+    };
+
+  flake.nixosModules.linuxDesktopSyncthing =
+    { ... }:
+    {
+      networking.nftables.enable = true;
+      networking.firewall = {
+        enable = true;
+        allowedTCPPorts = [ 22000 ];
       };
     };
 }
