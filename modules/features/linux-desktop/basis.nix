@@ -28,6 +28,7 @@
         obsidian
         tealdeer
         todoist-electron
+        vlc
         xclip
         zed-editor
 
