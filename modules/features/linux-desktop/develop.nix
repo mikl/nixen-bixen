@@ -9,6 +9,7 @@
       home.packages = with pkgs; [
         # TODO: lagoon CLI
         _1password-cli
+        claude-code
         ddev
         devenv
         docker-buildx
