@@ -30,6 +30,7 @@
         todoist-electron
         vlc
         xclip
+        wavemon
         zed-editor
 
         # Browsers.
