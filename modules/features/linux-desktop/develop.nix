@@ -1,15 +1,21 @@
 /**
   Software development tools.
 */
-{ ... }:
+{ inputs, ... }:
 {
   flake.homeModules.linuxDesktopDevelop =
     { pkgs, ... }:
+    let
+      unstable = import inputs.nixpkgs-unstable {
+        system = pkgs.system;
+        config.allowUnfree = true;
+      };
+    in
     {
       home.packages = with pkgs; [
         # TODO: lagoon CLI
         _1password-cli
-        claude-code
+        unstable.claude-code
         ddev
         devenv
         docker-buildx
@@ -18,7 +24,7 @@
         gh
         go-task
         httpie
-        jetbrains.phpstorm
+        unstable.jetbrains.phpstorm
         jq
         just
         kamal
