@@ -1,7 +1,7 @@
 /**
   Konfiguration for KDE desktop environment.
 */
-{ self, inputs, ... }:
+{ ... }:
 {
   flake.homeModules.linuxDesktopKDE =
     { pkgs, ... }:
@@ -23,8 +23,6 @@
         marble
         ocean-sound-theme
         okular
-        oxygen
-        oxygen-icons
         oxygen-sounds
         plasma-thunderbolt
         spectacle
