@@ -26,6 +26,7 @@
       home.packages = with pkgs; [
         nixfmt
         obsidian
+        plex-desktop
         tealdeer
         todoist-electron
         vlc
