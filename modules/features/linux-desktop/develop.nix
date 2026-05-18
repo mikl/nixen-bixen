@@ -18,6 +18,7 @@
         unstable.claude-code
         ddev
         devenv
+        dive
         docker-buildx
         docker-client
         docker-compose
