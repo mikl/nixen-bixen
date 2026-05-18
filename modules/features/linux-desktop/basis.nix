@@ -31,7 +31,6 @@
         vlc
         xclip
         wavemon
-        zed-editor
 
         # Browsers.
         brave
