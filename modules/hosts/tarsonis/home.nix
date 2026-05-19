@@ -10,6 +10,7 @@
         self.homeModules.common
         self.homeModules.linuxDesktopBasis
         self.homeModules.linuxDesktopDevelop
+        self.homeModules.linuxDesktopEmailClient
         self.homeModules.linuxDesktopKDE
         self.homeModules.linuxDesktopSyncthing
       ];
