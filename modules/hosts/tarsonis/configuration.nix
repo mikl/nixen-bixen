@@ -111,6 +111,7 @@
       environment.systemPackages = with pkgs; [
         btop
         curl
+        framework-tool-tui
         git
         neovim
         wget
