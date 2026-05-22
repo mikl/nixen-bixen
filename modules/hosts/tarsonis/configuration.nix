@@ -48,7 +48,7 @@
 
       hardware.bluetooth = {
         enable = true;
-        powerOnBoot = false;
+        powerOnBoot = true;
       };
 
       services.fprintd.enable = true;
