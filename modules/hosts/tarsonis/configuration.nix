@@ -10,6 +10,7 @@
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         self.nixosModules.en_DA_locale
         self.nixosModules.keyboard
+        self.nixosModules.keydConfiguration
         self.nixosModules.nixOSWallpaper
         self.nixosModules.tailscaleConfiguration
         self.nixosModules.tarsonisHardware
