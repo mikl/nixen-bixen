@@ -34,7 +34,6 @@
         nil # Language server for Nix.
         lazydocker
         upsun
-        yq
         unstable.zed-editor
 
         # Extra browsers for software development
