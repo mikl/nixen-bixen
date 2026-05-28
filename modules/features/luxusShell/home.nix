@@ -69,7 +69,6 @@
           aws.disabled = true;
           azure.disabled = true;
           cobol.disabled = true;
-          docker_context.disabled = true;
         };
       };
 
