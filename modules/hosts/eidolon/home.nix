@@ -12,5 +12,10 @@
         self.homeModules.linuxDesktopKDE
         self.homeModules.linuxDesktopSyncthing
       ];
+
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
     };
 }
