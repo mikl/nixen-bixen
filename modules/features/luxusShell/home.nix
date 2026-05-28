@@ -69,6 +69,8 @@
           aws.disabled = true;
           azure.disabled = true;
           cobol.disabled = true;
+          direnv.disabled = false;
+          status.disabled = false;
         };
       };
 
