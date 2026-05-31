@@ -4,6 +4,7 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
+        dysk
         ncdu # TUI-alternative to du.
       ];
 
