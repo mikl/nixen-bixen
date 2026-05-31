@@ -40,7 +40,7 @@
 
         # Communication.
         signal-desktop
-        zulip
+        #zulip # Disabled due to https://github.com/NixOS/nixpkgs/issues/525631
       ];
 
       programs.fastfetch.enable = true;
