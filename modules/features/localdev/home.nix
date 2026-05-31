@@ -17,6 +17,8 @@
       programs.direnv = {
         enable = true;
         nix-direnv.enable = true;
+        # Starship prompt shows direnv status, so no need for log output on every load.
+        silent = true;
       };
 
       programs.lazygit = {
