@@ -1,4 +1,4 @@
-{ self, inputs, ... }:
+{ ... }:
 {
   flake.homeModules.localdevHomeManager =
     { pkgs, ... }:
@@ -7,11 +7,17 @@
         lg = "lazygit";
       };
 
-      home.packages = [
-        pkgs.go-task
-        pkgs.httpie
-        pkgs.just
+      home.packages = with pkgs; [
+        go-task
+        httpie
+        just
+        jq
       ];
+
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
 
       programs.lazygit = {
         enable = true;

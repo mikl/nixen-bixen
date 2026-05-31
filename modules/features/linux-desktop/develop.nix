@@ -23,11 +23,7 @@
         docker-client
         docker-compose
         gh
-        go-task
-        httpie
         unstable.jetbrains.phpstorm
-        jq
-        just
         mkcert
         nodejs_24 # General installation for use outside devenvs.
         nil # Language server for Nix.
@@ -40,10 +36,5 @@
         librewolf
         vivaldi
       ];
-
-      programs.direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-      };
     };
 }

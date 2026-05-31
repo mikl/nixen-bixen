@@ -11,11 +11,7 @@
         self.homeModules.linuxDesktopBasis
         self.homeModules.linuxDesktopKDE
         self.homeModules.linuxDesktopSyncthing
+        self.homeModules.localdevHomeManager
       ];
-
-      programs.direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-      };
     };
 }

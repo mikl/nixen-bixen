@@ -13,6 +13,7 @@
         self.homeModules.linuxDesktopEmailClient
         self.homeModules.linuxDesktopKDE
         self.homeModules.linuxDesktopSyncthing
+        self.homeModules.localdevHomeManager
       ];
 
       home.packages = with pkgs; [
