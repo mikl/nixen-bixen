@@ -28,7 +28,6 @@
         unstable.jetbrains.phpstorm
         jq
         just
-        kamal
         mkcert
         nodejs_24 # General installation for use outside devenvs.
         nil # Language server for Nix.

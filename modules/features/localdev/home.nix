@@ -11,7 +11,6 @@
         pkgs.go-task
         pkgs.httpie
         pkgs.just
-        pkgs.kamal
       ];
 
       programs.lazygit = {
