@@ -144,6 +144,17 @@
       # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
       system.stateVersion = "25.11"; # Did you read the comment?
 
+      systemd.services.battery-charge-threshold = {
+        description = "Set battery charge limit to 77%";
+        after = [ "multi-user.target" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStart = "${pkgs.bash}/bin/bash -c 'echo 77 > /sys/class/power_supply/BAT1/charge_control_end_threshold'";
+        };
+      };
+
       virtualisation.docker = {
         enable = true;
       };
