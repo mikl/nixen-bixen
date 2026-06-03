@@ -6,6 +6,7 @@
       imports = [
         self.homeModules.localdevHomeManager
         self.homeModules.luxusShellHomeManager
+        self.homeModules.neoVimNVF
       ];
 
       home.username = "mikl";
