@@ -7,9 +7,9 @@
     { pkgs, ... }:
     {
       home.sessionPath = [
-        "$HOME/bin"
         "$HOME/.local/bin"
       ];
+
       home.sessionVariables = {
         EDITOR = "nvim";
         MANPAGER = "nvim +Man!";
