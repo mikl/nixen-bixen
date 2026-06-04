@@ -15,13 +15,24 @@
               enableFormat = true;
               enableTreesitter = true;
 
+              bash.enable = true;
+              css.enable = true;
+              docker.enable = true;
+              env.enable = true;
+              html.enable = true;
+              json.enable = true;
+              json.format.type = ["prettier"];
+              markdown.enable = true;
               nix.enable = true;
               nix.format.type = ["nixfmt"];
+              toml.enable = true;
+              typescript.enable = true;
+              yaml.enable = true;
             };
 
             lsp = {
-            enable = true;
-          };
+              enable = true;
+            };
 
             options = {
               shiftwidth = 2;
