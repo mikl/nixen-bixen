@@ -42,6 +42,8 @@
         ];
       };
 
+      programs.fastfetch.enable = true;
+
       # Modern replacement for find.
       programs.fd.enable = true;
 

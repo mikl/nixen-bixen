@@ -24,7 +24,6 @@
       home.stateVersion = "25.11"; # Please read the comment before changing.
 
       home.packages = with pkgs; [
-        nixfmt
         obsidian
         plex-desktop
         tealdeer
@@ -42,8 +41,6 @@
         signal-desktop
         #zulip # Disabled due to https://github.com/NixOS/nixpkgs/issues/525631
       ];
-
-      programs.fastfetch.enable = true;
 
       programs.ghostty = {
         enable = true;

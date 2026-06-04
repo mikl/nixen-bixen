@@ -6,6 +6,12 @@
   flake.homeModules.common =
     { pkgs, ... }:
     {
+      home.packages = with pkgs; [
+        git
+        nixfmt
+        q
+      ];
+
       home.sessionPath = [
         "$HOME/.local/bin"
       ];
