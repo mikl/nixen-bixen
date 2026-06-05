@@ -3,6 +3,19 @@
   flake.homeModules.localdevHomeManager =
     { pkgs, ... }:
     {
+      # Add NVM stub files for projects that assume NVM is available.
+      home.file.".nvm/nvm.sh" = {
+        executable = true;
+        force = true;
+        text = ''
+          #!/usr/bin/env bash
+
+          echo "Not using NVM, using Nix instead."
+
+          alias nvm='echo'
+        '';
+      };
+
       home.shellAliases = {
         lg = "lazygit";
       };
