@@ -12,10 +12,6 @@
         q
       ];
 
-      home.sessionPath = [
-        "$HOME/.local/bin"
-      ];
-
       home.sessionVariables = {
         EDITOR = "nvim";
         MANPAGER = "nvim +Man!";
@@ -29,5 +25,6 @@
 
       # Set XDG folders explicitly, since some apps don't use them as defaults.
       xdg.enable = true;
+      xdg.localBinInPath = true;
     };
 }
