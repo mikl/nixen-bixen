@@ -14,6 +14,9 @@
         jq
       ];
 
+      # Prefer XDG directories for config and data to leave less junk in the home directory.
+      home.preferXdgDirectories = true;
+
       programs.direnv = {
         enable = true;
         nix-direnv.enable = true;
