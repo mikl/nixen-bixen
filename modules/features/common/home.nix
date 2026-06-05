@@ -22,13 +22,12 @@
         VISUAL = "nvim";
         # Disable ads from npm packages.
         DISABLE_OPENCOLLECTIVE = 1;
-        # Set XDG folders explicitly, since some apps don’t use them as defaults.
-        XDG_CACHE_HOME = "$HOME/.cache";
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_DATA_HOME = "$HOME/.local/share";
         # Put Go’s compiler output inside the data path so it does not make a mess
         # in the home dir.
         GOPATH = "$HOME/.local/share/go";
       };
+
+      # Set XDG folders explicitly, since some apps don't use them as defaults.
+      xdg.enable = true;
     };
 }
