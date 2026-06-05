@@ -73,7 +73,7 @@
       };
 
       home-manager.users.mikl = self.homeModules.tarsonis;
-      home-manager.backupFileExtension = "bak";
+      home-manager.backupCommand = "${pkgs.trash-cli}/bin/trash";
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
