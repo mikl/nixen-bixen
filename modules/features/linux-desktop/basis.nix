@@ -24,6 +24,7 @@
       home.stateVersion = "25.11"; # Please read the comment before changing.
 
       home.packages = with pkgs; [
+        aha # For displaying network interfaces in the KDE Info Center.
         obsidian
         plex-desktop
         tealdeer
