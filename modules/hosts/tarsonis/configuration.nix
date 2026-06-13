@@ -14,6 +14,7 @@
         self.nixosModules.keydConfiguration
         self.nixosModules.nixOSWallpaper
         self.nixosModules.tailscaleConfiguration
+        self.nixosModules.tarsonisDisko
         self.nixosModules.tarsonisHardware
       ];
 
