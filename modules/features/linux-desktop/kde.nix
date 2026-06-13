@@ -24,6 +24,7 @@
         ocean-sound-theme
         okular
         oxygen-sounds
+        partitionmanager
         plasma-thunderbolt
         spectacle
       ];
