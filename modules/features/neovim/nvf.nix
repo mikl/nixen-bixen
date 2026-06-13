@@ -7,6 +7,8 @@
         enable = true;
         settings = {
           vim = {
+            binds.whichKey.enable = true;
+
             filetree.neo-tree.enable = true;
 
             git.enable = true;
@@ -21,10 +23,10 @@
               env.enable = true;
               html.enable = true;
               json.enable = true;
-              json.format.type = ["prettier"];
+              json.format.type = [ "prettier" ];
               markdown.enable = true;
               nix.enable = true;
-              nix.format.type = ["nixfmt"];
+              nix.format.type = [ "nixfmt" ];
               toml.enable = true;
               typescript.enable = true;
               yaml.enable = true;
