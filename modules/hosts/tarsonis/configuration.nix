@@ -21,8 +21,6 @@
       # Bootloader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
-      boot.initrd.luks.devices."luks-e0cefc69-fbde-4c4f-bf27-89b5b7a49dfe".device =
-        "/dev/disk/by-uuid/e0cefc69-fbde-4c4f-bf27-89b5b7a49dfe";
 
       # Use latest kernel.
       boot.kernelPackages = pkgs.linuxPackages_latest;
