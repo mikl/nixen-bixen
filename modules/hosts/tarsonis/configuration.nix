@@ -149,6 +149,9 @@
         };
       };
 
+      # KDE Partition Manager needs to be installed system wide, since it ships with a service.
+      programs.partition-manager.enable = true;
+
       services.resolved = {
         enable = true;
         # Tell resolved to leave .local alone, avoid overlap with Avahi.
