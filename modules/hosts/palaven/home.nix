@@ -8,6 +8,11 @@
     {
       imports = [
         self.homeModules.common
+        self.homeModules.linuxDesktopBasis
+        self.homeModules.linuxDesktopDevelop
+        self.homeModules.linuxDesktopKDE
+        self.homeModules.linuxDesktopSyncthing
+        self.homeModules.localdevHomeManager
       ];
 
       # This value determines the Home Manager release that your configuration is

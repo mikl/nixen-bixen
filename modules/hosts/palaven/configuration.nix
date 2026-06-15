@@ -9,8 +9,10 @@
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         self.nixosModules.en_DA_locale
         self.nixosModules.keyboard
+        self.nixosModules.keydConfiguration
         self.nixosModules.palavenDisko
         self.nixosModules.palavenHardware
+        self.nixosModules.tailscaleConfiguration
       ];
 
       # Bootloader.
@@ -31,11 +33,34 @@
         "flakes"
       ];
 
+      # Enable the KDE Plasma Desktop Environment.
+      services.displayManager.plasma-login-manager.enable = true;
+      services.desktopManager.plasma6.enable = true;
+
+      # Enable CUPS to print documents.
+      services.printing.enable = true;
+
+      hardware.bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+      };
+
+      # Enable sound with pipewire.
+      services.pulseaudio.enable = false;
+      security.rtkit.enable = true;
+      services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+      };
+
       # Define a user account. Don't forget to set a password with ‘passwd’.
       users.users.mikl = {
         isNormalUser = true;
         description = "Mikkel T. Høgh";
         extraGroups = [
+          "docker"
           "networkmanager"
           "wheel"
         ];
@@ -47,7 +72,7 @@
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.backupFileExtension = "bak";
+      home-manager.backupCommand = "${pkgs.trash-cli}/bin/trash";
 
       # Allow unfree packages
       nixpkgs.config.allowUnfree = true;
@@ -61,6 +86,24 @@
         neovim
         wget
       ];
+
+      programs._1password.enable = true;
+      programs._1password-gui = {
+        enable = true;
+        # Certain features, including CLI integration and system authentication support,
+        # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+        polkitPolicyOwners = [ "mikl" ];
+      };
+
+      environment.etc = {
+        "1password/custom_allowed_browsers" = {
+          text = ''
+            librewolf
+            vivaldi-bin
+          '';
+          mode = "0755";
+        };
+      };
 
       programs.fish.enable = true;
 
@@ -80,6 +123,10 @@
           PermitRootLogin = "no";
           #AllowUsers = [ "cwmyUser" ];
         };
+      };
+
+      virtualisation.docker = {
+        enable = true;
       };
 
       # This value determines the NixOS release from which the default
