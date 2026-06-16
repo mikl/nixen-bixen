@@ -17,7 +17,7 @@
       home.packages = with pkgs; [
         aha # For displaying network interfaces in the KDE Info Center.
         obsidian
-        plex-desktop
+        jellyfin-desktop
         tealdeer
         todoist-electron
         vlc
