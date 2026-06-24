@@ -1,17 +1,19 @@
 /**
   Home manager config for Eidolon. Just there to select which features we want.
 */
-{ self, ... }:
+{ self, inputs, ... }:
 {
   flake.homeModules.eidolon =
     { pkgs, ... }:
     {
       imports = [
+        inputs.nvf.homeManagerModules.default
         self.homeModules.common
         self.homeModules.linuxDesktopBasis
         self.homeModules.linuxDesktopKDE
         self.homeModules.linuxDesktopSyncthing
         self.homeModules.localdevHomeManager
+        self.homeModules.neoVimNVF
       ];
 
       # This value determines the Home Manager release that your configuration is

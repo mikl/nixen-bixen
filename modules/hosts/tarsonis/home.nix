@@ -1,12 +1,13 @@
 /**
   Home manager config for Tarsonis. Just there to select which features we want.
 */
-{ self, ... }:
+{ self, inputs, ... }:
 {
   flake.homeModules.tarsonis =
     { pkgs, ... }:
     {
       imports = [
+        inputs.nvf.homeManagerModules.default
         self.homeModules.common
         self.homeModules.linuxDesktopBasis
         self.homeModules.linuxDesktopDevelop
@@ -14,6 +15,7 @@
         self.homeModules.linuxDesktopKDE
         self.homeModules.linuxDesktopSyncthing
         self.homeModules.localdevHomeManager
+        self.homeModules.neoVimNVF
       ];
 
       home.packages = with pkgs; [
