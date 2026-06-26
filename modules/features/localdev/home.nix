@@ -21,6 +21,7 @@
       };
 
       home.packages = with pkgs; [
+        devenv
         go-task
         httpie
         just
