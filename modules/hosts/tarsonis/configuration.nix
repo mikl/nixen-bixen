@@ -9,6 +9,7 @@
         inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         inputs.ldddns.nixosModules.default
+        self.nixosModules.common
         self.nixosModules.en_DA_locale
         self.nixosModules.keyboard
         self.nixosModules.keydConfiguration
@@ -29,12 +30,6 @@
 
       # Use NetworkManager for WiFi and Ethernet.
       networking.networkmanager.enable = true;
-
-      # Enable flakes.
-      nix.settings.experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
 
       # Enable the KDE Plasma Desktop Environment.
       services.displayManager.plasma-login-manager.enable = true;
@@ -100,18 +95,10 @@
         };
       };
 
-      # Allow unfree packages
-      nixpkgs.config.allowUnfree = true;
-
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       environment.systemPackages = with pkgs; [
-        btop
-        curl
         framework-tool-tui
-        git
-        neovim
-        wget
       ];
 
       programs.fish.enable = true;
