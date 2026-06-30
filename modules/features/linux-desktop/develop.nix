@@ -33,7 +33,7 @@
 
         # Extra browsers for software development
         chromium
-        librewolf
+        # librewolf # nixpkg currently unmaintained
         vivaldi
       ];
     };
