@@ -13,6 +13,7 @@
         self.nixosModules.en_DA_locale
         self.nixosModules.keyboard
         self.nixosModules.keydConfiguration
+        self.nixosModules.localdev
         self.nixosModules.nixOSWallpaper
         self.nixosModules.tailscaleConfiguration
         self.nixosModules.tarsonisDisko

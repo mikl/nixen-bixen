@@ -9,8 +9,9 @@
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         self.nixosModules.common
         self.nixosModules.en_DA_locale
-        self.nixosModules.keyboard
         self.nixosModules.eidolonHardware
+        self.nixosModules.keyboard
+        self.nixosModules.localdev
         self.nixosModules.linuxDesktopSyncthing
         self.nixosModules.nixOSWallpaper
       ];
