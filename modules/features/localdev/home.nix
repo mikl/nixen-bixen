@@ -21,7 +21,6 @@
       };
 
       home.packages = with pkgs; [
-        devenv
         go-task
         httpie
         just
@@ -30,6 +29,8 @@
 
       # Prefer XDG directories for config and data to leave less junk in the home directory.
       home.preferXdgDirectories = true;
+
+      programs.devenv.enable = true;
 
       programs.direnv = {
         enable = true;
