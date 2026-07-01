@@ -27,5 +27,8 @@
       };
 
       programs.tealdeer.enable = true;
+
+      # This currently generates an invalid launchd file, so disable for now.
+      programs.tealdeer.enableAutoUpdates = false;
     };
 }
