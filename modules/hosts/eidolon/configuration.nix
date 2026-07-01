@@ -14,6 +14,7 @@
         self.nixosModules.localdev
         self.nixosModules.linuxDesktopSyncthing
         self.nixosModules.nixOSWallpaper
+        self.nixosModules.tailscaleConfiguration
       ];
 
       # Bootloader.
