@@ -58,9 +58,9 @@
       programs.fzf = {
         enable = true;
         enableFishIntegration = true;
-        changeDirWidgetCommand = "fd --type d";
+        changeDirWidget.command = "fd --type d";
         defaultCommand = "fd --type f";
-        fileWidgetCommand = "fd --type f";
+        fileWidget.command = "fd --type f";
       };
 
       programs.ripgrep.enable = true;
