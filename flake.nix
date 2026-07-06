@@ -30,7 +30,6 @@
 
     nvf = {
       url = "github:NotAShelf/nvf";
-      inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
