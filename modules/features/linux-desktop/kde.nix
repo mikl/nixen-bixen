@@ -23,6 +23,8 @@
         marble
         ocean-sound-theme
         okular
+        oxygen
+        oxygen-icons
         oxygen-sounds
         plasma-thunderbolt
         spectacle
