@@ -8,7 +8,7 @@
       imports = [
         inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
-        inputs.ldddns.nixosModules.default
+        #inputs.ldddns.nixosModules.default
         self.nixosModules.common
         self.nixosModules.en_DA_locale
         self.nixosModules.keyboard
@@ -124,7 +124,7 @@
       };
 
       services.hardware.bolt.enable = true;
-      services.ldddns.enable = true;
+      #services.ldddns.enable = true;
 
       # Enable the OpenSSH daemon.
       services.openssh = {
