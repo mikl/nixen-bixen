@@ -16,7 +16,6 @@
         # TODO: lagoon CLI
         _1password-cli
         unstable.claude-code
-        ddev
         devenv
         dive
         docker-buildx
@@ -28,7 +27,6 @@
         nodejs_24 # General installation for use outside devenvs.
         nil # Language server for Nix.
         lazydocker
-        upsun
         unstable.zed-editor
 
         # Extra browsers for software development
