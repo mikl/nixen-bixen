@@ -22,7 +22,6 @@
         docker-buildx
         docker-client
         docker-compose
-        filezilla
         gh
         unstable.jetbrains.phpstorm
         mkcert
