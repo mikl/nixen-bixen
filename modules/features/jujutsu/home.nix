@@ -5,7 +5,7 @@
     {
       home.packages = with pkgs; [
         blazingjj
-        gg
+        gg-jj
         jjui
         lazyjj
       ];
