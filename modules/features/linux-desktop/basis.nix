@@ -9,7 +9,6 @@
       imports = [
         inputs.zen-browser.homeModules.beta
         self.homeModules.dictionaries
-        self.homeModules.gitHomeConfig
         self.homeModules.linuxDesktopTypography
         self.homeModules.luxusShellHomeManager
       ];

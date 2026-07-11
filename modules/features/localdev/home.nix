@@ -1,8 +1,13 @@
-{ ... }:
+{ self, ... }:
 {
   flake.homeModules.localdevHomeManager =
     { pkgs, ... }:
     {
+      imports = [
+        self.homeModules.gitHomeConfig
+        self.homeModules.jujutsuHomeConfig
+      ];
+
       # Add NVM stub files for projects that assume NVM is available.
       home.file.".nvm/nvm.sh" = {
         executable = true;
