@@ -65,12 +65,7 @@
 
       programs.fish.enable = true;
 
-      programs.nh = {
-        enable = true;
-        clean.enable = true;
-        clean.extraArgs = "--keep-since 30d --keep 10";
-        flake = "/home/mikl/Projects/Nix/nixen-bixen"; # sets NH_OS_FLAKE variable for you
-      };
+      programs.nh.flake = "/home/mikl/Projects/Nix/nixen-bixen#eidolon"; # sets NH_OS_FLAKE variable for you
 
       # Enable the OpenSSH daemon.
       services.openssh = {
