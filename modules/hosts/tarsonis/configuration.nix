@@ -91,6 +91,10 @@
             librewolf
             vivaldi-bin
             .zen-beta-wrapped
+            .zen-wrapped
+            zen
+            zen-beta
+            zen-bin
           '';
           mode = "0755";
         };
