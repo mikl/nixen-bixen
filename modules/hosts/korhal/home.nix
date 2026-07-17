@@ -30,5 +30,19 @@
 
       # This currently generates an invalid launchd file, so disable for now.
       programs.tealdeer.enableAutoUpdates = false;
+
+      # For https://github.com/AsimovMac/asimov
+      xdg.configFile."asimov/config".text = ''
+        [sentinels]
+        extra = .devenv devenv.nix
+
+        [fixed_dirs]
+        enabled = true
+        extra = ~/Library/Caches
+        extra = ~/.local/share/gem
+        extra = ~/.local/share/mise/downloads
+        extra = ~/.local/share/mise/installs
+        extra = ~/.local/share/pnpm/store
+      '';
     };
 }
