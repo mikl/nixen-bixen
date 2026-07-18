@@ -11,6 +11,7 @@
         #inputs.ldddns.nixosModules.default
         self.nixosModules.common
         self.nixosModules.en_DA_locale
+        self.nixosModules.ergodoxResumeFix
         self.nixosModules.keyboard
         self.nixosModules.keydConfiguration
         self.nixosModules.localdev
