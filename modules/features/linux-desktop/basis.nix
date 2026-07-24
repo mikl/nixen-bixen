@@ -30,6 +30,7 @@
 
         # Communication.
         signal-desktop
+        zapzap # Whatsapp desktop client.
         zulip
       ];
 
