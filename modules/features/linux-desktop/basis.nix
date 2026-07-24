@@ -30,7 +30,7 @@
 
         # Communication.
         signal-desktop
-        #zulip # Disabled due to https://github.com/NixOS/nixpkgs/issues/525631
+        zulip
       ];
 
       programs.ghostty = {
