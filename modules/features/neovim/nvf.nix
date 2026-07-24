@@ -13,6 +13,15 @@
 
             git.enable = true;
 
+            keymaps = [
+              {
+                key = "<leader>e";
+                mode = "n";
+                action = "<cmd>Neotree toggle<CR>";
+                desc = "Toggle NeoTree";
+              }
+            ];
+
             languages = {
               enableFormat = true;
               enableTreesitter = true;
