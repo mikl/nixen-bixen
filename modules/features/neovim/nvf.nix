@@ -37,6 +37,7 @@
             };
 
             options = {
+              clipboard = "unnamedplus"; # Use the system (Wayland) clipboard for y/p.
               shiftwidth = 2;
               tabstop = 2;
             };
