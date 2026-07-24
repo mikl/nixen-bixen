@@ -88,6 +88,26 @@
         "type": "github"
       }
     },
+    "greyline": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1784871979,
+        "narHash": "sha256-IOuG93T11jj6F5x/NSYXb330EUAne1gQ+ZAW2QcxxeI=",
+        "owner": "cothinking-dev",
+        "repo": "greyline",
+        "rev": "96ba55f75c7de07a2c530f8be1650beda9828e55",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cothinking-dev",
+        "repo": "greyline",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -250,6 +270,7 @@
       "inputs": {
         "disko": "disko",
         "flake-parts": "flake-parts",
+        "greyline": "greyline",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "ldddns": "ldddns",

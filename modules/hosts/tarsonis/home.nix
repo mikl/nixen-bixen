@@ -9,6 +9,7 @@
       imports = [
         inputs.nvf.homeManagerModules.default
         self.homeModules.common
+        self.homeModules.greylineHomeConfig
         self.homeModules.linuxDesktopBasis
         self.homeModules.linuxDesktopDevelop
         self.homeModules.linuxDesktopEmailClient
