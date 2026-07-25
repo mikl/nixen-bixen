@@ -29,6 +29,8 @@
           window-decoration = false;
 
           keybind = [
+            # Make shift-insert do regular paste.
+            "shift+insert=paste_from_clipboard"
             # macOS style keyboard shortcuts on Linux.
             "super+a=select_all"
             "super+c=copy_to_clipboard"
