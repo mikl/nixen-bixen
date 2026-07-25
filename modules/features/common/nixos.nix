@@ -29,5 +29,5 @@
         clean.enable = true;
         clean.extraArgs = "--keep-since 18d --keep 7 --keep-one";
       };
-  };
+    };
 }
