@@ -21,9 +21,11 @@
         tealdeer
         todoist-electron
         vlc
+        wavemon
         wl-clipboard # Wayland clipboard; Neovim prefers wl-copy/wl-paste over xclip on Wayland.
         xclip
-        wavemon
+
+        wireguard-tools
 
         # Browsers.
         brave
