@@ -12,7 +12,6 @@
         curl
         ghostty.terminfo
         git
-        neovim
         wget
       ];
 
@@ -24,6 +23,25 @@
 
       # Allow unfree packages
       nixpkgs.config.allowUnfree = true;
+
+      # The bare essentials for a decent Vim experience.
+      programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+        viAlias = true;
+        vimAlias = true;
+
+        configure = {
+          customLuaRC = ''
+            vim.opt.expandtab = true
+            vim.opt.shiftwidth = 2
+            vim.opt.tabstop = 2
+            vim.opt.smartindent = true
+            vim.opt.number = true
+            vim.opt.relativenumber = true
+          '';
+        };
+      };
 
       programs.nh = {
         enable = true;
