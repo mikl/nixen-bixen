@@ -10,6 +10,7 @@
       environment.systemPackages = with pkgs; [
         btop
         curl
+        ghostty.terminfo
         git
         neovim
         wget
