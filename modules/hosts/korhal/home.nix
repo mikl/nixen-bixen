@@ -43,6 +43,8 @@
         extra = ~/.local/share/mise/downloads
         extra = ~/.local/share/mise/installs
         extra = ~/.local/share/pnpm/store
+        [scan]
+        extra = /Volumes/Code
       '';
     };
 }
