@@ -11,5 +11,9 @@
         "root"
         "mikl"
       ];
+      # Let Docker containers reach dev servers running on the host.
+      networking.firewall.extraInputRules = ''
+        ip saddr 172.16.0.0/12 tcp dport 3000 accept comment "docker -> host dev servers"
+      '';
     };
 }
