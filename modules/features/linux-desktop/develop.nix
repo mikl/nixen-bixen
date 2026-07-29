@@ -16,7 +16,6 @@
         # TODO: lagoon CLI
         _1password-cli
         unstable.claude-code
-        devenv
         dive
         docker-buildx
         docker-client

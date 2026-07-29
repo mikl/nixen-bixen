@@ -1,7 +1,13 @@
-{ self, ... }:
+{ self, inputs, ... }:
 {
   flake.homeModules.localdevHomeManager =
     { pkgs, ... }:
+    let
+      unstable = import inputs.nixpkgs-unstable {
+        system = pkgs.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+      };
+    in
     {
       imports = [
         self.homeModules.gitHomeConfig
@@ -35,7 +41,10 @@
       # Prefer XDG directories for config and data to leave less junk in the home directory.
       home.preferXdgDirectories = true;
 
-      programs.devenv.enable = true;
+      programs.devenv = {
+        enable = true;
+        package = unstable.devenv;
+      };
 
       programs.direnv = {
         enable = true;
