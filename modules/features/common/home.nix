@@ -6,6 +6,9 @@
   flake.homeModules.common =
     { pkgs, ... }:
     {
+      # Prefer XDG directories for config and data to leave less junk in the home directory.
+      home.preferXdgDirectories = true;
+
       home.packages = with pkgs; [
         git
         neovim
@@ -24,7 +27,8 @@
         GOPATH = "$HOME/.local/share/go";
       };
 
-      # Set XDG folders explicitly, since some apps don't use them as defaults.
+      # Set XDG folder env vars, since some apps don’t use them if they’re not
+      # defined explicity.
       xdg.enable = true;
       xdg.localBinInPath = true;
     };
