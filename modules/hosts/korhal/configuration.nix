@@ -70,10 +70,6 @@
           "asimov"
           "textfuel/tap/lazyjira"
           "uselagoon/lagoon-cli/lagoon"
-
-          # Syncthing kept on Homebrew so its data
-          # directories stay where they are.
-          "syncthing"
         ];
 
         casks = [

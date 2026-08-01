@@ -30,7 +30,14 @@
         pkgs.nss.tools
         pkgs.slack-cli
         pkgs.switchaudio-osx
+        # The launchd agent calls the binary by store path, so this is only here
+        # to get the syncthing CLI and its man pages onto PATH.
+        pkgs.syncthing
       ];
+
+      # Run Syncthing via home manager, but avoid configuring it, to keep the old
+      # configuration from before Nix.
+      services.syncthing.enable = true;
 
       programs.fish = {
         # Homebrew’s own shellenv prepends its bin directories, which shadows the
