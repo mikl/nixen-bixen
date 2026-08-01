@@ -32,10 +32,15 @@
       };
 
       home.packages = with pkgs; [
+        unstable.claude-code
         go-task
         httpie
         just
         jq
+        mkcert
+        nodejs_24 # General installation for use outside devenvs.
+        nil # Language server for Nix.
+        nixfmt
       ];
 
       programs.devenv = {
