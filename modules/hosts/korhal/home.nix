@@ -32,6 +32,34 @@
         pkgs.switchaudio-osx
       ];
 
+      programs.fish = {
+        # Homebrew’s own shellenv prepends its bin directories, which shadows the
+        # Nix build of anything installed in both places. Set the variables it
+        # exports, but keep its paths at the end of PATH. fish reads conf.d
+        # before config.fish, and shellInitLast is the tail of config.fish, so
+        # this has the final say.
+        shellInitLast = ''
+          set -gx HOMEBREW_PREFIX /opt/homebrew
+          set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
+          set -gx HOMEBREW_REPOSITORY /opt/homebrew
+
+          set -l brewPaths /opt/homebrew/bin /opt/homebrew/sbin
+          set -l keptPaths
+          for entry in $PATH
+              contains -- $entry $brewPaths; or set -a keptPaths $entry
+          end
+          set -gx PATH $keptPaths $brewPaths
+
+          not contains -- /opt/homebrew/share/man $MANPATH; and set -gx MANPATH $MANPATH /opt/homebrew/share/man
+        '';
+
+        # Was set by the fish_frozen_key_bindings.fish snippet that fish wrote
+        # when it migrated the variable out of universal scope.
+        interactiveShellInit = ''
+          set -g fish_key_bindings fish_vi_key_bindings
+        '';
+      };
+
       programs.nh = {
         enable = true;
         darwinFlake = "/Volumes/Code/Nix/nixen-bixen#korhal";
