@@ -1,29 +1,40 @@
-{ self, ... }:
+/**
+  Home manager config for Korhal. Runs as part of the nix-darwin configuration,
+  so the username and home directory come from there.
+*/
+{ self, inputs, ... }:
 {
   flake.homeModules.korhalHomeManager =
     { pkgs, ... }:
     {
       imports = [
+        inputs.nvf.homeManagerModules.default
+        self.homeModules.common
         self.homeModules.localdevHomeManager
         self.homeModules.luxusShellHomeManager
         self.homeModules.neoVimNVF
       ];
 
-      home.username = "mikl";
-      home.homeDirectory = "/Users/mikl";
       home.stateVersion = "25.11";
 
       home.packages = [
+        pkgs._1password-cli
+        pkgs.autoconf
         pkgs.btop
-        pkgs.nixfmt
+        pkgs.curl
+        # Homebrew’s macos-trash.
+        pkgs.darwin.trash
+        pkgs.mas
+        # Provides certutil, which mkcert needs to reach browser trust stores.
+        # It lives in the “tools” output; the default one has no binaries.
+        pkgs.nss.tools
+        pkgs.slack-cli
+        pkgs.switchaudio-osx
       ];
-
-      programs.fastfetch.enable = true;
-      programs.home-manager.enable = true;
 
       programs.nh = {
         enable = true;
-        homeFlake = "/Volumes/Code/Nix/nixen-bixen#korhal";
+        darwinFlake = "/Volumes/Code/Nix/nixen-bixen#korhal";
       };
 
       programs.tealdeer.enable = true;

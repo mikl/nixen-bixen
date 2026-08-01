@@ -3,11 +3,9 @@
 */
 { self, inputs, ... }:
 {
-  flake.homeConfigurations.korhal = inputs.home-manager.lib.homeManagerConfiguration {
-    pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
+  flake.darwinConfigurations.korhal = inputs.nix-darwin.lib.darwinSystem {
     modules = [
-      inputs.nvf.homeManagerModules.default
-      self.homeModules.korhalHomeManager
+      self.darwinModules.korhalConfiguration
     ];
   };
 }

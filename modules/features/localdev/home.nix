@@ -33,6 +33,8 @@
 
       home.packages = with pkgs; [
         unstable.claude-code
+        cloc
+        gh
         go-task
         httpie
         just
@@ -41,6 +43,7 @@
         nodejs_24 # General installation for use outside devenvs.
         nil # Language server for Nix.
         nixfmt
+        wakeonlan
       ];
 
       programs.devenv = {
