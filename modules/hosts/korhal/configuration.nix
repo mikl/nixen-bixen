@@ -56,7 +56,7 @@
 
         onActivation = {
           autoUpdate = false;
-          cleanup = "none";
+          cleanup = "uninstall";
           upgrade = false;
         };
 
