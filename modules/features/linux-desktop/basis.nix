@@ -28,7 +28,7 @@
         wireguard-tools
 
         # Browsers.
-        brave
+        brave-origin
         browsers
         firefox
 
