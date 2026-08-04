@@ -5,6 +5,7 @@
 {
   flake.nixosConfigurations.eidolon = inputs.nixpkgs.lib.nixosSystem {
     modules = [
+      inputs.determinate.nixosModules.default
       self.nixosModules.eidolonConfiguration
     ];
   };
