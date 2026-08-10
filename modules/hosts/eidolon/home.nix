@@ -11,6 +11,7 @@
         self.homeModules.common
         self.homeModules.linuxDesktopBasis
         self.homeModules.linuxDesktopKDE
+        self.homeModules.linuxDesktopPwas
         self.homeModules.linuxDesktopSyncthing
         self.homeModules.localdevHomeManager
         self.homeModules.neoVimNVF
