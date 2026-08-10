@@ -60,6 +60,33 @@
           iconHash = "sha256-P25jqAr7JRHyl52Omxse1yoXGkThMRk8lCGCbMoUpGA=";
           profileDirectory = reloadProfileDirectory;
         })
+        (mkPwaDesktopItem {
+          name = "gmail-pwa";
+          desktopName = "Gmail";
+          genericName = "Email";
+          url = "https://mail.google.com/mail/";
+          iconUrl = "https://www.gstatic.com/images/branding/productlogos/gmail_2026/v2/web/192px.svg";
+          iconHash = "sha256-CiQhMUJLeWomJHqO3UHWb6KU2m0XeJdSahm36Brt/bg=";
+          profileDirectory = reloadProfileDirectory;
+        })
+        (mkPwaDesktopItem {
+          name = "google-calendar-pwa";
+          desktopName = "Google Calendar";
+          genericName = "Calendar";
+          url = "https://calendar.google.com/calendar/";
+          iconUrl = "https://www.gstatic.com/images/branding/productlogos/calendar_2026/v2/web/192px.svg";
+          iconHash = "sha256-f1XNh3siYZSBaNs9LpRowM8/B3ZniUiehToPmTHf+Oo=";
+          profileDirectory = reloadProfileDirectory;
+        })
+        (mkPwaDesktopItem {
+          name = "google-meet-pwa";
+          desktopName = "Google Meet";
+          genericName = "Video Conferencing";
+          url = "https://meet.google.com/";
+          iconUrl = "https://www.gstatic.com/images/branding/productlogos/meet_2026/v2/web/192px.svg";
+          iconHash = "sha256-ri6GqgCf1+GVIIK/99T6nsqPRf9G0CmIANU8XWvcs7Q=";
+          profileDirectory = reloadProfileDirectory;
+        })
       ];
     };
 }
