@@ -112,6 +112,35 @@
           iconHash = "sha256-ri6GqgCf1+GVIIK/99T6nsqPRf9G0CmIANU8XWvcs7Q=";
           profileDirectory = reloadProfileDirectory;
         })
+        (mkPwaDesktopItem {
+          name = "messenger-pwa";
+          desktopName = "Messenger";
+          genericName = "Messaging";
+          # Meta is winding down the standalone messenger.com site and
+          # steering users to Messenger inside facebook.com instead, so this
+          # points straight there rather than relying on a redirect that may
+          # go away.
+          url = "https://www.facebook.com/messages/";
+          iconUrl = "https://upload.wikimedia.org/wikipedia/commons/6/63/Facebook_Messenger_logo_2025.svg";
+          iconHash = "sha256-WpfdCU+yolH/kesbbM1//x3V9D/hTcZR/Vl4nPGFT5A=";
+        })
+        (mkPwaDesktopItem {
+          name = "x-pwa";
+          desktopName = "X";
+          genericName = "Social Networking";
+          url = "https://x.com/home";
+          iconUrl = "https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg";
+          iconHash = "sha256-nlK29rcb4uO9o0xo1J4Krww1Q22tGqNnu6dL+3wp6s4=";
+        })
+        (mkPwaDesktopItem {
+          name = "claude-pwa";
+          desktopName = "Claude";
+          genericName = "AI Assistant";
+          url = "https://claude.ai/";
+          iconUrl = "https://claude.ai/favicon.svg";
+          iconHash = "sha256-sVCIi8clevg+O4XTwr5ClPiJhgJvgWj2wS/B/eZpc1A=";
+          profileDirectory = reloadProfileDirectory;
+        })
       ];
     };
 }
