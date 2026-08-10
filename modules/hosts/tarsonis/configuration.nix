@@ -12,6 +12,7 @@
         self.nixosModules.common
         self.nixosModules.en_DA_locale
         self.nixosModules.ergodoxResumeFix
+        self.nixosModules.frameworkFingerprintResumeFix
         self.nixosModules.keyboard
         self.nixosModules.keydConfiguration
         self.nixosModules.localdev
