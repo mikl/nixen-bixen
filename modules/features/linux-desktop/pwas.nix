@@ -13,7 +13,31 @@
       # auto-assigned "Profile N") keeps this declaration valid across
       # machines: Brave creates a fresh "Reload" profile on first launch
       # wherever one doesn't already exist yet.
+      #
+      # This is also passed as the profile *display* name to
+      # mkBraveWaylandAppId below, since Brave's window-matching id is
+      # derived from the display name, not the directory name — keep the
+      # two in sync (the profile's Local State "name" field) if either ever
+      # changes.
       reloadProfileDirectory = "Reload";
+
+      # On Wayland, Brave/Chromium's --class flag is ignored for --app=
+      # windows: it ignores the xdg_toplevel app_id it advertises there and
+      # instead derives it from the URL and the active profile's *display*
+      # name (verified by inspecting KWin's window list, e.g. via `qdbus
+      # org.kde.KWin /Scripting ...Script.run`, while a launched PWA was
+      # open) as brave-<host>_<path, "/" -> "_">-<profileDisplayName>. KDE's
+      # taskbar matches windows to launchers via StartupWMClass, so that
+      # needs to equal this computed id, not our own --class value, or the
+      # window falls back to a generic icon.
+      mkBraveWaylandAppId =
+        url: profileDisplayName:
+        let
+          m = builtins.match "https://([^/]+)(/.*)" url;
+          host = builtins.elemAt m 0;
+          path = builtins.elemAt m 1;
+        in
+        "brave-${host}_${builtins.replaceStrings [ "/" ] [ "_" ] path}-${profileDisplayName}";
 
       mkPwaDesktopItem =
         {
@@ -46,7 +70,8 @@
             url = iconUrl;
             hash = iconHash;
           };
-          startupWMClass = wmClass;
+          startupWMClass =
+            if profileDirectory != null then mkBraveWaylandAppId url profileDirectory else wmClass;
         };
     in
     {
