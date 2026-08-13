@@ -37,6 +37,7 @@
         cloc
         gh
         go-task
+        unstable.grok-build
         httpie
         just
         jq
