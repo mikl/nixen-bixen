@@ -16,7 +16,9 @@
         self.nixosModules.keyboard
         self.nixosModules.keydConfiguration
         self.nixosModules.localdev
+        self.nixosModules.luksAutoLogin
         self.nixosModules.nixOSWallpaper
+        self.nixosModules.plymouthBoot
         self.nixosModules.tailscaleConfiguration
         self.nixosModules.tarsonisDisko
         self.nixosModules.tarsonisHardware
@@ -37,6 +39,12 @@
       # Enable the KDE Plasma Desktop Environment.
       services.displayManager.plasma-login-manager.enable = true;
       services.desktopManager.plasma6.enable = true;
+
+      # Log straight in after the LUKS passphrase; see the luksAutoLogin module.
+      services.displayManager.autoLogin = {
+        enable = true;
+        user = "mikl";
+      };
 
       # Enable CUPS to print documents.
       services.printing.enable = true;
