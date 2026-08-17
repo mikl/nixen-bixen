@@ -15,14 +15,27 @@
 { ... }:
 {
   flake.nixosModules.plymouthBoot =
-    { lib, ... }:
+    { lib, pkgs, ... }:
     {
       boot.plymouth = {
         enable = true;
-        # NixOS ships a NixOS-branded build of KDE's Breeze theme and wires it
-        # up automatically when the theme is named “breeze”. It matches the
-        # Plasma login manager that takes over right afterwards.
-        theme = "breeze";
+        # Stick to themes built on the “two-step” plugin. The alternative is the
+        # *script* engine, which lays out in one coordinate space spanning every
+        # head and sized to the widest one. KDE's Breeze — the obvious match for
+        # the Plasma login manager — positions the passphrase box exactly once
+        # there, but recomputes the row of bullets on every keystroke. Plug in an
+        # external display and its mode set lands between those two moments, the
+        # shared coordinate space resizes, and the bullets end up drawn beside
+        # the box rather than inside it. two-step instead lays out per display
+        # and draws box and bullets as a single widget, so they cannot drift
+        # apart.
+        #
+        # nixos-bgrt spins the NixOS logo on top of the image the firmware
+        # already put on screen (this machine has a 528 KB one in
+        # /sys/firmware/acpi/bgrt), which with the boot menu skipped below makes
+        # for a seamless handover from firmware to splash.
+        theme = "nixos-bgrt";
+        themePackages = [ pkgs.nixos-bgrt-plymouth ];
       };
 
       boot.initrd.systemd.enable = true;
