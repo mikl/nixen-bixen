@@ -33,11 +33,9 @@
 
       home.packages = with pkgs; [
         caligula # Disk imaging TUI.
-        unstable.claude-code
         cloc
         gh
         go-task
-        unstable.grok-build
         httpie
         just
         jq

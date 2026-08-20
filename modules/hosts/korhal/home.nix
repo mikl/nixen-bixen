@@ -10,6 +10,7 @@
       imports = [
         inputs.nvf.homeManagerModules.default
         self.homeModules.common
+        self.homeModules.devAiHomeManager
         self.homeModules.localdevHomeManager
         self.homeModules.luxusShellHomeManager
         self.homeModules.neoVimNVF
