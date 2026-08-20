@@ -16,6 +16,7 @@
         self.nixosModules.keyboard
         self.nixosModules.keydConfiguration
         self.nixosModules.localdev
+        self.nixosModules.linuxDesktopPwas
         self.nixosModules.luksAutoLogin
         self.nixosModules.nixOSWallpaper
         self.nixosModules.plymouthBoot
@@ -86,29 +87,6 @@
 
       # Install firefox.
       programs.firefox.enable = true;
-
-      programs._1password.enable = true;
-      programs._1password-gui = {
-        enable = true;
-        # Certain features, including CLI integration and system authentication support,
-        # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-        polkitPolicyOwners = [ "mikl" ];
-      };
-
-      environment.etc = {
-        "1password/custom_allowed_browsers" = {
-          text = ''
-            librewolf
-            vivaldi-bin
-            .zen-beta-wrapped
-            .zen-wrapped
-            zen
-            zen-beta
-            zen-bin
-          '';
-          mode = "0755";
-        };
-      };
 
       # List packages installed in system profile. To search, run:
       # $ nix search wget

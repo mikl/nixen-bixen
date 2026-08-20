@@ -12,6 +12,7 @@
         self.nixosModules.eidolonHardware
         self.nixosModules.keyboard
         self.nixosModules.localdev
+        self.nixosModules.linuxDesktopPwas
         self.nixosModules.linuxDesktopSyncthing
         self.nixosModules.nixOSWallpaper
         self.nixosModules.tailscaleConfiguration
