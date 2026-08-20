@@ -102,11 +102,14 @@
             nerdFontsVersion = "3";
           };
           git = {
-            pagers = [
+            diffRenderers = [
               {
-                pager = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
+                command = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
               }
-              { externalDiffCommand = "difft --color=always"; }
+              {
+                command = "difft --color=always";
+                type = "extDiff";
+              }
             ];
             # Disable autofetch, only fetch manually.
             autoFetch = false;
