@@ -9,6 +9,7 @@
       imports = [
         inputs.nvf.homeManagerModules.default
         self.homeModules.common
+        self.homeModules.devAiHomeManager
         self.homeModules.linuxDesktopBasis
         self.homeModules.linuxDesktopKDE
         self.homeModules.linuxDesktopPwas
