@@ -79,6 +79,13 @@
             focus-follows-mouse max-scroll-amount="0%"
         }
 
+        // 4K LG TV, matched by EDID make/model/serial so it still applies
+        // if the cable moves to a different port. Physical size is large
+        // enough that niri would guess scale 1; this forces 2x instead.
+        output "LG Electronics LG TV 0x01010101" {
+            scale 2
+        }
+
         layout {
             gaps 12
             center-focused-column "never"
