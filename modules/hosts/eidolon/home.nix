@@ -15,6 +15,7 @@
         self.homeModules.linuxDesktopSyncthing
         self.homeModules.localdevHomeManager
         self.homeModules.neoVimNVF
+        self.homeModules.niriHomeManager
       ];
 
       # This value determines the Home Manager release that your configuration is

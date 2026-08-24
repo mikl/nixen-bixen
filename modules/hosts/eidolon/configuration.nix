@@ -14,6 +14,7 @@
         self.nixosModules.localdev
         self.nixosModules.linuxDesktopPwas
         self.nixosModules.linuxDesktopSyncthing
+        self.nixosModules.niriConfiguration
         self.nixosModules.nixOSWallpaper
         self.nixosModules.tailscaleConfiguration
       ];
