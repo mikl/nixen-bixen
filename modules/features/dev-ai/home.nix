@@ -28,8 +28,26 @@
         system = pkgs.stdenv.hostPlatform.system;
         config.allowUnfree = true;
       };
+
+      # User-level Claude Code settings, shared across all machines.
+      #
+      # Managing this file declaratively means changes made from within
+      # Claude Code (`/config`, `/output-style`) are reverted on the next
+      # home-manager activation — adjust the settings here instead.
+      claudeSettings = {
+        outputStyle = "Concise";
+        model = "opus[1m]";
+        tui = "fullscreen";
+        skipAutoPermissionPrompt = true;
+        permissions.allow = [
+          "Bash(nix run nixpkgs#*)"
+          "Bash(nix shell nixpkgs#*)"
+        ];
+      };
     in
     {
+
+      home.file.".claude/settings.json".text = builtins.toJSON claudeSettings;
 
       home.file.".claude/rules/environment.md".text = nixEnvironmentRule;
       home.file.".grok/rules/environment.md".text = nixEnvironmentRule;
