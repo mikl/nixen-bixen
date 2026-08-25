@@ -33,7 +33,21 @@
         firefox
 
         # Communication.
-        signal-desktop
+        # Signal is an Electron app, so Chromium picks the secret-storage
+        # backend from XDG_CURRENT_DESKTOP: under Plasma that resolves to
+        # kwallet6, but Niri is an unknown desktop and Chromium falls back to
+        # the plaintext “basic” store. Signal then sees the backend change
+        # and refuses to open a database it can no longer decrypt. Name the
+        # backend explicitly so both sessions agree — kwalletd6 is DBus-
+        # activatable and is these days just a shim in front of ksecretd.
+        (symlinkJoin {
+          name = "signal-desktop-kwallet";
+          paths = [ signal-desktop ];
+          nativeBuildInputs = [ makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/signal-desktop --add-flags "--password-store=kwallet6"
+          '';
+        })
         zapzap # Whatsapp desktop client.
         zulip
       ];
