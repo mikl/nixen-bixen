@@ -216,6 +216,14 @@
               border {
                   off
               }
+
+              // Carried over from the old config; niri draws no shadow by default.
+              shadow {
+                  softness 30
+                  spread 5
+                  offset x=0 y=5
+                  color "#0007"
+              }
           }
 
           cursor {
