@@ -300,15 +300,14 @@
               open-maximized true
           }
 
-          // The Gmail and Google Calendar rules in kwinrulesrc still match the
-          // Brave- and Vivaldi-hosted PWAs from before the move to
-          // PWAsForFirefox. These are the app IDs the current firefoxpwa sites
-          // should carry — derived from the same seeds as pwas.nix — but that
-          // is inferred from how PWAsForFirefox sets the window class rather
-          // than observed, so check with `niri msg windows` if they miss.
+          // Gmail, Google Calendar and Messenger. The rules in kwinrulesrc
+          // still match the Brave- and Vivaldi-hosted PWAs from before the
+          // move to PWAsForFirefox; these are the site IDs firefoxpwa derives
+          // from the seeds in pwas.nix, confirmed against `niri msg windows`.
           window-rule {
               match app-id=r#"^FFPWA-04334C99A477587D3281AF14B9$"#
               match app-id=r#"^FFPWA-03FC2FDD27CF6643318BDF96EE$"#
+              match app-id=r#"^FFPWA-00A03CA47A3AD2E5D322D9B008$"#
               open-on-workspace "snak"
           }
 
