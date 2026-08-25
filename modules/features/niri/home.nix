@@ -25,9 +25,9 @@
       # (v4's `ipc call <target> <fn>` form is gone.)
       msg = args: ''spawn "${noctaliaBin}" "msg" ${lib.concatMapStringsSep " " (a: ''"${a}"'') args}'';
 
-      # The virtual desktops carried over from the Plasma session, in the order
-      # they had there. Named workspaces sort ahead of unnamed ones, so Mod+1/2/3
-      # reach these the way Meta+1/2/3 did under KDE.
+      # The virtual desktops carried over from the Plasma session, listed in the
+      # order they had there. Named workspaces sort ahead of unnamed ones, so
+      # Mod+1/2/3 reach these the way Meta+1/2/3 did under KDE.
       workspaceNames = [
         "udforskning"
         "kodning"
@@ -37,6 +37,11 @@
       # A KDE desktop spanned every screen, but a niri workspace belongs to one
       # output. Multi-head hosts therefore have to say which; single-screen ones
       # leave workspaceOutput null and get bare declarations.
+      #
+      # Emitted back to front, because niri seeds named workspaces by walking
+      # the config in order while splicing each one in at index 0 — see
+      # `ensure_named_workspace` in layout/mod.rs — so whatever the config
+      # lists first ends up last.
       workspaceBlocks = lib.concatMapStringsSep "\n\n" (
         name:
         if config.local.niri.workspaceOutput == null then
@@ -46,7 +51,7 @@
             workspace "${name}" {
                 open-on-output "${config.local.niri.workspaceOutput}"
             }''
-      ) workspaceNames;
+      ) (lib.reverseList workspaceNames);
     in
     {
       options.local.niri.outputs = lib.mkOption {
