@@ -65,10 +65,6 @@
         }
       '';
 
-      # Three screens' worth of KDE desktops collapse onto the Studio
-      # Display; the laptop panel keeps its own unnamed stack beside them.
-      local.niri.workspaceOutput = "DP-5";
-
       /**
         The one kwinrulesrc rule that pinned a screen rather than a desktop,
         so it stays here where the connector names mean something.

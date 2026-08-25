@@ -34,24 +34,74 @@
         "snak"
       ];
 
-      # A KDE desktop spanned every screen, but a niri workspace belongs to one
-      # output. Multi-head hosts therefore have to say which; single-screen ones
-      # leave workspaceOutput null and get bare declarations.
-      #
-      # Emitted back to front, because niri seeds named workspaces by walking
-      # the config in order while splicing each one in at index 0 — see
-      # `ensure_named_workspace` in layout/mod.rs — so whatever the config
-      # lists first ends up last.
-      workspaceBlocks = lib.concatMapStringsSep "\n\n" (
-        name:
-        if config.local.niri.workspaceOutput == null then
-          ''workspace "${name}"''
-        else
-          ''
-            workspace "${name}" {
-                open-on-output "${config.local.niri.workspaceOutput}"
-            }''
-      ) (lib.reverseList workspaceNames);
+      # A KDE desktop spanned every screen, but a niri workspace belongs to
+      # one output — and niri cannot express "whichever big screen is
+      # attached": open-on-output takes one exact connector or make/model/
+      # serial string, and a workspace whose output never shows up silently
+      # stays on whatever connected first, which may well be the laptop panel.
+      # With two different main monitors in play that is not good enough, so
+      # the blocks stay bare and placeWorkspaces below sorts it out over IPC
+      # against whatever is actually plugged in.
+      workspaceBlocks = lib.concatMapStringsSep "\n" (name: ''workspace "${name}"'') workspaceNames;
+
+      placeWorkspaces = pkgs.writeShellApplication {
+        name = "niri-place-workspaces";
+        runtimeInputs = [
+          pkgs.niri
+          pkgs.jq
+        ];
+        text = ''
+          # In the order they should sit on the main screen.
+          names=(${lib.escapeShellArgs workspaceNames})
+
+          place() {
+              local main outputs workspaces on moved=0 idx=1
+
+              outputs=$(niri msg -j outputs)
+              # A disabled output reports a null logical rectangle, which is how
+              # the Studio Display's dead second tile drops out of this.
+              main=$(printf '%s' "$outputs" | jq -r '
+                  to_entries
+                  | map(select(.value.logical != null
+                               and (.key | test("^(eDP-|LVDS|DSI-)") | not)))
+                  | .[0].key // empty
+              ')
+
+              # Laptop on its own: nowhere else for them to go.
+              [[ -n "$main" ]] || return 0
+
+              workspaces=$(niri msg -j workspaces)
+              for name in "''${names[@]}"; do
+                  on=$(printf '%s' "$workspaces" \
+                      | jq -r --arg n "$name" '.[] | select(.name == $n) | .output')
+                  [[ -n "$on" && "$on" != "$main" ]] || continue
+                  niri msg action move-workspace-to-monitor "$main" --reference "$name"
+                  moved=1
+              done
+
+              # A move inserts the workspace just after the target's active one
+              # rather than at the end, so the order has to be restated. Only
+              # after an actual move, though, so that reordering workspaces by
+              # hand is not undone on the next event.
+              [[ $moved -eq 1 ]] || return 0
+              for name in "''${names[@]}"; do
+                  niri msg action move-workspace-to-index "$idx" --reference "$name"
+                  idx=$((idx + 1))
+              done
+          }
+
+          place
+
+          # Outputs coming and going surface as a workspace reshuffle. The moves
+          # above emit these events too, but the pass they trigger finds nothing
+          # left to do, so the cascade stops after one round.
+          niri msg -j event-stream | while read -r event; do
+              case $event in
+                  *'"WorkspacesChanged"'*) place ;;
+              esac
+          done
+        '';
+      };
     in
     {
       options.local.niri.outputs = lib.mkOption {
@@ -67,18 +117,6 @@
           config.kdl. Output rules only make sense per machine — connector
           names in particular mean nothing on another host — so they live in
           the host's home module rather than in this feature.
-        '';
-      };
-
-      options.local.niri.workspaceOutput = lib.mkOption {
-        type = lib.types.nullOr lib.types.str;
-        default = null;
-        example = "DP-5";
-        description = ''
-          Output the named workspaces are pinned to, or null to leave them
-          unpinned. Only multi-head hosts need this: with one screen there is
-          nowhere else for a workspace to go, and naming a connector that host
-          does not have would strand them.
         '';
       };
 
@@ -194,6 +232,10 @@
           // Foreground rather than `--daemon`: niri owns the child, and its
           // stderr then lands in the niri log.
           spawn-at-startup "${noctaliaBin}"
+
+          // Puts the named workspaces on the main screen and keeps them there
+          // across docking changes; stays running to watch the event stream.
+          spawn-at-startup "${lib.getExe placeWorkspaces}"
 
           prefer-no-csd
 
