@@ -311,6 +311,36 @@
               open-on-workspace "snak"
           }
 
+          // Anything holding credentials is blocked from capture entirely —
+          // "screen-capture" covers screenshots as well as screencasts, so
+          // these windows come out blank even in a screenshot you take
+          // yourself. From the old config, which matched `^1Password$`; the
+          // Wayland app ID is lowercase, hence the (?i) throughout.
+          window-rule {
+              match app-id=r#"(?i)^1password$"#
+              match app-id=r#"(?i)^(org\.kde\.)?kwalletmanager"#
+              match app-id=r#"(?i)^org\.keepassxc\.KeePassXC$"#
+              match app-id=r#"(?i)^org\.gnome\.World\.Secrets$"#
+              block-out-from "screen-capture"
+          }
+
+          // Mail and chat get the weaker "screencast" instead: blanked out
+          // when sharing a screen or recording, but still yours to screenshot.
+          // Blocking these from screenshots too would mostly get in the way of
+          // sending someone a picture of your own inbox or a conversation.
+          window-rule {
+              match app-id=r#"(?i)^thunderbird$"#
+              match app-id=r#"(?i)^proton-mail$"#
+              match app-id=r#"(?i)^ch\.proton\.bridge-gui$"#
+              match app-id=r#"(?i)^signal$"#
+              match app-id=r#"(?i)^zulip$"#
+              match app-id=r#"(?i)^(com\.rtosta\.)?zapzap$"#
+              // Gmail and Messenger, by PWAsForFirefox site ID.
+              match app-id=r#"^FFPWA-04334C99A477587D3281AF14B9$"#
+              match app-id=r#"^FFPWA-00A03CA47A3AD2E5D322D9B008$"#
+              block-out-from "screencast"
+          }
+
           // Firefox/Zen picture-in-picture should float.
           window-rule {
               match app-id=r#"firefox$"# title="^Picture-in-Picture$"
