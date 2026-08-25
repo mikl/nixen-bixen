@@ -19,6 +19,15 @@
         self.homeModules.niriHomeManager
       ];
 
+      # 4K LG TV, matched by EDID make/model/serial so the rule still applies
+      # if the cable moves to a different port. Its physical size is large
+      # enough that niri would guess scale 1; this forces 2x instead.
+      local.niri.outputs = ''
+        output "LG Electronics LG TV 0x01010101" {
+            scale 2
+        }
+      '';
+
       # This value determines the Home Manager release that your configuration is
       # compatible with. This helps avoid breakage when a new Home Manager release
       # introduces backwards incompatible changes.

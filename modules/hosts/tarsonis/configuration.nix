@@ -18,6 +18,7 @@
         self.nixosModules.localdev
         self.nixosModules.linuxDesktopPwas
         self.nixosModules.luksAutoLogin
+        self.nixosModules.niriConfiguration
         self.nixosModules.nixOSWallpaper
         self.nixosModules.plymouthBoot
         self.nixosModules.tailscaleConfiguration
