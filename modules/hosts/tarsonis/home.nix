@@ -65,6 +65,28 @@
         }
       '';
 
+      # Three screens' worth of KDE desktops collapse onto the Studio
+      # Display; the laptop panel keeps its own unnamed stack beside them.
+      local.niri.workspaceOutput = "DP-5";
+
+      /**
+        The one kwinrulesrc rule that pinned a screen rather than a desktop,
+        so it stays here where the connector names mean something.
+
+        KWin recorded `screen=2` for Brave Origin, from a larger monitor setup
+        than this one — the built-in panel is what "second screen" means today.
+        Two further screen-pinned rules are left out for want of anything to
+        map them onto: Chromium's `screen=1`, and the Google Meet PWA's
+        `screen=3`.
+      */
+      local.niri.extraConfig = ''
+        window-rule {
+            match app-id=r#"(?i)^brave-origin$"#
+            open-on-output "eDP-1"
+            open-maximized true
+        }
+      '';
+
       home.packages = with pkgs; [
         # Apple Studio Display brightness control.
         asdbctl

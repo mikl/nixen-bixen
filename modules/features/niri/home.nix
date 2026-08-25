@@ -24,6 +24,29 @@
       # v5 speaks over a Unix socket in XDG_RUNTIME_DIR: `noctalia msg <cmd>`.
       # (v4's `ipc call <target> <fn>` form is gone.)
       msg = args: ''spawn "${noctaliaBin}" "msg" ${lib.concatMapStringsSep " " (a: ''"${a}"'') args}'';
+
+      # The virtual desktops carried over from the Plasma session, in the order
+      # they had there. Named workspaces sort ahead of unnamed ones, so Mod+1/2/3
+      # reach these the way Meta+1/2/3 did under KDE.
+      workspaceNames = [
+        "udforskning"
+        "kodning"
+        "snak"
+      ];
+
+      # A KDE desktop spanned every screen, but a niri workspace belongs to one
+      # output. Multi-head hosts therefore have to say which; single-screen ones
+      # leave workspaceOutput null and get bare declarations.
+      workspaceBlocks = lib.concatMapStringsSep "\n\n" (
+        name:
+        if config.local.niri.workspaceOutput == null then
+          ''workspace "${name}"''
+        else
+          ''
+            workspace "${name}" {
+                open-on-output "${config.local.niri.workspaceOutput}"
+            }''
+      ) workspaceNames;
     in
     {
       options.local.niri.outputs = lib.mkOption {
@@ -39,6 +62,29 @@
           config.kdl. Output rules only make sense per machine — connector
           names in particular mean nothing on another host — so they live in
           the host's home module rather than in this feature.
+        '';
+      };
+
+      options.local.niri.workspaceOutput = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        example = "DP-5";
+        description = ''
+          Output the named workspaces are pinned to, or null to leave them
+          unpinned. Only multi-head hosts need this: with one screen there is
+          nowhere else for a workspace to go, and naming a connector that host
+          does not have would strand them.
+        '';
+      };
+
+      options.local.niri.extraConfig = lib.mkOption {
+        type = lib.types.lines;
+        default = "";
+        description = ''
+          Host-specific KDL appended to the generated config.kdl, for rules
+          that name an output and so cannot be shared — pinning an app to a
+          particular screen, say. Placement onto a workspace is shared and
+          lives in this feature instead.
         '';
       };
 
@@ -105,6 +151,8 @@
 
           ${config.local.niri.outputs}
 
+          ${workspaceBlocks}
+
           layout {
               gaps 12
               center-focused-column "never"
@@ -149,6 +197,65 @@
           }
 
           screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+          // Application placement, translated from the Plasma session's
+          // ~/.config/kwinrulesrc. KDE matched on X11 WM_CLASS, which is not
+          // always the Wayland app ID — 1Password's desktop entry advertises
+          // `1Password` where niri sees `1password` — so these match
+          // case-insensitively rather than guessing per app. Rules for
+          // applications a given host does not install are simply inert.
+          //
+          // Not translated: the rules pinning Slack, Telegram and
+          // teams-for-linux to a KDE activity, which has no niri equivalent
+          // (and that activity no longer exists in kactivitymanagerdrc); the
+          // librewolf rule, its package being commented out in develop.nix as
+          // unmaintained; and the "all desktops" rules for 1Password, Obsidian
+          // and systemsettings, which describe niri's default behaviour.
+          window-rule {
+              match app-id=r#"(?i)^zen"#
+              match app-id=r#"(?i)^vivaldi"#
+              open-on-workspace "udforskning"
+          }
+
+          window-rule {
+              match app-id=r#"(?i)^firefox$"#
+              match app-id=r#"(?i)^dev\.zed\.zed$"#
+              match app-id=r#"(?i)^jetbrains-phpstorm$"#
+              open-on-workspace "kodning"
+          }
+
+          // KWin had this one maximized both ways; the niri equivalent is a
+          // column taking the full width of the output.
+          window-rule {
+              match app-id=r#"(?i)^com\.mitchellh\.ghostty$"#
+              open-on-workspace "kodning"
+              open-maximized true
+          }
+
+          window-rule {
+              match app-id=r#"(?i)^zulip$"#
+              match app-id=r#"(?i)^signal$"#
+              match app-id=r#"(?i)^(com\.rtosta\.)?zapzap$"#
+              open-on-workspace "snak"
+          }
+
+          window-rule {
+              match app-id=r#"(?i)^thunderbird$"#
+              open-on-workspace "snak"
+              open-maximized true
+          }
+
+          // The Gmail and Google Calendar rules in kwinrulesrc still match the
+          // Brave- and Vivaldi-hosted PWAs from before the move to
+          // PWAsForFirefox. These are the app IDs the current firefoxpwa sites
+          // should carry — derived from the same seeds as pwas.nix — but that
+          // is inferred from how PWAsForFirefox sets the window class rather
+          // than observed, so check with `niri msg windows` if they miss.
+          window-rule {
+              match app-id=r#"^FFPWA-04334C99A477587D3281AF14B9$"#
+              match app-id=r#"^FFPWA-03FC2FDD27CF6643318BDF96EE$"#
+              open-on-workspace "snak"
+          }
 
           // Firefox/Zen picture-in-picture should float.
           window-rule {
@@ -330,6 +437,8 @@
               Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
               Mod+Shift+P { power-off-monitors; }
           }
+
+          ${config.local.niri.extraConfig}
         '';
       };
     };
