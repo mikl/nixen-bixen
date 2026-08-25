@@ -267,6 +267,7 @@
           window-rule {
               match app-id=r#"(?i)^zen"#
               match app-id=r#"(?i)^vivaldi"#
+              match app-id=r#"(?i)^chromium(-browser)?$"#
               open-on-workspace "udforskning"
           }
 
