@@ -27,35 +27,31 @@
 
         The Studio Display appears as two connectors because it is a tiled 5K
         panel: its EDID carries a DisplayID Tiled Display Topology block
-        declaring 2 horizontal tiles of 2560x2880, DP-5 being tile (0,0) and
-        DP-6 tile (1,0). That is the pre-DSC way of pushing 5120x2880 over
-        DisplayPort, and the kernel dutifully exposes one connector per tile.
-        The link here does negotiate DSC, so tile 0 alone offers the whole
-        5120x2880 image and tile 1 carries nothing — hence 5K on DP-5 and
-        `off` on DP-6.
+        declaring 2 horizontal tiles of 2560x2880. That is the pre-DSC way of
+        pushing 5120x2880 over DisplayPort, and the kernel exposes one
+        connector per tile. This link does negotiate DSC, so tile 0 alone
+        carries the whole image and tile 1 carries nothing.
 
-        The two tiles share byte-identical identification (Apple / model 44602
-        / serial 0x2D5687B6 / "StudioDisplay"), so niri's `make model serial`
-        matching cannot separate them and the connector name is the only
-        discriminator left. Those names are stable — amdgpu creates all eight
-        DP connectors at probe, one per DisplayPort tunnel the four USB-C ports
-        can carry, and the display simply opens two of them — but they name a
-        port, not a display. Moving the cable to another USB-C port will land
-        the tiles on a different pair, and these rules then want updating.
+        Both tiles present byte-identical EDID, and niri refuses to let two
+        outputs share an identity: on finding a duplicate it strips make,
+        model and serial from the later connector (`tty.rs`, "duplicates
+        make/model/serial of existing connector, unnaming"). The surviving
+        tile keeps the Apple identity, so the rule below matches it by EDID
+        and holds whichever USB-C port the cable is in. The stripped tile is
+        left to niri-arrange-displays, which switches off outputs it cannot
+        identify — nothing in the config can name one, since matching by
+        make/model/serial is exactly what the stripping removes.
 
-        Positions are logical (post-scale) pixels. The Studio Display is
-        2560x1440 logical at 2x, and the internal panel 1694x1129 at 1.7, hence
-        the -1695 that parks it just off the primary's left edge.
+        Positions are logical (post-scale) pixels: the Studio Display is
+        2560x1440 at 2x, the internal panel 1694x1129 at 1.7, hence the -1695
+        that parks it just off the primary's left edge.
       */
       local.niri.outputs = ''
-        output "DP-5" {
+        output "Apple Computer Inc StudioDisplay 0x2D5687B6" {
             mode "5120x2880@60"
             scale 2
             position x=0 y=0
-        }
-
-        output "DP-6" {
-            off
+            focus-at-startup
         }
 
         output "eDP-1" {

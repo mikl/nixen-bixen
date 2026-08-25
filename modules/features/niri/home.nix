@@ -45,7 +45,7 @@
       workspaceBlocks = lib.concatMapStringsSep "\n" (name: ''workspace "${name}"'') workspaceNames;
 
       placeWorkspaces = pkgs.writeShellApplication {
-        name = "niri-place-workspaces";
+        name = "niri-arrange-displays";
         runtimeInputs = [
           pkgs.niri
           pkgs.jq
@@ -53,6 +53,40 @@
         text = ''
           # In the order they should sit on the main screen.
           names=(${lib.escapeShellArgs workspaceNames})
+
+          # A tiled display — the 5K Studio Display, say — arrives as two
+          # connectors carrying byte-identical EDID, one per tile. niri refuses
+          # to let two outputs share an identity and strips make, model and
+          # serial from the second, leaving a blank screen that shows nothing.
+          #
+          # That ghost cannot be named in the config: with no make/model/serial
+          # left, OutputName::matches bails out before it would compare the
+          # "Unknown Unknown Unknown" form, so only its connector matches — and
+          # which connector it lands on depends on the port. Over IPC, however,
+          # the missing fields do read back as "Unknown", so it can be spotted
+          # wherever it turns up and switched off by connector.
+          prune_ghosts() {
+              local outputs enabled connector
+
+              outputs=$(niri msg -j outputs)
+              enabled=$(printf '%s' "$outputs" \
+                  | jq '[to_entries[] | select(.value.logical != null)] | length')
+
+              while read -r connector; do
+                  [[ -n "$connector" ]] || continue
+                  # Never black the machine out: leave the last screen alone,
+                  # however unidentifiable it is.
+                  [[ $enabled -gt 1 ]] || break
+                  niri msg output "$connector" off
+                  enabled=$((enabled - 1))
+              done < <(printf '%s' "$outputs" | jq -r '
+                  to_entries[]
+                  | select(.value.logical != null
+                           and .value.make == "Unknown"
+                           and .value.model == "Unknown")
+                  | .key
+              ')
+          }
 
           place() {
               local main outputs workspaces on moved=0 idx=1
@@ -90,6 +124,7 @@
               done
           }
 
+          prune_ghosts
           place
 
           # Outputs coming and going surface as a workspace reshuffle. The moves
@@ -97,7 +132,10 @@
           # left to do, so the cascade stops after one round.
           niri msg -j event-stream | while read -r event; do
               case $event in
-                  *'"WorkspacesChanged"'*) place ;;
+                  *'"WorkspacesChanged"'*)
+                      prune_ghosts
+                      place
+                      ;;
               esac
           done
         '';
