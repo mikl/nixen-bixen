@@ -246,11 +246,11 @@
           screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
           // Application placement, translated from the Plasma session's
-          // ~/.config/kwinrulesrc. KDE matched on X11 WM_CLASS, which is not
-          // always the Wayland app ID — 1Password's desktop entry advertises
-          // `1Password` where niri sees `1password` — so these match
-          // case-insensitively rather than guessing per app. Rules for
-          // applications a given host does not install are simply inert.
+          // ~/.config/kwinrulesrc and added to since. KDE matched on X11
+          // WM_CLASS, which is not always the Wayland app ID — 1Password's
+          // desktop entry advertises `1Password` where niri sees `1password`
+          // — so these match case-insensitively rather than guessing per app.
+          // Rules for applications a given host does not install are inert.
           //
           // Not translated: the rules pinning Slack, Telegram and
           // teams-for-linux to a KDE activity, which has no niri equivalent
@@ -283,6 +283,7 @@
               match app-id=r#"(?i)^zulip$"#
               match app-id=r#"(?i)^signal$"#
               match app-id=r#"(?i)^(com\.rtosta\.)?zapzap$"#
+              match app-id=r#"(?i)^proton-mail$"#
               open-on-workspace "snak"
           }
 
