@@ -171,16 +171,14 @@
           // on the next home-manager switch.
 
           input {
-              // Mirrors services.xserver.xkb from modules/features/l10n/keyboard.nix.
-              // niri does not read that; it would otherwise ask locale1, which
-              // only knows the layout, not the variant or options.
+              // No xkb block on purpose. niri only consults it when the config
+              // sets one; left empty it takes model, layout, variant and
+              // options from locale1, which systemd populates from
+              // /etc/X11/xorg.conf.d/00-keyboard.conf — generated in turn from
+              // services.xserver.xkb in modules/features/l10n/keyboard.nix.
+              // That keeps one source of truth for the keymap, and niri
+              // follows later changes to it live.
               keyboard {
-                  xkb {
-                      model "pc104alt"
-                      layout "us"
-                      variant "mac-iso"
-                      options "lv3:ralt_switch,terminate:ctrl_alt_bksp,caps:escape"
-                  }
                   numlock
               }
 
