@@ -11,6 +11,7 @@
 
       home.packages = with pkgs; [
         git
+        libjxl # To re-encode pictures with cjxl
         q
       ];
 
