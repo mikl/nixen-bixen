@@ -349,6 +349,16 @@
               open-on-workspace "snak"
           }
 
+          // Round every window off to match Noctalia, whose panels and widgets
+          // are drawn at background_radius 12. clip-to-geometry keeps window
+          // contents inside the rounded rectangle, so square corners cannot
+          // poke out past it. This rule was present but disabled with `/-` in
+          // the old hand-written config.
+          window-rule {
+              geometry-corner-radius 12
+              clip-to-geometry true
+          }
+
           // Anything holding credentials is blocked from capture entirely —
           // "screen-capture" covers screenshots as well as screencasts, so
           // these windows come out blank even in a screenshot you take
