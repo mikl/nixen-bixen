@@ -42,6 +42,11 @@
         identify — nothing in the config can name one, since matching by
         make/model/serial is exactly what the stripping removes.
 
+        Both outputs are named by EDID rather than connector. For the panel
+        that buys nothing over eDP-1, which never moves — but it does mean a
+        Framework mainboard swap keeps the rule, while a screen replacement
+        would need the new model number here.
+
         Positions are logical (post-scale) pixels: the Studio Display is
         2560x1440 at 2x, the internal panel 1694x1129 at 1.7, hence the -1695
         that parks it just off the primary's left edge.
@@ -54,7 +59,9 @@
             focus-at-startup
         }
 
-        output "eDP-1" {
+        // The panel reports no serial, and niri substitutes "Unknown" for the
+        // missing field rather than dropping it.
+        output "BOE NE135A1M-NY1 Unknown" {
             mode "2880x1920@120"
             scale 1.7
             position x=-1695 y=0
@@ -74,7 +81,7 @@
       local.niri.extraConfig = ''
         window-rule {
             match app-id=r#"(?i)^brave-origin$"#
-            open-on-output "eDP-1"
+            open-on-output "BOE NE135A1M-NY1 Unknown"
             open-maximized true
         }
       '';
