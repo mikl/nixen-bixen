@@ -407,12 +407,11 @@
               // Programs. Mod+T is the old config's terminal binding; Mod+Return
               // is niri's own default, kept alongside it. Mod+E for the file
               // manager matches KDE's Meta+E.
-              Mod+T hotkey-overlay-title="Open a Terminal" { spawn "ghostty"; }
-              Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "ghostty"; }
-              Mod+E hotkey-overlay-title="Open Dolphin" { spawn "dolphin"; }
+              Mod+Ctrl+T hotkey-overlay-title="Open a Terminal" { spawn "ghostty"; }
+              Mod+Ctrl+E hotkey-overlay-title="Open Dolphin" { spawn "dolphin"; }
 
               // Noctalia panels. Mod+Space was fuzzel in the old config.
-              Mod+D hotkey-overlay-title="Application Launcher" { ${
+              Mod+Ctrl+D hotkey-overlay-title="Application Launcher" { ${
                 msg [
                   "panel-toggle"
                   "launcher"
@@ -424,35 +423,35 @@
                   "launcher"
                 ]
               }; }
-              Mod+V hotkey-overlay-title="Clipboard History" { ${
+              Mod+Alt+V hotkey-overlay-title="Clipboard History" { ${
                 msg [
                   "panel-toggle"
                   "clipboard"
                 ]
               }; }
-              Mod+A hotkey-overlay-title="Control Centre" { ${
+              Mod+Ctrl+A hotkey-overlay-title="Control Centre" { ${
                 msg [
                   "panel-toggle"
                   "control-center"
                   "home"
                 ]
               }; }
-              Mod+N hotkey-overlay-title="Notifications" { ${
+              Mod+Ctrl+N hotkey-overlay-title="Notifications" { ${
                 msg [
                   "panel-toggle"
                   "control-center"
                   "notifications"
                 ]
               }; }
-              Mod+Shift+W hotkey-overlay-title="Wallpaper Picker" { ${
+              Mod+Ctrl+Shift+W hotkey-overlay-title="Wallpaper Picker" { ${
                 msg [
                   "panel-toggle"
                   "wallpaper"
                 ]
               }; }
               Mod+Tab hotkey-overlay-title="Window Switcher" { ${msg [ "window-switcher" ]}; }
-              Mod+Comma hotkey-overlay-title="Noctalia Settings" { ${msg [ "settings-toggle" ]}; }
-              Mod+B hotkey-overlay-title="Toggle the Bar" { ${msg [ "bar-toggle" ]}; }
+              Mod+Shift+Comma hotkey-overlay-title="Noctalia Settings" { ${msg [ "settings-toggle" ]}; }
+              Mod+Ctrl+B hotkey-overlay-title="Toggle the Bar" { ${msg [ "bar-toggle" ]}; }
               Mod+Shift+A hotkey-overlay-title="Toggle Idle Inhibitor" { ${msg [ "caffeine-toggle" ]}; }
 
               // Screen reader, from the old config.
@@ -489,7 +488,7 @@
               XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
               XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
 
-              Mod+O repeat=false { toggle-overview; }
+              Mod+Ctrl+O repeat=false { toggle-overview; }
               Mod+Q repeat=false { close-window; }
 
               Mod+Left  { focus-column-left; }
@@ -580,29 +579,29 @@
               Ctrl+Mod+Period { expel-window-from-column; }
 
               Ctrl+Mod+R { switch-preset-column-width; }
-              Ctrl+Shift+R { switch-preset-column-width; }
-              Mod+Shift+R { switch-preset-column-width-back; }
+              Ctrl+Shift+R { switch-preset-column-width-back; }
               Ctrl+Mod+Shift+R { reset-window-height; }
 
               Ctrl+Mod+F { maximize-column; }
               Ctrl+Mod+Shift+F { fullscreen-window; }
               Mod+Ctrl+Alt+F { expand-column-to-available-width; }
-              Mod+M { maximize-window-to-edges; }
+              Mod+Ctrl+M { maximize-window-to-edges; }
               Mod+Shift+C { center-column; }
               Mod+Ctrl+C { center-visible-columns; }
 
-              Mod+Minus { set-column-width "-10%"; }
-              Mod+Equal { set-column-width "+10%"; }
-              Mod+Shift+Minus { set-window-height "-10%"; }
-              Mod+Shift+Equal { set-window-height "+10%"; }
+              Mod+Ctrl+Minus { set-column-width "-10%"; }
+              Mod+Ctrl+Equal { set-column-width "+10%"; }
+              Mod+Ctrl+Shift+Minus { set-window-height "-10%"; }
+              Mod+Ctrl+Shift+Equal { set-window-height "+10%"; }
 
               Mod+Ctrl+V  { toggle-window-floating; }
               Mod+Shift+V { switch-focus-between-floating-and-tiling; }
-              Mod+W { toggle-column-tabbed-display; }
+              Mod+Ctrl+W { toggle-column-tabbed-display; }
 
               // Screenshots go through niri's own capture, as in the old config,
               // rather than Noctalia's. Mod+Shift+3 mirrors macOS.
-              Mod+Shift+3 { screenshot; }
+              Mod+Shift+3 { screenshot-screen; }
+              Mod+Shift+4 { screenshot; }
               Print { screenshot; }
               Ctrl+Print { screenshot-screen; }
               Alt+Print { screenshot-window; }
