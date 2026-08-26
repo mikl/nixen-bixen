@@ -16,6 +16,18 @@
 
       home.packages = with pkgs; [
         aha # For displaying network interfaces in the KDE Info Center.
+
+        # hicolor is the mandatory fallback icon theme, and its index.theme is
+        # what tells a lookup which size subdirectories exist. NixOS ships one
+        # in the system profile, but the per-user profile only gets the
+        # `share/icons/hicolor/<size>/apps` trees from the apps installed here
+        # — no index. Noctalia's resolver walks every base dir, and for a
+        # hicolor root without an index it probes a hardcoded shortlist
+        # (scalable, 256, 128, 64, 48, 32) that omits 512x512. Apps that ship
+        # only a 512px PNG — Zed, Zulip, Todoist — then have no findable icon
+        # in the launcher. Installing the theme here drops the real index next
+        # to those trees so all sizes are enumerated.
+        hicolor-icon-theme
         obsidian
         jellyfin-desktop
         tealdeer
