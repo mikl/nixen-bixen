@@ -97,6 +97,17 @@
           iconHash = "sha256-nlK29rcb4uO9o0xo1J4Krww1Q22tGqNnu6dL+3wp6s4=";
           profile = "default";
         };
+        # Playback is DRM-protected, so the PWA profile has to fetch Widevine
+        # on first play; Firefox prompts for it once per profile.
+        apple-music = {
+          name = "Apple Music";
+          genericName = "Music Streaming";
+          url = "https://music.apple.com/";
+          manifestUrl = "https://music.apple.com/manifest.json";
+          iconUrl = "https://upload.wikimedia.org/wikipedia/commons/5/5f/Apple_Music_icon.svg";
+          iconHash = "sha256-4Xw8etULegsrfbreFJNRgzjHZ2bAUTq9hPYV0cUEgVM=";
+          profile = "default";
+        };
         claude = {
           name = "Claude";
           genericName = "AI Assistant";
