@@ -12,6 +12,7 @@
         self.homeModules.devAiHomeManager
         self.homeModules.linuxDesktopBasis
         self.homeModules.linuxDesktopKDE
+        self.homeModules.linuxDesktopPlasma
         self.homeModules.linuxDesktopPwas
         self.homeModules.linuxDesktopSyncthing
         self.homeModules.localdevHomeManager

@@ -1,15 +1,31 @@
 /**
-  Niri (scrollable-tiling Wayland compositor) as a session alongside Plasma.
+  Niri (scrollable-tiling Wayland compositor) as the graphical session.
 
-  Plasma stays installed and selectable at the login screen; this module only
-  adds a second session and rewires the bits of it that nixpkgs' `programs.niri`
-  points at GNOME by default, so that KDE Wallet — rather than gnome-keyring —
-  keeps being the secret store.
+  This module stands on its own. It rewires the bits of nixpkgs'
+  `programs.niri` that point at GNOME by default, so that KDE Wallet — rather
+  than gnome-keyring — is the secret store, and it declares the desktop
+  plumbing that a bare compositor does not bring along but that
+  `services.desktopManager.plasma6` used to supply as a side effect.
+
+  Tarsonis has no Plasma desktop any more; eidolon still enables plasma6
+  alongside Niri. Everything here is therefore either a list append or
+  `mkDefault`, so where the two modules set the same option Plasma's own
+  definition keeps winning on eidolon.
+
+  The login manager is a separate concern:
+  `services.displayManager.plasma-login-manager` is an independent module and
+  stays enabled on both hosts. See modules/features/luks-auto-login for why it
+  cannot be swapped for greetd.
 */
 { ... }:
 {
   flake.nixosModules.niriConfiguration =
-    { pkgs, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       programs.niri = {
         enable = true;
@@ -95,8 +111,11 @@
       };
 
       environment.systemPackages = with pkgs; [
+        kdePackages.breeze # breeze_cursors, the theme niri/home.nix asks for
         kdePackages.kwallet
-        kdePackages.kwalletmanager # KWallet GUI + KCM, useful without systemsettings
+        # Standalone wallet GUI, plus a KCM that the systemsettings shell can host
+        # — `qt.platformTheme = "kde"` above makes nixpkgs' qt module install it.
+        kdePackages.kwalletmanager
         xwayland-satellite # niri spawns this on demand for X11 clients
       ];
 
@@ -105,7 +124,41 @@
       # granting access to locally seated users, so no group juggling is needed.
       hardware.i2c.enable = true;
 
-      # Both Plasma and Niri wants to set this. Force it to Niri.
-      services.displayManager.defaultSession = "niri";
+      # The three D-Bus services Noctalia's bar talks to: src/dbus/upower for
+      # the battery widget, src/dbus/power/power_profiles_service.cpp for the
+      # power-profile widget, src/dbus/accounts for the user name and avatar.
+      # Nothing in `programs.niri` pulls these in — plasma6 did.
+      services.accounts-daemon.enable = lib.mkDefault true;
+      services.power-profiles-daemon.enable = lib.mkDefault true;
+      services.upower.enable = lib.mkDefault true;
+
+      # Removable media in Dolphin, and the userspace mounts behind it.
+      services.udisks2.enable = lib.mkDefault true;
+      programs.fuse.enable = lib.mkDefault true;
+
+      # speech-dispatcher exists here only to give Orca a voice, and Orca is
+      # gone. `services.graphical-desktop` turns it on at `mkDefault true`, so a
+      # plain definition is enough to override it.
+      #
+      # Guarded on orca rather than on plasma6: `services.orca` itself sets
+      # `services.speechd.enable = true` with a plain (equal-priority)
+      # definition, so an unconditional `false` here would be a conflict on
+      # eidolon, where plasma6 still enables Orca. mkIf drops this definition
+      # entirely in that case and lets Orca's own win.
+      services.speechd.enable = lib.mkIf (!config.services.orca.enable) false;
+
+      # GTK apps need the SVG loader to render scalable icons; without it the
+      # hicolor/scalable trees that basis.nix goes out of its way to index are
+      # unreadable.
+      programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+
+      # Graphical passphrase prompt for ssh-add and git over SSH. Same value
+      # plasma6 sets, so the two mkDefaults merge cleanly on eidolon.
+      programs.ssh.askPassword = lib.mkDefault "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
+
+      # niri's `programs.niri` already defaults this to "niri"; on eidolon
+      # plasma6 also sets it (to "plasma") at the same priority, so the choice
+      # has to be forced rather than defaulted.
+      services.displayManager.defaultSession = lib.mkForce "niri";
     };
 }

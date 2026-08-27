@@ -454,9 +454,6 @@
               Mod+Ctrl+B hotkey-overlay-title="Toggle the Bar" { ${msg [ "bar-toggle" ]}; }
               Mod+Shift+A hotkey-overlay-title="Toggle Idle Inhibitor" { ${msg [ "caffeine-toggle" ]}; }
 
-              // Screen reader, from the old config.
-              Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
-
               // Session. Super+Ctrl+Q was hyprlock in the old config; Ctrl+Alt+Delete
               // quitting comes from there too, in place of KDE's session menu.
               Super+Ctrl+Q hotkey-overlay-title="Lock the Screen" { ${

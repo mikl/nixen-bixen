@@ -23,6 +23,18 @@
         user = "someone";
       };
 
+  This is also why the login manager cannot be swapped for a lighter one.
+  greetd's autologin (`initial_session`) goes through
+  `start_unauthenticated_session` with `authenticate: false`, so it never calls
+  pam_authenticate at all — and it answers any PAM prompt with a null response.
+  pam_systemd_loadkey and pam_kwallet5 are both auth-phase modules, so under
+  greetd neither would run and the wallet would stay locked. Every other
+  lightweight greeter (regreet, tuigreet, noctalia-greeter) is a greetd
+  frontend and inherits the same behaviour. plasma-login-manager, by contrast,
+  runs a real PAM auth stack for autologin — `plasmalogin-autologin`, patched
+  below — and is an independent NixOS module, so it survives
+  `services.desktopManager.plasma6` being turned off.
+
   Based on https://wiki.nixos.org/wiki/KDE#Unlock_KDE_Wallet_with_LUKS_password
 */
 { ... }:
