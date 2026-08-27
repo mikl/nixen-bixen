@@ -69,20 +69,33 @@
       '';
 
       /**
-        The one kwinrulesrc rule that pinned a screen rather than a desktop,
-        so it stays here where the connector names mean something.
+        The rules that pin a screen rather than a desktop, so they stay here
+        where the output names mean something.
 
-        KWin recorded `screen=2` for Brave Origin, from a larger monitor setup
-        than this one — the built-in panel is what "second screen" means today.
-        Two further screen-pinned rules are left out for want of anything to
-        map them onto: Chromium's `screen=1`, and the Google Meet PWA's
-        `screen=3`.
+        Brave Origin is the one kwinrulesrc rule of that kind. KWin recorded
+        `screen=2` for it, from a larger monitor setup than this one — the
+        built-in panel is what "second screen" means today. Two further
+        screen-pinned rules are left out for want of anything to map them
+        onto: Chromium's `screen=1`, and the Google Meet PWA's `screen=3`.
+
+        Jellyfin goes to that same second screen, leaving the Studio Display
+        free. Its fullscreen rule lives in the niri feature, this being the
+        half that names an output. Undocked there is no second screen to send
+        it to, and niri then opens it on the focused output as usual — which
+        is the wanted behaviour, and why no fallback is spelled out here.
+        Landing on an unfocused output does not pull focus along with it, so
+        this does not interrupt whatever is on the main screen.
       */
       local.niri.extraConfig = ''
         window-rule {
             match app-id=r#"(?i)^brave-origin$"#
             open-on-output "BOE NE135A1M-NY1 Unknown"
             open-maximized true
+        }
+
+        window-rule {
+            match app-id=r#"(?i)^org\.jellyfin\.JellyfinDesktop$"#
+            open-on-output "BOE NE135A1M-NY1 Unknown"
         }
       '';
 

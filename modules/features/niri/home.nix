@@ -341,6 +341,17 @@
               open-maximized-to-edges false
           }
 
+          // The one thing here that should take the whole screen, bar and all:
+          // fullscreen rather than maximize-to-edges, so Jellyfin is told it is
+          // fullscreen and switches to its own TV chrome. Its package ships a
+          // `--fullscreen` desktop action that does the same, but the app only
+          // honours it from that action's launcher entry and otherwise restores
+          // whatever mode it last had, so the rule is the dependable half.
+          window-rule {
+              match app-id=r#"(?i)^org\.jellyfin\.JellyfinDesktop$"#
+              open-fullscreen true
+          }
+
           window-rule {
               match app-id=r#"(?i)^zulip$"#
               match app-id=r#"(?i)^signal$"#
