@@ -5,6 +5,7 @@
 {
   flake.nixosConfigurations.tarsonis = inputs.nixpkgs.lib.nixosSystem {
     modules = [
+      inputs.determinate.nixosModules.default
       self.nixosModules.tarsonisConfiguration
     ];
   };
