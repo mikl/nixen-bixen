@@ -24,8 +24,8 @@
           tab-inherit-working-directory = false;
           split-inherit-working-directory = true;
 
-          # Windowless fullscreen, essentially.
-          maximize = true;
+          # niri sizes the window: a window-rule gives it a 2/3-width column,
+          # which a maximize request here would override.
           window-decoration = false;
 
           keybind = [

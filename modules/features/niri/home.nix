@@ -313,15 +313,32 @@
               match app-id=r#"(?i)^firefox$"#
               match app-id=r#"(?i)^dev\.zed\.zed$"#
               match app-id=r#"(?i)^jetbrains-phpstorm$"#
+              match app-id=r#"(?i)^com\.mitchellh\.ghostty$"#
               open-on-workspace "kodning"
           }
 
-          // KWin had this one maximized both ways; the niri equivalent is a
-          // column taking the full width of the output.
+          // KWin had Ghostty maximized both ways, but a full-width column
+          // leaves nothing beside it; two thirds is the widest preset that
+          // still does, so Mod+Ctrl+R steps straight up to full width from
+          // here. The terminal and the browsers all default to it.
+          //
+          // Ghostty and the browsers would otherwise open maximized on their
+          // own — Ghostty because it asks to (its `maximize` setting), the
+          // browsers because they restore the state they last had. That is an
+          // xdg-toplevel maximize request, which niri answers by maximizing to
+          // the output edges, so blocking it takes open-maximized-to-edges
+          // rather than open-maximized; the latter only governs niri's own
+          // notion of a full-width column. Both only bite when the request
+          // arrives in the initial configure, which is the usual case — a
+          // client asking a moment after mapping wins regardless.
           window-rule {
               match app-id=r#"(?i)^com\.mitchellh\.ghostty$"#
-              open-on-workspace "kodning"
-              open-maximized true
+              match app-id=r#"(?i)^zen"#
+              match app-id=r#"(?i)^vivaldi"#
+              match app-id=r#"(?i)^chromium(-browser)?$"#
+              match app-id=r#"(?i)^firefox$"#
+              default-column-width { proportion 0.66667; }
+              open-maximized-to-edges false
           }
 
           window-rule {
