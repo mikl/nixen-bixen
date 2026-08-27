@@ -46,7 +46,7 @@
       programs.nh = {
         enable = true;
         clean.enable = true;
-        clean.extraArgs = "--keep-since 18d --keep 7 --keep-one";
+        clean.extraArgs = "--keep-since 7d --keep 7 --keep-one";
       };
     };
 }

@@ -23,6 +23,10 @@
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
 
+      # Cap systemd-boot entries so /boot (a 1 GB ESP) cannot fill up: each
+      # new kernel version costs ~88 MB of non-dedupable kernel + initrd.
+      boot.loader.systemd-boot.configurationLimit = 20;
+
       # Use latest kernel.
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
