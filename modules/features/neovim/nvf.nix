@@ -88,6 +88,21 @@
                   },
                   dim_inactive = false,
                   lualine_bold = true,
+
+                  -- Plain strings default to yellow (#f1fc79), which shouts.
+                  -- Halfway between the two foregrounds instead: `fg` (#ebfafa,
+                  -- Lighthouse White) is indistinguishable from ordinary code,
+                  -- `fg_dark` (#ABB4DA) recedes too far. The midpoint lands on
+                  -- #cbd7ea, and blending keeps it correct in the darker
+                  -- palettes, whose foregrounds differ.
+                  --
+                  -- Only `String` is touched; `@string` links to it, while the
+                  -- specialised groups (@string.documentation, .html, .regexp,
+                  -- .escape) keep their own colours.
+                  on_highlights = function(highlights, colors)
+                    local blend = require("eldritch.util").blend
+                    highlights.String = { fg = blend(colors.fg, colors.fg_dark, 0.5) }
+                  end,
                 })
 
                 -- Variants: "eldritch", "eldritch-dark", "eldritch-minimal".
