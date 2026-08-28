@@ -42,7 +42,10 @@
         identify — nothing in the config can name one, since matching by
         make/model/serial is exactly what the stripping removes.
 
-        Both outputs are named by EDID rather than connector. For the panel
+        The two external displays are never attached at once, so both sit at
+        the origin, which keeps the panel to the left of whichever is present.
+
+        Every output is named by EDID rather than connector. For the panel
         that buys nothing over eDP-1, which never moves — but it does mean a
         Framework mainboard swap keeps the rule, while a screen replacement
         would need the new model number here.
@@ -54,6 +57,21 @@
       local.niri.outputs = ''
         output "Apple Computer Inc StudioDisplay 0x2D5687B6" {
             mode "5120x2880@60"
+            scale 2
+            position x=0 y=0
+            focus-at-startup
+        }
+
+        // The ASUS ProArt 6K that stands in for the Studio Display at the
+        // other desk. Unlike the Studio Display this one needs no tile
+        // trickery: at 6K it negotiates DSC and arrives as a single connector,
+        // so there is no ghost to switch off.
+        //
+        // The refresh rate is 59.992, not 60, and niri compares refresh rates
+        // for exact equality in millihertz — "@60" would quietly miss and fall
+        // back to the preferred mode instead.
+        output "ASUSTek COMPUTER INC PA32QCV TALMSB011930" {
+            mode "6016x3384@59.992"
             scale 2
             position x=0 y=0
             focus-at-startup
