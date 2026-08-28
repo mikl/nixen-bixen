@@ -66,10 +66,33 @@
 
             telescope.enable = true;
 
-            theme = {
-              enable = true;
-              name = "tokyonight";
-              style = "night";
+            /**
+              Eldritch is not one of nvf's `supportedThemes`, so `vim.theme.name`
+              (an enum over that list) cannot select it. Adding the plugin
+              ourselves and setting the colorscheme by hand is all the theme
+              module does anyway, so nothing is lost by bypassing it.
+            */
+            theme.enable = false;
+
+            extraPlugins.eldritch = {
+              package = pkgs.vimPlugins.eldritch-nvim;
+              setup = ''
+                require("eldritch").setup({
+                  transparent = true,
+                  terminal_colors = true,
+                  styles = {
+                    comments = { italic = true },
+                    keywords = { italic = true },
+                    sidebars = "dark",
+                    floats = "dark",
+                  },
+                  dim_inactive = false,
+                  lualine_bold = true,
+                })
+
+                -- Variants: "eldritch", "eldritch-dark", "eldritch-minimal".
+                vim.cmd.colorscheme("eldritch")
+              '';
             };
 
             vimAlias = true;
