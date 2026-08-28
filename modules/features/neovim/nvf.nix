@@ -43,6 +43,19 @@
 
             lsp = {
               enable = true;
+
+              /**
+                Let nil fetch missing flake inputs into the store on its own.
+
+                Without this, opening any file in a flake whose inputs are not
+                fully realised pops a "Some flake inputs are not available.
+                Fetch them now?" prompt on startup.
+
+                nvf's nil preset already tries to set this, but it writes it to
+                `nil.nix.autoArchive`; nil actually reads
+                `nil.nix.flake.autoArchive`, so the preset is a no-op.
+              */
+              servers.nil.settings.nil.nix.flake.autoArchive = true;
             };
 
             options = {
