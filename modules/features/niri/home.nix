@@ -223,6 +223,22 @@
               touchpad {
                   tap
                   natural-scroll
+
+                  // Two- and three-finger clicks for right and middle, rather
+                  // than button zones along the bottom edge.
+                  click-method "clickfinger"
+
+                  accel-speed 0.2
+
+                  // Tapping again straight after a tap-and-drag resumes the
+                  // drag instead of dropping what was being dragged.
+                  drag-lock
+
+                  // niri applies its own default for every knob rather than
+                  // leaving unset ones to libinput, and for
+                  // disable-while-typing the two disagree: off here, on there.
+                  // So it has to be asked for explicitly.
+                  dwt
               }
 
               focus-follows-mouse max-scroll-amount="0%"
@@ -266,7 +282,7 @@
 
           cursor {
               xcursor-theme "breeze_cursors"
-              xcursor-size 24
+              xcursor-size 48
           }
 
           xwayland-satellite {
