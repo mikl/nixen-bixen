@@ -224,6 +224,11 @@
                   tap
                   natural-scroll
 
+                  // Two-finger tap for right, three for middle. niri would
+                  // otherwise take whatever the device reports as its default,
+                  // and this touchpad reports the two reversed.
+                  tap-button-map "left-right-middle"
+
                   // Two- and three-finger clicks for right and middle, rather
                   // than button zones along the bottom edge.
                   click-method "clickfinger"
