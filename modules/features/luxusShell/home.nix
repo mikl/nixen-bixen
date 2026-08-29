@@ -1,8 +1,12 @@
-{ ... }:
+{ self, ... }:
 {
   flake.homeModules.luxusShellHomeManager =
     { pkgs, ... }:
     {
+      imports = [
+        self.homeModules.starship
+      ];
+
       home.packages = with pkgs; [
         dysk
         ncdu # TUI-alternative to du.
@@ -64,18 +68,6 @@
       };
 
       programs.ripgrep.enable = true;
-
-      programs.starship = {
-        enable = true;
-        enableFishIntegration = true;
-        settings = {
-          aws.disabled = true;
-          azure.disabled = true;
-          cobol.disabled = true;
-          direnv.disabled = false;
-          status.disabled = false;
-        };
-      };
 
       programs.zoxide = {
         enable = true;
