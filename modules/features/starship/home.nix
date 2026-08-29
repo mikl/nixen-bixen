@@ -22,13 +22,16 @@
 
           palette = "eldritch_cthulhu";
 
+          # Two lines: the status bar (git, toolchains, env, clock) sits on top,
+          # and the identity/location bar plus the prompt character get a line
+          # of their own so typing never starts halfway across the terminal.
+          #
+          # Neither line takes a left cap glyph. Powerline has nothing rounded
+          # on one corner only, so every available cap - half-circle  or
+          # diagonal / - leaves the stacked lines either pinched or notched
+          # where they meet. Starting both bars flush at column 0 is the one
+          # way to get a straight left edge.
           format = lib.concatStrings [
-            "[](primary)"
-            "$os"
-            "$username"
-            "[](bg:secondary fg:primary)"
-            "$directory"
-            "[](bg:tertiary fg:secondary)"
             "$git_branch"
             "$git_status"
             "[](fg:tertiary bg:quaternary)"
@@ -51,12 +54,21 @@
             "[ ](fg:senary)"
             "$cmd_duration"
             "$line_break"
+            "$os"
+            "$username"
+            "[](bg:secondary fg:primary)"
+            "$directory"
+            "[](fg:secondary)"
+            " "
             "$character"
           ];
 
           os = {
             disabled = false;
             style = "bg:primary fg:base";
+            # Leading space so the logo sits at the same offset as the git
+            # branch symbol on the line above, now that neither bar has a cap.
+            format = "[ $symbol]($style)";
             symbols = {
               Windows = "";
               Ubuntu = "󰕈";
@@ -195,7 +207,7 @@
           };
 
           line_break = {
-            disabled = true;
+            disabled = false;
           };
 
           character = {
