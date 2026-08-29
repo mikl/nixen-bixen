@@ -60,7 +60,6 @@
           core = {
             autocrlf = "false";
             editor = "nvim";
-            hooksPath = ".githooks";
             legacyheaders = "false";
             quotepath = "false";
           };
