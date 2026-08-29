@@ -29,6 +29,20 @@
         config.allowUnfree = true;
       };
 
+      # Kernel/LLVM-style trailer. Claude Code still injects Co-Authored-By
+      # via its git prompt, so git-attribution.md repeats the same wording.
+      # Grok also loads ~/.claude/rules, so each rule names its agent.
+      attributionTrailer = name: "Assisted-by: ${name}";
+
+      gitAttributionRule = name: ''
+        # Git attribution
+
+        You are ${name}. Use `${attributionTrailer name}` as the git trailer
+        on commits and pull requests. Never add `Co-Authored-By`.
+      '';
+
+      claudeAttributionTrailer = attributionTrailer "Claude";
+
       # User-level Claude Code settings, shared across all machines.
       #
       # Managing this file declaratively means changes made from within
@@ -43,6 +57,11 @@
           "Bash(nix run nixpkgs#*)"
           "Bash(nix shell nixpkgs#*)"
         ];
+        attribution = {
+          commit = claudeAttributionTrailer;
+          pr = claudeAttributionTrailer;
+          sessionUrl = false;
+        };
       };
     in
     {
@@ -50,7 +69,9 @@
       home.file.".claude/settings.json".text = builtins.toJSON claudeSettings;
 
       home.file.".claude/rules/environment.md".text = nixEnvironmentRule;
+      home.file.".claude/rules/git-attribution.md".text = gitAttributionRule "Claude";
       home.file.".grok/rules/environment.md".text = nixEnvironmentRule;
+      home.file.".grok/rules/git-attribution.md".text = gitAttributionRule "Grok";
 
       home.packages = [
         unstable.claude-code
