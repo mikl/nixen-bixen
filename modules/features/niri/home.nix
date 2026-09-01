@@ -140,6 +140,46 @@
           done
         '';
       };
+
+      # niri hands XWayland clients raw device pixels and never scales them, so
+      # an X11 toolkit has to work its own scale out — and the X resource
+      # database is the one place they all agree to look. It starts empty, so
+      # every X11 app lays itself out at 96 dpi and comes out half size on a
+      # screen at scale 2. SourceGit, which is Avalonia on X11, is what
+      # surfaced this; GTK-X11 and Qt-X11 read the same resource.
+      #
+      # 192 dpi is 2x, matching the external screens both machines run at. X11
+      # carries a single global DPI, so on the laptop panel at scale 1.7 these
+      # apps come out some 18% large — there is no per-output form of this to
+      # reach for.
+      #
+      # Not to be confused with GTK's `gtk-xft-dpi` in ~/.config/gtk-*/
+      # settings.ini, despite the name: Wayland-native GTK and Chromium read
+      # that one and multiply it by the compositor scale, so it has to stay at
+      # 96 dpi (98304) or Vivaldi draws everything twice over. The two never
+      # meet — no X11 client reads the GTK setting as a scale, and no Wayland
+      # client sees the X resource.
+      xwaylandDpi = pkgs.writeShellApplication {
+        name = "niri-xwayland-dpi";
+        runtimeInputs = [
+          pkgs.xrdb
+          pkgs.coreutils
+        ];
+        text = ''
+          # The satellite above is spawned on demand, so :0 need not be
+          # answering yet — this connection is itself what brings it up. Retry
+          # rather than race it, and keep quiet unless it never arrives.
+          for _ in $(seq 30); do
+              if printf 'Xft.dpi: 192\n' | xrdb -merge 2>/dev/null; then
+                  exit 0
+              fi
+              sleep 1
+          done
+
+          echo "niri-xwayland-dpi: no X server on ''${DISPLAY:-unset}" >&2
+          exit 1
+        '';
+      };
     in
     {
       options.local.niri.outputs = lib.mkOption {
@@ -301,6 +341,10 @@
           // Puts the named workspaces on the main screen and keeps them there
           // across docking changes; stays running to watch the event stream.
           spawn-at-startup "${lib.getExe placeWorkspaces}"
+
+          // Gives XWayland clients a DPI to scale themselves by; exits once
+          // the resource is set.
+          spawn-at-startup "${lib.getExe xwaylandDpi}"
 
           prefer-no-csd
 

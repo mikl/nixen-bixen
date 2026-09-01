@@ -20,6 +20,7 @@
         docker-client
         docker-compose
         unstable.jetbrains.phpstorm
+        sourcegit
         unstable.zed-editor
 
         # Extra browsers for software development
