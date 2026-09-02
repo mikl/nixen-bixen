@@ -7,6 +7,7 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
+        corefonts
         geist-font
         (pkgs.iosevka-bin.override { variant = "Etoile"; })
         (pkgs.iosevka-bin.override { variant = "Slab"; })
@@ -14,6 +15,7 @@
         iosevka-bin
         lato
         victor-mono
+        vista-fonts
       ];
     };
 }
