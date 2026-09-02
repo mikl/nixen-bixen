@@ -28,8 +28,9 @@
         # in the launcher. Installing the theme here drops the real index next
         # to those trees so all sizes are enumerated.
         hicolor-icon-theme
-        obsidian
         jellyfin-desktop
+        obsidian
+        onlyoffice-desktopeditors
         tealdeer
         todoist-electron
         vlc
