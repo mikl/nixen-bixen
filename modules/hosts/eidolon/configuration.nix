@@ -9,6 +9,7 @@
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         self.nixosModules.browsersFirefox
         self.nixosModules.browsersPwas
+        self.nixosModules.caddyServer
         self.nixosModules.common
         self.nixosModules.en_DA_locale
         self.nixosModules.eidolonHardware
