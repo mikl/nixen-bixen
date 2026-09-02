@@ -1,26 +1,19 @@
-{ ... }:
+/**
+  Syncthing plus its tray icon, for hosts with a graphical session.
+
+  The service itself is syncthing/home.nix; all this adds is the tray, which
+  needs a status-notifier host to dock into and so has nowhere to go on a
+  headless machine.
+*/
+{ self, ... }:
 {
   flake.homeModules.linuxDesktopSyncthing =
     { ... }:
     {
-      services.syncthing = {
-        enable = true;
-        tray.enable = true;
+      imports = [
+        self.homeModules.syncthingHomeManager
+      ];
 
-        extraOptions = [
-          # Remove once on 26.05.
-          "--allow-newer-config"
-        ];
-      };
-    };
-
-  flake.nixosModules.linuxDesktopSyncthing =
-    { ... }:
-    {
-      networking.nftables.enable = true;
-      networking.firewall = {
-        enable = true;
-        allowedTCPPorts = [ 22000 ];
-      };
+      services.syncthing.tray.enable = true;
     };
 }

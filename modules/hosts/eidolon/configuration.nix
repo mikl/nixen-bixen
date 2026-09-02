@@ -13,6 +13,7 @@
         self.nixosModules.eidolonHardware
         self.nixosModules.keyboard
         self.nixosModules.localdev
+        self.nixosModules.syncthing
         self.nixosModules.tailscaleConfiguration
       ];
 
@@ -48,6 +49,11 @@
           "wheel"
         ];
         shell = pkgs.fish;
+
+        # Syncthing runs as a user service and this box has no interactive
+        # logins to start the user manager. Lingering keeps it running from
+        # boot.
+        linger = true;
       };
 
       home-manager.users.mikl = self.homeModules.eidolon;

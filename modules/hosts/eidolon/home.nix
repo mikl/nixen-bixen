@@ -17,6 +17,7 @@
         self.homeModules.localdevHomeManager
         self.homeModules.luxusShellHomeManager
         self.homeModules.neoVimNVF
+        self.homeModules.syncthingHomeManager
       ];
 
       # This value determines the Home Manager release that your configuration is
