@@ -1,5 +1,6 @@
 /**
-  Host “Eidolon”, home lab compact PC, mostly for experimentation.
+  Host “Eidolon”, home lab compact PC. Headless: no desktop session, reached
+  over SSH and Tailscale.
 */
 { self, inputs, ... }:
 {

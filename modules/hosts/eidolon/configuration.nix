@@ -7,17 +7,12 @@
       # import any other modules from here
       imports = [
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
-        self.nixosModules.browsersFirefox
-        self.nixosModules.browsersPwas
         self.nixosModules.caddyServer
         self.nixosModules.common
         self.nixosModules.en_DA_locale
         self.nixosModules.eidolonHardware
         self.nixosModules.keyboard
         self.nixosModules.localdev
-        self.nixosModules.linuxDesktopSyncthing
-        self.nixosModules.niriConfiguration
-        self.nixosModules.nixOSWallpaper
         self.nixosModules.tailscaleConfiguration
       ];
 
@@ -34,29 +29,22 @@
 
       networking.hostName = "eidolon";
 
-      # Use NetworkManager for WiFi and Ethernet.
-      networking.networkmanager.enable = true;
+      # Wired ethernet on DHCP only, so systemd-networkd rather than
+      # NetworkManager: no roaming, no secrets, nothing to click. The default
+      # networking.useDHCP makes the networkd module emit a
+      # 99-ethernet-default-dhcp unit matching every physical ether interface,
+      # so there is no interface name to hardcode and nothing else to declare.
+      networking.useNetworkd = true;
 
-      # Enable the KDE Plasma Desktop Environment.
-      services.displayManager.plasma-login-manager.enable = true;
-      services.desktopManager.plasma6.enable = true;
-
-      # Enable sound with pipewire.
-      services.pulseaudio.enable = false;
-      security.rtkit.enable = true;
-      services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-      };
+      # No graphical session: this box is reached over SSH and Tailscale only,
+      # so there is no login manager, no desktop and no audio stack. The
+      # console keymap from the keyboard module is all the local access needs.
 
       # Define a user account. Don't forget to set a password with ‘passwd’.
       users.users.mikl = {
         isNormalUser = true;
         description = "Mikkel T. Høgh";
         extraGroups = [
-          "networkmanager"
           "wheel"
         ];
         shell = pkgs.fish;
@@ -72,7 +60,8 @@
 
       programs.nh.flake = "/home/mikl/Projects/Nix/nixen-bixen#eidolon"; # sets NH_OS_FLAKE variable for you
 
-      # Enable the OpenSSH daemon.
+      # Enable the OpenSSH daemon. With the desktop gone this is the only way
+      # in apart from the physical console.
       services.openssh = {
         enable = true;
         settings = {
