@@ -8,6 +8,8 @@
     {
       imports = [
         inputs.nvf.homeManagerModules.default
+        self.homeModules.browsersPwas
+        self.homeModules.browsersZen
         self.homeModules.common
         self.homeModules.devAiHomeManager
         self.homeModules.greylineHomeConfig
@@ -15,7 +17,6 @@
         self.homeModules.linuxDesktopDevelop
         self.homeModules.linuxDesktopEmailClient
         self.homeModules.linuxDesktopKDE
-        self.homeModules.linuxDesktopPwas
         self.homeModules.linuxDesktopSyncthing
         self.homeModules.localdevHomeManager
         self.homeModules.neoVimNVF

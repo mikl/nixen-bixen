@@ -7,12 +7,13 @@
       # import any other modules from here
       imports = [
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
+        self.nixosModules.browsersFirefox
+        self.nixosModules.browsersPwas
         self.nixosModules.common
         self.nixosModules.en_DA_locale
         self.nixosModules.eidolonHardware
         self.nixosModules.keyboard
         self.nixosModules.localdev
-        self.nixosModules.linuxDesktopPwas
         self.nixosModules.linuxDesktopSyncthing
         self.nixosModules.niriConfiguration
         self.nixosModules.nixOSWallpaper
@@ -65,9 +66,6 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "bak";
-
-      # Install firefox.
-      programs.firefox.enable = true;
 
       programs.fish.enable = true;
 

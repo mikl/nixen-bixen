@@ -1,13 +1,12 @@
 /**
   Shared basis for all Linux desktop configurations.
 */
-{ self, inputs, ... }:
+{ self, ... }:
 {
   flake.homeModules.linuxDesktopBasis =
     { pkgs, ... }:
     {
       imports = [
-        inputs.zen-browser.homeModules.beta
         self.homeModules.dictionaries
         self.homeModules.ghosttyHomeConfig
         self.homeModules.linuxDesktopTypography
@@ -66,10 +65,5 @@
       ];
 
       programs.neovide.enable = true;
-
-      programs.zen-browser = {
-        enable = true;
-        setAsDefaultBrowser = false;
-      };
     };
 }

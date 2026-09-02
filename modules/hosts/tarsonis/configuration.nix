@@ -9,6 +9,8 @@
         inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         inputs.ldddns.nixosModules.default
+        self.nixosModules.browsersFirefox
+        self.nixosModules.browsersPwas
         self.nixosModules.common
         self.nixosModules.en_DA_locale
         self.nixosModules.ergodoxResumeFix
@@ -16,7 +18,6 @@
         self.nixosModules.keyboard
         self.nixosModules.keydConfiguration
         self.nixosModules.localdev
-        self.nixosModules.linuxDesktopPwas
         self.nixosModules.luksAutoLogin
         self.nixosModules.niriConfiguration
         self.nixosModules.nixOSWallpaper
@@ -93,9 +94,6 @@
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-
-      # Install firefox.
-      programs.firefox.enable = true;
 
       # List packages installed in system profile. To search, run:
       # $ nix search wget

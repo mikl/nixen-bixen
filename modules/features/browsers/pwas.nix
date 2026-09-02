@@ -5,7 +5,7 @@
 */
 { self, ... }:
 {
-  flake.homeModules.linuxDesktopPwas =
+  flake.homeModules.browsersPwas =
     { pkgs, lib, ... }:
     let
       # Stable ULIDs so profile/site IDs don't churn across rebuilds.
@@ -240,7 +240,7 @@
       );
     };
 
-  flake.nixosModules.linuxDesktopPwas =
+  flake.nixosModules.browsersPwas =
     { pkgs, ... }:
     {
       # Each PWA is its own Firefox profile, so the password manager has to
