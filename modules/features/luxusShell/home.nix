@@ -67,6 +67,8 @@
         fileWidget.command = "fd --type f";
       };
 
+      programs.mc.enable = true;
+
       programs.ripgrep.enable = true;
 
       programs.zoxide = {
