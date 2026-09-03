@@ -19,8 +19,10 @@
         docker-buildx
         docker-client
         docker-compose
+        inkscape
         unstable.jetbrains.phpstorm
         sourcegit
+        svgo
         unstable.zed-editor
 
         # Extra browsers for software development
