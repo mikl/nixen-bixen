@@ -25,8 +25,9 @@
       # new kernel version costs ~88 MB of non-dedupable kernel + initrd.
       boot.loader.systemd-boot.configurationLimit = 20;
 
-      # Use latest kernel.
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+      # Default LTS kernel. This box is headless and the Cezanne APU, NIC and
+      # NVMe have been in-tree for years, so there is nothing here that needs
+      # linuxPackages_latest (unlike tarsonis).
 
       networking.hostName = "eidolon";
 
