@@ -56,6 +56,7 @@
             "$line_break"
             "$os"
             "$username"
+            "$hostname"
             "[](bg:secondary fg:primary)"
             "$directory"
             "[](fg:secondary)"
@@ -99,6 +100,14 @@
             style_user = "bg:primary fg:base";
             style_root = "bg:primary fg:base";
             format = "[ $user]($style)";
+          };
+
+          # Same segment as username so SSH sessions read as `user@host`.
+          # ssh_only is Starship's default; local prompts stay username-only.
+          hostname = {
+            ssh_only = true;
+            style = "bg:primary fg:base";
+            format = "[@$hostname]($style)";
           };
 
           directory = {
