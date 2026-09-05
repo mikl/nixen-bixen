@@ -42,6 +42,14 @@
 
       programs.devenv = {
         enable = true;
+        # No auto-activation hook: it spawns a nested interactive fish on its
+        # own pty for every prompt inside an allowed project, and cd-ing out
+        # deadlocks - the inner shell exits while fish's per-prompt terminal
+        # queries (OSC 11, CPR, DA1) are still in flight, `devenv shell` never
+        # reaps it, and the outer shell waits forever. direnv below covers the
+        # same ground without a nested shell; give projects an `.envrc` with
+        # `eval "$(devenv direnvrc)"` and `use devenv`.
+        enableFishIntegration = false;
       };
 
       programs.direnv = {
