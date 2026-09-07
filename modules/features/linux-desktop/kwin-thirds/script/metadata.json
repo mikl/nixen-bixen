@@ -1,0 +1,12 @@
+{
+    "KPackageStructure": "KWin/Script",
+    "KPlugin": {
+        "Description": "Quick-tile windows to one or two thirds of the screen",
+        "Id": "thirds",
+        "License": "MIT",
+        "Name": "Quick Tile Thirds"
+    },
+    "X-Plasma-API": "javascript",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-MainScript": "code/main.js"
+}

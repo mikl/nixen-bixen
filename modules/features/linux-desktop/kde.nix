@@ -1,11 +1,13 @@
 /**
   Konfiguration for KDE desktop environment.
 */
-{ ... }:
+{ self, ... }:
 {
   flake.homeModules.linuxDesktopKDE =
     { pkgs, ... }:
     {
+      imports = [ self.homeModules.linuxDesktopKwinThirds ];
+
       home.packages =
         (with pkgs.kdePackages; [
           akregator
