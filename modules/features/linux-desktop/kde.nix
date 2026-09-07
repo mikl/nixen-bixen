@@ -1,12 +1,5 @@
 /**
-  Konfiguration for KDE applications.
-
-  All of these are standalone and run fine under Niri; the Plasma-session-only
-  pieces live in plasma.nix.
-
-  niri/configuration.nix exists partly to serve these: it points the
-  FileChooser portal at the KDE backend and sets `qt.platformTheme = "kde"` so
-  Dolphin and Okular look and behave the way they do under Plasma.
+  Konfiguration for KDE desktop environment.
 */
 { ... }:
 {
@@ -18,13 +11,20 @@
           akregator
           alligator
           ark # For extraction/compression in Dolphin.
+          aurorae
           dolphin
           dolphin-plugins
           filelight
           gwenview
           kompare
           krdc
+          ocean-sound-theme
           okular
+          oxygen
+          oxygen-icons
+          oxygen-sounds
+          plasma-thunderbolt
+          spectacle
         ])
         ++ (with pkgs; [
           /**

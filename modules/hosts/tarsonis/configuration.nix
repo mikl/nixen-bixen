@@ -19,7 +19,6 @@
         self.nixosModules.keydConfiguration
         self.nixosModules.localdev
         self.nixosModules.luksAutoLogin
-        self.nixosModules.niriConfiguration
         self.nixosModules.nixOSWallpaper
         self.nixosModules.plymouthBoot
         self.nixosModules.tailscaleConfiguration
@@ -43,13 +42,9 @@
       # Use NetworkManager for WiFi and Ethernet.
       networking.networkmanager.enable = true;
 
-      # The Plasma *desktop* is gone from this host; Niri is the only session
-      # (see modules/features/niri). The login manager is a separate module and
-      # stays, because modules/features/luks-auto-login hangs off its
-      # `plasmalogin-autologin` PAM stack: greetd would autologin without ever
-      # running pam_authenticate, so pam_systemd_loadkey and pam_kwallet5 — both
-      # auth-phase modules — would never fire and KWallet would stay locked.
+      # Enable the KDE Plasma Desktop Environment.
       services.displayManager.plasma-login-manager.enable = true;
+      services.desktopManager.plasma6.enable = true;
 
       # Log straight in after the LUKS passphrase; see the luksAutoLogin module.
       services.displayManager.autoLogin = {
@@ -121,8 +116,7 @@
       services.ldddns.enable = true;
 
       # Framework ships firmware through LVFS, so fwupd earns its place on this
-      # host specifically. The Niri module no longer enables it; on eidolon
-      # plasma6 still switches it on at `mkDefault true`.
+      # host specifically.
       services.fwupd.enable = true;
 
       # Enable the OpenSSH daemon.
