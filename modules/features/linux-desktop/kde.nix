@@ -219,6 +219,10 @@
         };
       };
 
+      # The palette in use. Drives both the Plasma color scheme and the
+      # matching adw stylesheet, so Qt and GTK apps cannot drift apart.
+      activeScheme = "EldritchAbyss";
+
       eldritchAdw = pkgs.fetchFromGitHub {
         owner = "eldritch-theme";
         repo = "adw";
@@ -226,7 +230,23 @@
         hash = "sha256-/A2YvD1GyeF47oOQ2KkKibMooMsxO8NA4i0H+stdxBY=";
       };
 
-      eldritchGtkCss = builtins.readFile "${eldritchAdw}/themes/eldritch-cthulhu.css";
+      gtkVariants = {
+        Eldritch = {
+          css = "eldritch-cthulhu";
+          dark = true;
+        };
+        EldritchAbyss = {
+          css = "eldritch-abyss";
+          dark = true;
+        };
+        EldritchDusk = {
+          css = "eldritch-dusk";
+          dark = false;
+        };
+      };
+      gtkVariant = gtkVariants.${activeScheme};
+
+      eldritchGtkCss = builtins.readFile "${eldritchAdw}/themes/${gtkVariant.css}.css";
     in
     {
       imports = [
@@ -234,10 +254,12 @@
         inputs.plasma-manager.homeModules.plasma-manager
       ];
 
-      # Cthulhu is the default Eldritch palette and matches Ghostty.
+      # Abyss is the darkest Eldritch palette, and the only one whose ramp
+      # lands near Breeze Dark's surface levels -- Cthulhu's Window and
+      # Button sit at 2.6-3.0x Breeze Dark's luma, which reads washed out.
       programs.plasma = {
         enable = true;
-        workspace.colorScheme = "Eldritch";
+        workspace.colorScheme = activeScheme;
         configFile.kdeglobals.General.accentColorFromColorScheme = true;
       };
 
@@ -246,7 +268,7 @@
       # https://github.com/eldritch-theme/adw
       gtk = {
         enable = true;
-        colorScheme = "dark";
+        colorScheme = if gtkVariant.dark then "dark" else "light";
         theme = {
           name = "adw-gtk3-dark";
           package = pkgs.adw-gtk3;
