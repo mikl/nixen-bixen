@@ -148,23 +148,39 @@
         );
 
       # Plasma's task manager matches StartupWMClass against resourceName
-      # *before* the Wayland app_id. Firefox's resourceName is the binary
-      # name ("firefox"), so every PWA would be grouped under Firefox unless
-      # we exec the runtime as FFPWA-<ulid>.
+      # *before* the Wayland app_id, and KWin takes a Wayland window's
+      # resourceName from the basename of the client's /proc/<pid>/exe --
+      # neither argv[0] (`exec -a`) nor --name/--class touch it. So every PWA
+      # would be grouped under Firefox unless the runtime it execs is itself
+      # a file named FFPWA-<ulid>: give each app its own copy of the runtime
+      # binary next to the shared libraries it resolves relative to itself.
+      # firefoxpwa always execs "runtime/firefox", so that stays behind as a
+      # shim picking the right copy out of MOZ_APP_LAUNCHER.
       pwaSysdata =
         let
-          realRuntime = "${pkgs.firefoxpwa}/share/firefoxpwa/runtime/firefox";
-          runtimeWrapper = pkgs.writeShellScript "firefoxpwa-runtime" ''
+          runtimeShim = pkgs.writeShellScript "firefoxpwa-runtime" ''
             set -euo pipefail
-            exec -a "''${MOZ_APP_LAUNCHER:-firefox}" ${lib.escapeShellArg realRuntime} "$@"
+            self=$(dirname "$0")
+            app=''${MOZ_APP_LAUNCHER:-}
+            # Fall back to the stock runtime when nothing asked for a named
+            # copy -- execing "firefox" here would just re-enter this shim.
+            if [[ -n $app && -x $self/$app ]]; then
+              exec "$self/$app" "$@"
+            fi
+            exec "$self/.firefox-real" "$@"
           '';
         in
         pkgs.runCommand "firefoxpwa-sysdata" { } ''
           mkdir -p $out
           cp -a ${pkgs.firefoxpwa}/share/firefoxpwa/. $out/
           chmod -R u+w $out/runtime
+          realRuntime=$(readlink -f $out/runtime/firefox)
           rm -f $out/runtime/firefox
-          cp ${runtimeWrapper} $out/runtime/firefox
+          for name in ${lib.escapeShellArgs (lib.mapAttrsToList (id: _: appId id) apps)}; do
+            install -m755 "$realRuntime" "$out/runtime/$name"
+          done
+          ln -s "$realRuntime" $out/runtime/.firefox-real
+          cp ${runtimeShim} $out/runtime/firefox
         '';
 
       mkLauncher =
