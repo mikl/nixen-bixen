@@ -218,6 +218,15 @@
           light = true;
         };
       };
+
+      eldritchAdw = pkgs.fetchFromGitHub {
+        owner = "eldritch-theme";
+        repo = "adw";
+        rev = "3007f18ce7554634f6cb18ad40cdf7371a4ee058";
+        hash = "sha256-/A2YvD1GyeF47oOQ2KkKibMooMsxO8NA4i0H+stdxBY=";
+      };
+
+      eldritchGtkCss = builtins.readFile "${eldritchAdw}/themes/eldritch-cthulhu.css";
     in
     {
       imports = [
@@ -230,6 +239,26 @@
         enable = true;
         workspace.colorScheme = "Eldritch";
         configFile.kdeglobals.General.accentColorFromColorScheme = true;
+      };
+
+      # GTK3 apps use adw-gtk3-dark; the Eldritch CSS overrides Adwaita
+      # named colors for both GTK3 and GTK4/libadwaita.
+      # https://github.com/eldritch-theme/adw
+      gtk = {
+        enable = true;
+        colorScheme = "dark";
+        theme = {
+          name = "adw-gtk3-dark";
+          package = pkgs.adw-gtk3;
+        };
+        # adw-gtk3 has no GTK 2 theme.
+        gtk2.enable = false;
+        gtk3.extraCss = eldritchGtkCss;
+        # Do not import adw-gtk3 as user CSS for GTK 4: libadwaita already
+        # ships its own stylesheet, and a user-priority import stomps on app
+        # styles. Named-color overrides in extraCss are the supported hook.
+        gtk4.theme = null;
+        gtk4.extraCss = eldritchGtkCss;
       };
 
       xdg.dataFile = lib.mapAttrs' (
