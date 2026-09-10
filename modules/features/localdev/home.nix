@@ -23,6 +23,7 @@
 
       home.shellAliases = {
         lg = "lazygit";
+        lj = "lazyjj";
       };
 
       home.packages = with pkgs; [
