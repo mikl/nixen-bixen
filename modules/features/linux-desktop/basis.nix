@@ -1,7 +1,7 @@
 /**
   Shared basis for all Linux desktop configurations.
 */
-{ self, ... }:
+{ self, inputs, ... }:
 {
   flake.homeModules.linuxDesktopBasis =
     { pkgs, ... }:
@@ -37,6 +37,10 @@
         signal-desktop
         zapzap # Whatsapp desktop client.
         zulip
+
+        # Apple Music desktop client. Not in nixpkgs, so it comes from its own
+        # flake, which repackages the upstream deb inside an FHS environment.
+        inputs.sidra.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
 
       programs.neovide.enable = true;

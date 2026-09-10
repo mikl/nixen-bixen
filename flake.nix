@@ -48,6 +48,11 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    sidra = {
+      url = "github:wimpysworld/sidra";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake/beta";
       inputs = {

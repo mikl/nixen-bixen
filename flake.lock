@@ -486,7 +486,28 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvf": "nvf",
         "plasma-manager": "plasma-manager",
+        "sidra": "sidra",
         "zen-browser": "zen-browser"
+      }
+    },
+    "sidra": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789047588,
+        "narHash": "sha256-I+35i20h4X+jDZWm82CeNLZj/hZazrMm3PRjBQ7CDEQ=",
+        "owner": "wimpysworld",
+        "repo": "sidra",
+        "rev": "6bfbc173c4bc448c5fd5e640817a233dde082120",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wimpysworld",
+        "repo": "sidra",
+        "type": "github"
       }
     },
     "systems": {
