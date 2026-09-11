@@ -18,6 +18,29 @@
             name = "Mikkel T. Høgh";
           };
 
+          # Drag the bookmark along when committing on top of it, so working
+          # directly on master does not mean moving the bookmark by hand after
+          # every commit. Only bookmarks sitting on the new commit's parent are
+          # advanced, so bookmarks elsewhere in the graph are left alone.
+          experimental-advance-branches = {
+            enabled-branches = [ "glob:*" ];
+            disabled-branches = [ ];
+          };
+
+          aliases = {
+            # Pull the nearest bookmark behind the working copy up to the last
+            # finished commit, for when the bookmark drifted anyway -- building
+            # commits with `jj new`/`jj describe` does not advance it.
+            tug = [
+              "bookmark"
+              "move"
+              "--from"
+              "heads(::@- & bookmarks())"
+              "--to"
+              "@-"
+            ];
+          };
+
           # Render diffs with delta, like lazygit does.
           merge-tools.delta = {
             program = lib.getExe pkgs.delta;
