@@ -32,6 +32,7 @@
           # where they meet. Starting both bars flush at column 0 is the one
           # way to get a straight left edge.
           format = lib.concatStrings [
+            "\${custom.jj}"
             "$git_branch"
             "$git_status"
             "[](fg:tertiary bg:quaternary)"
@@ -122,6 +123,18 @@
               Pictures = " ";
               Developer = "󰲋 ";
             };
+          };
+
+          # A nudge, not a status: any repo jj knows about gets a "jj" chip on
+          # the bar so muscle memory does not reach for git first. The `when`
+          # command walks up to the repo root, so subdirectories light up too,
+          # and --ignore-working-copy keeps the prompt from snapshotting the
+          # working copy (slow, and it can collide with a jj command running in
+          # another pane).
+          custom.jj = {
+            when = "jj root --ignore-working-copy";
+            command = "echo jj";
+            format = "[[ $output ](fg:base bg:tertiary)](bg:tertiary)";
           };
 
           git_branch = {
