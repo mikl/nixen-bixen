@@ -37,6 +37,14 @@
       # Use latest kernel.
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
+      # systemd arms the SP5100 hardware watchdog across a reboot and disarms it
+      # once the reboot syscall lands, so a reboot that wedges before that point
+      # gets reset rather than sitting there forever. The default is 10 minutes,
+      # which in practice means holding the power button long before it fires.
+      # Three minutes is still well clear of a slow-but-working shutdown while
+      # short enough to be worth waiting out.
+      systemd.settings.Manager.RebootWatchdogSec = "3min";
+
       networking.hostName = "tarsonis";
 
       # Use NetworkManager for WiFi and Ethernet.
