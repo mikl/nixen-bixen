@@ -66,6 +66,13 @@
 
             telescope.enable = true;
 
+            # Terminal in an overlay.
+            terminal.toggleterm = {
+              enable = true;
+              lazygit.enable = true;
+            };
+
+
             /**
               Eldritch is not one of nvf's `supportedThemes`, so `vim.theme.name`
               (an enum over that list) cannot select it. Adding the plugin
