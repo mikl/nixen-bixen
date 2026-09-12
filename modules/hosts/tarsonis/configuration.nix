@@ -22,6 +22,7 @@
         self.nixosModules.nixOSWallpaper
         self.nixosModules.plymouthBoot
         self.nixosModules.tailscaleConfiguration
+        self.nixosModules.thunderboltRuntimePm
         self.nixosModules.tarsonisDisko
         self.nixosModules.tarsonisHardware
       ];
