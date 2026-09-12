@@ -34,8 +34,26 @@
       # new kernel version costs ~88 MB of non-dedupable kernel + initrd.
       boot.loader.systemd-boot.configurationLimit = 20;
 
-      # Use latest kernel.
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+      # Kernel 7.2.2 (nixpkgs-weekly) hangs on reboot: PID 1 blocks forever in
+      # nhi_pci_remove() in the thunderbolt module, called from
+      # device_shutdown(), waiting on a completion that never arrives. It
+      # reproduces with nothing plugged into either USB-C port, so it is the NHI
+      # controller teardown itself rather than any attached device. 7.2.0 did
+      # not do this, so it looks like a regression inside the 7.2.x series.
+      #
+      # Pulling the kernel from nixpkgs-unstable to test 7.2.4. The whole
+      # package set has to come from there, not just the kernel, so that
+      # out-of-tree modules build against it — nixos-hardware takes
+      # framework-laptop-kmod from config.boot.kernelPackages, so it follows
+      # this automatically.
+      #
+      # Revert to pkgs.linuxPackages_latest once nixpkgs-weekly has caught up,
+      # or if this turns out not to help.
+      boot.kernelPackages =
+        (import inputs.nixpkgs-unstable {
+          system = pkgs.stdenv.hostPlatform.system;
+          config.allowUnfree = true;
+        }).linuxPackages_latest;
 
       # systemd arms the SP5100 hardware watchdog across a reboot and disarms it
       # once the reboot syscall lands, so a reboot that wedges before that point
