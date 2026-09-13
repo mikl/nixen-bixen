@@ -17,8 +17,8 @@
         aha # For displaying network interfaces in the KDE Info Center.
 
         jellyfin-desktop
+        libreoffice-qt
         obsidian
-        onlyoffice-desktopeditors
         tealdeer
         todoist-electron
         vlc
