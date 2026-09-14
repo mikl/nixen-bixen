@@ -1,13 +1,53 @@
 { ... }:
 {
   flake.homeModules.neoVimNVF =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
+    let
+      inherit (lib.generators) mkLuaInline;
+    in
     {
       programs.nvf = {
         enable = true;
         settings = {
           vim = {
-            binds.whichKey.enable = true;
+            binds.whichKey = {
+              enable = true;
+
+              /**
+                Label the leader-menu groups that nothing else names, so they
+                stop showing up as a bare "+N keymaps".
+
+                nvf's own `binds.whichKey.register` takes a description and
+                nothing else, so the entries go through which-key's `spec`
+                instead, which accepts the full mapping spec — `group` (which
+                gets the `+` prefix added for it) and `icon`. Each entry is
+                `mkLuaInline` because the prefix is a positional field, which a
+                Nix attrset cannot express.
+
+                Icons are the ones which-key's own `icons.rules` already use
+                for the matching leaf mappings, so a group and its contents
+                look like they belong together.
+
+                `<leader>f` (Telescope) and `<leader>h` (Gitsigns) are left
+                alone; nvf labels those itself.
+              */
+              setupOpts.spec = map mkLuaInline [
+                # git-conflict.nvim: co/ct/cb/c0 pick a side in a conflict.
+                "{ '<leader>c', group = 'Git conflicts', icon = { icon = ' ', color = 'red' } }"
+
+                # toggleterm's floating lazygit lives here.
+                "{ '<leader>g', group = 'Git', icon = { icon = ' ', color = 'orange' } }"
+
+                # The LSP binds, attached per-buffer by nvf's lsp module.
+                "{ '<leader>l', group = 'LSP', icon = { icon = ' ', color = 'blue' } }"
+
+                # fzf-lua and grug-far, see the keymaps below.
+                "{ '<leader>s', group = 'Search and replace', icon = { icon = ' ', color = 'green' } }"
+
+                # Gitsigns' toggles: blame and deleted-line preview.
+                "{ '<leader>t', group = 'Toggle', icon = { icon = ' ', color = 'yellow' } }"
+              ];
+            };
 
             filetree.neo-tree.enable = true;
 
