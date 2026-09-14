@@ -20,6 +20,91 @@
                 action = "<cmd>Neotree toggle<CR>";
                 desc = "Toggle NeoTree";
               }
+
+              /**
+                fzf-lua and grug-far live under `<leader>s`; Telescope already
+                owns `<leader>f` (see `vim.telescope.mappings`), and its grep is
+                kept around for the cases where its previewer is nicer.
+
+                nvf lazy-loads both plugins on their commands, so these must be
+                `<cmd>`/`:` invocations rather than `require(...)` calls.
+              */
+              {
+                key = "<leader>ss";
+                mode = "n";
+                action = "<cmd>FzfLua builtin<CR>";
+                desc = "All pickers [fzf-lua]";
+              }
+              {
+                key = "<leader>sg";
+                mode = "n";
+                action = "<cmd>FzfLua live_grep<CR>";
+                desc = "Live grep, `-- <glob>` to filter [fzf-lua]";
+              }
+              {
+                key = "<leader>sb";
+                mode = "n";
+                action = "<cmd>FzfLua lgrep_curbuf<CR>";
+                desc = "Live grep current buffer [fzf-lua]";
+              }
+              {
+                key = "<leader>sw";
+                mode = "n";
+                action = "<cmd>FzfLua grep_cword<CR>";
+                desc = "Grep word under cursor [fzf-lua]";
+              }
+              {
+                key = "<leader>sw";
+                mode = "x";
+                action = "<cmd>FzfLua grep_visual<CR>";
+                desc = "Grep selection [fzf-lua]";
+              }
+              {
+                key = "<leader>sr";
+                mode = "n";
+                action = "<cmd>FzfLua resume<CR>";
+                desc = "Resume last picker [fzf-lua]";
+              }
+
+              /**
+                Visual-mode `:` mappings auto-insert the `'<,'>` range, which is
+                what tells grug-far to use the selection: `GrugFar` seeds the
+                search field from it, `GrugFarWithin` confines the replace to
+                those lines.
+              */
+              {
+                key = "<leader>sR";
+                mode = "n";
+                action = "<cmd>GrugFar<CR>";
+                desc = "Search and replace in project [grug-far]";
+              }
+              {
+                key = "<leader>sR";
+                mode = "x";
+                action = ":GrugFar<CR>";
+                desc = "Search and replace, seeded with selection [grug-far]";
+              }
+              {
+                key = "<leader>sW";
+                mode = "x";
+                action = ":GrugFarWithin<CR>";
+                desc = "Search and replace within selection [grug-far]";
+              }
+            ];
+
+            /**
+              fzf-lua does the matching in the real `fzf` binary rather than in
+              Lua, so it stays responsive on large trees, and `live_grep`
+              accepts `-- <glob>` in the prompt to narrow by path.
+
+              Unlike the Telescope module, this one does not pull in its own
+              search binaries, hence `extraPackages` below.
+            */
+            fzf-lua.enable = true;
+
+            extraPackages = [
+              pkgs.fd
+              pkgs.ripgrep
             ];
 
             languages = {
@@ -66,12 +151,17 @@
 
             telescope.enable = true;
 
+            /**
+              Not a picker: a scratch buffer holding every match across the
+              project, edited in place and written back with `:w`.
+            */
+            utility.grug-far-nvim.enable = true;
+
             # Terminal in an overlay.
             terminal.toggleterm = {
               enable = true;
               lazygit.enable = true;
             };
-
 
             /**
               Eldritch is not one of nvf's `supportedThemes`, so `vim.theme.name`
