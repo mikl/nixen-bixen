@@ -1,7 +1,13 @@
-{ self, ... }:
+{ self, inputs, ... }:
 {
   flake.homeModules.localdevHomeManager =
     { pkgs, ... }:
+    let
+      unstable = import inputs.nixpkgs-unstable {
+        system = pkgs.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+      };
+    in
     {
       imports = [
         self.homeModules.gitHomeConfig
@@ -38,6 +44,7 @@
 
       programs.devenv = {
         enable = true;
+        package = unstable.devenv;
         # No auto-activation hook: it spawns a nested interactive fish on its
         # own pty for every prompt inside an allowed project, and cd-ing out
         # deadlocks - the inner shell exits while fish's per-prompt terminal
