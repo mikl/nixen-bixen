@@ -21,11 +21,6 @@
         '';
       };
 
-      home.shellAliases = {
-        lg = "lazygit";
-        lj = "lazyjj";
-      };
-
       home.packages = with pkgs; [
         caligula # Disk imaging TUI.
         cloc

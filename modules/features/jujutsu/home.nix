@@ -10,6 +10,10 @@
         lazyjj
       ];
 
+      home.shellAliases = {
+        lj = "lazyjj";
+      };
+
       programs.jujutsu = {
         enable = true;
         settings = {

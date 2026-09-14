@@ -3,6 +3,10 @@
   flake.homeModules.gitHomeConfig =
     { pkgs, ... }:
     {
+      home.shellAliases = {
+        lg = "lazygit";
+      };
+
       programs.delta = {
         enable = true;
         enableGitIntegration = true;
