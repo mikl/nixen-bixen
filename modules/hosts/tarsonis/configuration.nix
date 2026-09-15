@@ -34,27 +34,27 @@
       # Cap systemd-boot entries so /boot (a 1 GB ESP) cannot fill up: each
       # new kernel version costs ~88 MB of non-dedupable kernel + initrd.
       boot.loader.systemd-boot.configurationLimit = 20;
-
-      # Kernel 7.2.2 (nixpkgs-weekly) hangs on reboot: PID 1 blocks forever in
-      # nhi_pci_remove() in the thunderbolt module, called from
-      # device_shutdown(), waiting on a completion that never arrives. It
-      # reproduces with nothing plugged into either USB-C port, so it is the NHI
-      # controller teardown itself rather than any attached device. 7.2.0 did
-      # not do this, so it looks like a regression inside the 7.2.x series.
+      # Use latest kernel.
       #
-      # Pulling the kernel from nixpkgs-unstable to test 7.2.4. The whole
-      # package set has to come from there, not just the kernel, so that
-      # out-of-tree modules build against it — nixos-hardware takes
-      # framework-laptop-kmod from config.boot.kernelPackages, so it follows
-      # this automatically.
+      # Reboot and poweroff hang here roughly five times in six: systemd
+      # finishes cleanly, prints "Rebooting.", and then the kernel wedges in
+      # device_shutdown() with PID 1 stuck in nhi_pci_remove() in the
+      # thunderbolt module, waiting on a completion that never arrives.
       #
-      # Revert to pkgs.linuxPackages_latest once nixpkgs-weekly has caught up,
-      # or if this turns out not to help.
-      boot.kernelPackages =
-        (import inputs.nixpkgs-unstable {
-          system = pkgs.stdenv.hostPlatform.system;
-          config.allowUnfree = true;
-        }).linuxPackages_latest;
+      # The cause is a domain reference leak when a DP tunnel is torn down
+      # before its DPRX read finishes, which the Studio Display triggers on most
+      # boots. Fixed upstream by "thunderbolt: Fix DP tunnel teardown while an
+      # async DPRX read is running" (Sven Peter, v3, August 2026), applied to
+      # thunderbolt.git/fixes and marked for stable — but absent from 7.2.2,
+      # 7.2.5 and 7.2.6 alike, so there is no newer kernel to switch to.
+      #
+      # Backporting the six patches by hand does work, but costs a full local
+      # kernel build on every version bump, and that is a poor trade for a hang
+      # at shutdown. Deliberately left alone: it resolves itself once the
+      # backport lands in a stable release.
+      #
+      # thunderboltRuntimePm is a separate fault and still earns its place.
+      boot.kernelPackages = pkgs.linuxPackages_latest;
 
       # systemd arms the SP5100 hardware watchdog across a reboot and disarms it
       # once the reboot syscall lands, so a reboot that wedges before that point
