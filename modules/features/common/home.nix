@@ -4,7 +4,7 @@
 { ... }:
 {
   flake.homeModules.common =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       # Prefer XDG directories for config and data to leave less junk in the home directory.
       home.preferXdgDirectories = true;
@@ -24,6 +24,11 @@
         # Put Go’s compiler output inside the data path so it does not make a mess
         # in the home dir.
         GOPATH = "$HOME/.local/share/go";
+        # RubyGems 3.2 and newer follow XDG by themselves, Bundler never learned
+        # to, so point it at the right places by hand.
+        BUNDLE_USER_CONFIG = "${config.xdg.configHome}/bundle";
+        BUNDLE_USER_CACHE = "${config.xdg.cacheHome}/bundle";
+        BUNDLE_USER_PLUGIN = "${config.xdg.dataHome}/bundle";
       };
 
       # Set XDG folder env vars, since some apps don’t use them if they’re not

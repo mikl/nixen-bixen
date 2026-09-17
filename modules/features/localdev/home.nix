@@ -39,6 +39,7 @@
         nodejs_24 # General installation for use outside devenvs.
         nil # Language server for Nix.
         nixfmt
+        ruby # Shadows macOS’ ancient system Ruby, which predates XDG support.
         wakeonlan
       ];
 
