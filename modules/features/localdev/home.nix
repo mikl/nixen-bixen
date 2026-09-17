@@ -1,7 +1,7 @@
 { self, inputs, ... }:
 {
   flake.homeModules.localdevHomeManager =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     let
       unstable = import inputs.nixpkgs-unstable {
         system = pkgs.stdenv.hostPlatform.system;
@@ -41,6 +41,12 @@
         nixfmt
         ruby # Shadows macOS’ ancient system Ruby, which predates XDG support.
         wakeonlan
+      ];
+
+      # RubyGems installs user gems below the XDG data dir, in a directory named
+      # after the Ruby ABI version, so keep it in step with the Ruby above.
+      home.sessionPath = [
+        "${config.xdg.dataHome}/gem/ruby/${pkgs.ruby.version.libDir}/bin"
       ];
 
       programs.devenv = {
