@@ -11,6 +11,7 @@
         inputs.nvf.homeManagerModules.default
         self.homeModules.common
         self.homeModules.devAiHomeManager
+        self.homeModules.ghosttyHomeConfig
         self.homeModules.localdevHomeManager
         self.homeModules.luxusShellHomeManager
         self.homeModules.neoVimNVF

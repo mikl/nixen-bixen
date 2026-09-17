@@ -1,13 +1,20 @@
 { ... }:
 {
   flake.homeModules.ghosttyHomeConfig =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
+    let
+      # Nixpkgs has no Ghostty build for Darwin, so on macOS the application is
+      # installed by other means and home manager only writes the configuration.
+      # The bat and vim syntax files ship inside the package, so they go too.
+      isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+    in
     {
       programs.ghostty = {
         enable = true;
+        package = lib.mkIf isDarwin null;
         enableFishIntegration = true;
-        installBatSyntax = true;
-        installVimSyntax = true;
+        installBatSyntax = !isDarwin;
+        installVimSyntax = !isDarwin;
         settings = {
           theme = "Eldritch";
           background-blur = true;
@@ -24,14 +31,10 @@
           tab-inherit-working-directory = false;
           split-inherit-working-directory = true;
 
-          # Windowless fullscreen, essentially.
-          maximize = true;
-          window-decoration = false;
-
           keybind = [
             # Make shift-insert do regular paste.
             "shift+insert=paste_from_clipboard"
-            # macOS style keyboard shortcuts on Linux.
+            # macOS style keyboard shortcuts, which also match the macOS defaults.
             "super+a=select_all"
             "super+c=copy_to_clipboard"
             "super+d=new_split:right"
@@ -45,6 +48,16 @@
             "super+shift+[=previous_tab"
             "super+shift+]=next_tab"
           ];
+        }
+        // lib.optionalAttrs isDarwin {
+          macos-icon = "retro";
+          macos-non-native-fullscreen = true;
+        }
+        // lib.optionalAttrs (!isDarwin) {
+          # Windowless fullscreen, essentially. macOS gets this from its own
+          # non-native fullscreen instead.
+          maximize = true;
+          window-decoration = false;
         };
         themes = {
           # Based on https://github.com/eldritch-theme/ghostty
