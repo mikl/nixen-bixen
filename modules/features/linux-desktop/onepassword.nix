@@ -47,4 +47,12 @@
         };
       };
     };
+
+  # ssh honours IdentityAgent in ~/.ssh/config, but ssh-add and ssh-keygen
+  # only look at SSH_AUTH_SOCK, so point that at 1Password's agent too.
+  flake.homeModules.linuxDesktopOnePassword =
+    { config, ... }:
+    {
+      home.sessionVariables.SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
+    };
 }

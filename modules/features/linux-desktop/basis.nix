@@ -10,6 +10,7 @@
         self.homeModules.dictionaries
         self.homeModules.ghosttyHomeConfig
         self.homeModules.linuxDesktopTypography
+        self.homeModules.linuxDesktopOnePassword
         self.homeModules.luxusShellHomeManager
       ];
 
