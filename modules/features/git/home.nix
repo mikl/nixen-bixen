@@ -2,6 +2,10 @@
 {
   flake.homeModules.gitHomeConfig =
     { lib, pkgs, ... }:
+    let
+      email = "mikkel@hoegh.org";
+      signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKtcZZdYqj0PaP8VaZ9Rz/ubSJf1OW2WBHc5o3Ifcagt";
+    in
     {
       home.shellAliases = {
         lg = "lazygit";
@@ -50,11 +54,11 @@
         # user.signingkey or turn commit.gpgsign off.
         signing = {
           format = "ssh";
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKtcZZdYqj0PaP8VaZ9Rz/ubSJf1OW2WBHc5o3Ifcagt";
+          key = signingKey;
           signByDefault = true;
           # On macOS, 1Password is installed by hand rather than through Nix.
           signer =
-            if pkgs.stdenv.isDarwin then
+            if pkgs.stdenv.hostPlatform.isDarwin then
               "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
             else
               lib.getExe' pkgs._1password-gui "op-ssh-sign";
@@ -84,6 +88,11 @@
           format.numbered = "auto";
           delta.navigate = "true";
           fetch.prune = "true";
+          # Lets `git log --show-signature` and `git verify-commit` vouch for
+          # commits signed with the key above.
+          gpg.ssh.allowedSignersFile = toString (
+            pkgs.writeText "git-allowed-signers" "${email} ${signingKey}\n"
+          );
           github.user = "mikl";
           init.defaultBranch = "master";
           merge.conflictstyle = "zdiff3";
@@ -105,7 +114,7 @@
           rerere.enabled = 1;
           user = {
             name = "Mikkel T. Hoegh";
-            email = "mikkel@hoegh.org";
+            inherit email;
           };
         };
       };
