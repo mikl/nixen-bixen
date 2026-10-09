@@ -1,7 +1,7 @@
 { ... }:
 {
   flake.homeModules.gitHomeConfig =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
     {
       home.shellAliases = {
         lg = "lazygit";
@@ -45,6 +45,20 @@
           ".svn"
           "npm-debug.log"
         ];
+        # Sign with the SSH key held in 1Password. This lands in the global
+        # config, so a repository’s own .git/config can still set a different
+        # user.signingkey or turn commit.gpgsign off.
+        signing = {
+          format = "ssh";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKtcZZdYqj0PaP8VaZ9Rz/ubSJf1OW2WBHc5o3Ifcagt";
+          signByDefault = true;
+          # On macOS, 1Password is installed by hand rather than through Nix.
+          signer =
+            if pkgs.stdenv.isDarwin then
+              "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+            else
+              lib.getExe' pkgs._1password-gui "op-ssh-sign";
+        };
         settings = {
           alias = {
             br = "branch";
