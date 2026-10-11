@@ -2,13 +2,19 @@
 {
 
   flake.nixosModules.tarsonisConfiguration =
-    { pkgs, lib, ... }:
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     {
       # import any other modules from here
       imports = [
         inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         inputs.ldddns.nixosModules.default
+        inputs.nix-weiter.nixosModules.resticBackup
         self.nixosModules.browsersFirefox
         self.nixosModules.browsersPwas
         self.nixosModules.common
@@ -138,6 +144,17 @@
           userServices = true;
         };
       };
+
+      # Saved WiFi and VPN connections, and the SSH host keys so a reinstall
+      # keeps Tarsonis's identity for machines that SSH into it.
+      services.restic.backups.mar-sara.paths = [
+        "/home"
+        "/etc/NetworkManager/system-connections"
+      ]
+      ++ lib.concatMap (k: [
+        k.path
+        "${k.path}.pub"
+      ]) config.services.openssh.hostKeys;
 
       services.hardware.bolt.enable = true;
       services.ldddns.enable = true;

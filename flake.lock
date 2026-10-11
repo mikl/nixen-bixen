@@ -321,6 +321,29 @@
         "type": "github"
       }
     },
+    "nix-weiter": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "import-tree": [
+          "import-tree"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791700965,
+        "narHash": "sha256-6U6Vrzw+eqoD3xLb+QiveD7t98lPkvZkzxno75L0+Fk=",
+        "ref": "refs/heads/master",
+        "rev": "cc929c6f72b2e6c68a7dcff9119487f6839658eb",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://forgejo@gitte.hoegh.digital/mikl/nix-weiter.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://forgejo@gitte.hoegh.digital/mikl/nix-weiter.git"
+      }
+    },
     "nixos-hardware": {
       "inputs": {
         "nixpkgs": [
@@ -499,6 +522,7 @@
         "import-tree": "import-tree",
         "ldddns": "ldddns",
         "nix-darwin": "nix-darwin",
+        "nix-weiter": "nix-weiter",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",

@@ -32,6 +32,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Private modules, kept out of this public repo. Only Tarsonis uses it,
+    # and inputs are fetched lazily, so the rest of the flake still
+    # evaluates without access to it.
+    nix-weiter = {
+      url = "git+ssh://forgejo@gitte.hoegh.digital/mikl/nix-weiter.git";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+      };
+    };
+
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
       inputs.nixpkgs.follows = "nixpkgs";
