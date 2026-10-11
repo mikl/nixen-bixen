@@ -331,11 +331,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791720079,
-        "narHash": "sha256-7Fp0OvyA/aq0S4BGn5pjSW9S8gMaU6y4UlYsnw4BrPc=",
+        "lastModified": 1791726895,
+        "narHash": "sha256-BhmBuzciKqvgFHavZxZ7W+/XjkdqUTHsXfsNhesX0UM=",
         "ref": "refs/heads/master",
-        "rev": "9ff8e3d69fc3acdbe13b58dd6cbdb895f6067497",
-        "revCount": 3,
+        "rev": "edbab01f7cb3f224f711a1737a36fa18bae7f971",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://forgejo@gitte.hoegh.digital/mikl/nix-weiter.git"
       },

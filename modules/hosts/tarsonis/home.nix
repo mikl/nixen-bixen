@@ -4,7 +4,7 @@
 { self, inputs, ... }:
 {
   flake.homeModules.tarsonis =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
     {
       imports = [
         inputs.nvf.homeManagerModules.default
@@ -25,6 +25,29 @@
         # Apple Studio Display brightness control.
         asdbctl
       ];
+
+      # Mark bulky, re-creatable data as cache so the Restic backup skips it
+      # (it runs with --exclude-caches). tmpfiles recreates a tag if an app
+      # wipes its directory, and the d lines keep it from failing when the
+      # app has not created the directory yet.
+      systemd.user.tmpfiles.rules =
+        lib.concatMap
+          (dir: [
+            "d %h/${dir} - - - -"
+            "f %h/${dir}/CACHEDIR.TAG - - - - Signature: 8a477f597d28d172789f06886806bc55"
+          ])
+          [
+            # KDE's file search index.
+            ".local/share/baloo"
+            # Proton Mail Bridge's copy of the mailbox, re-synced from the server.
+            ".local/share/protonmail/bridge-v3"
+            ".local/share/pnpm/store"
+            # Installed games and compiled shaders. Not compatdata, which
+            # holds saves for games without Steam Cloud.
+            ".local/share/Steam/steamapps/common"
+            ".local/share/Steam/steamapps/shadercache"
+            ".local/share/Trash"
+          ];
 
       # This value determines the Home Manager release that your configuration is
       # compatible with. This helps avoid breakage when a new Home Manager release
