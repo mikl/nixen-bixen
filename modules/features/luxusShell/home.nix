@@ -1,9 +1,10 @@
-{ self, ... }:
+{ self, inputs, ... }:
 {
   flake.homeModules.luxusShellHomeManager =
     { pkgs, ... }:
     {
       imports = [
+        inputs.marskal-terminal.homeModules.default
         self.homeModules.starship
       ];
 
@@ -65,6 +66,12 @@
         changeDirWidget.command = "fd --type d";
         defaultCommand = "fd --type f";
         fileWidget.command = "fd --type f";
+      };
+
+      programs.marskal = {
+        enable = true;
+        settings.server = "https://marskal.hoegh.digital";
+        # keychain = false;  # headless: tokens in a file
       };
 
       programs.mc.enable = true;

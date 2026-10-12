@@ -25,6 +25,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    marskal-terminal = {
+      url = "git+ssh://forgejo@gitte.hoegh.digital/hoeghdigital/marskal.git?dir=clients/terminal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # The nix-darwin and nixpkgs branches must correspond: “master” pairs with
     # unstable nixpkgs, “nix-darwin-YY.MM” with the matching release branch.
     nix-darwin = {

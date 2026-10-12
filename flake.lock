@@ -263,6 +263,28 @@
         "type": "github"
       }
     },
+    "marskal-terminal": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "clients/terminal",
+        "lastModified": 1791759624,
+        "narHash": "sha256-Z4+k1PnAIPq9eu/15odcIkDVYlpZzvv6ii+Ra2XF1L0=",
+        "ref": "refs/heads/master",
+        "rev": "eb0bba8e905b41921ee756b3c0956b1024be222d",
+        "revCount": 225,
+        "type": "git",
+        "url": "ssh://forgejo@gitte.hoegh.digital/hoeghdigital/marskal.git"
+      },
+      "original": {
+        "dir": "clients/terminal",
+        "type": "git",
+        "url": "ssh://forgejo@gitte.hoegh.digital/hoeghdigital/marskal.git"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1784154424,
@@ -351,11 +373,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791373788,
-        "narHash": "sha256-c3oMt0QoE+4yiRk6u1m2L9ogjaUw0uTGn9yk808KkgE=",
+        "lastModified": 1791721963,
+        "narHash": "sha256-BYhx89XJltnRyQeuDKHVL5eSqbbfAcOKuDts7QRsrxQ=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "4bc63156b109ee7b4103e3ec30565c8c92bde435",
+        "rev": "60a624466c08787ee8303393b7d4752d1826f14f",
         "type": "github"
       },
       "original": {
@@ -521,6 +543,7 @@
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "ldddns": "ldddns",
+        "marskal-terminal": "marskal-terminal",
         "nix-darwin": "nix-darwin",
         "nix-weiter": "nix-weiter",
         "nixos-hardware": "nixos-hardware",
