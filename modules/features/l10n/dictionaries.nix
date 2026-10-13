@@ -7,7 +7,8 @@
         aspellDicts.de
         aspellDicts.da
         aspellDicts.en
-        aspellDicts.en-computers
+        # Removed due to corrupt source.
+        # aspellDicts.en-computers
         hunspellDicts.de_CH
         hunspellDicts.da_DK
         hunspellDicts.en_US
