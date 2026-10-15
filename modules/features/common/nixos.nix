@@ -24,6 +24,18 @@
       # Allow unfree packages
       nixpkgs.config.allowUnfree = true;
 
+      # TEMPORARY: breakpad fails to link with binutils 2.46 (pulled in by
+      # protonmail-bridge-gui via sentry-native). Fixed upstream in
+      # NixOS/nixpkgs#569323; remove once nixpkgs-weekly includes it, at
+      # which point this patch will fail to apply twice.
+      nixpkgs.overlays = [
+        (final: prev: {
+          breakpad = prev.breakpad.overrideAttrs (old: {
+            patches = (old.patches or [ ]) ++ [ ./breakpad-fix-vtable-link.patch ];
+          });
+        })
+      ];
+
       # The bare essentials for a decent Vim experience.
       programs.neovim = {
         enable = true;
