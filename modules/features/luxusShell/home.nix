@@ -70,7 +70,7 @@
 
       programs.marskal = {
         enable = true;
-        settings.server = "https://marskal.hoegh.digital";
+        settings.server = "https://preview.marskal.app";
         # keychain = false;  # headless: tokens in a file
       };
 
