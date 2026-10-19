@@ -106,6 +106,17 @@
           iconHash = "sha256-sVCIi8clevg+O4XTwr5ClPiJhgJvgWj2wS/B/eZpc1A=";
           profile = "reload";
         };
+        # The page links digested asset URLs that change on every deploy;
+        # Phoenix also serves the undigested originals, which stay put.
+        marskal-preview = {
+          name = "Marskal Preview";
+          genericName = "Task Management";
+          url = "https://preview.marskal.app/";
+          manifestUrl = "https://preview.marskal.app/manifest.webmanifest";
+          iconUrl = "https://preview.marskal.app/images/icon.svg";
+          iconHash = "sha256-ysdZg3/JamIGCGa8MninHlzlKqmU93ICdXCQ80NdIZI=";
+          profile = "default";
+        };
       };
 
       mkIcon =
