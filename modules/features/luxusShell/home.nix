@@ -54,9 +54,12 @@
 
       programs.fish = {
         enable = true;
-        # Disable fish greeting.
         interactiveShellInit = ''
+          # Disable fish greeting.
           set fish_greeting ""
+
+          # Vim-style keybindings.
+          set -g fish_key_bindings fish_vi_key_bindings
         '';
       };
 

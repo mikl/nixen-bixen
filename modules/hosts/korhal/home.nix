@@ -61,12 +61,6 @@
 
           not contains -- /opt/homebrew/share/man $MANPATH; and set -gx MANPATH $MANPATH /opt/homebrew/share/man
         '';
-
-        # Was set by the fish_frozen_key_bindings.fish snippet that fish wrote
-        # when it migrated the variable out of universal scope.
-        interactiveShellInit = ''
-          set -g fish_key_bindings fish_vi_key_bindings
-        '';
       };
 
       programs.nh = {
