@@ -12,6 +12,7 @@
 
       # Same as the NixOS hosts do in modules/features/common/nixos.nix.
       nixpkgs.config.allowUnfree = true;
+      nixpkgs.overlays = builtins.attrValues self.overlays;
 
       # Nix here is Determinate Nix, which owns the daemon, /etc/nix/nix.conf and
       # the nixbld users. Letting nix-darwin manage those too would clobber them,
