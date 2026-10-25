@@ -29,6 +29,7 @@
         self.nixosModules.plymouthBoot
         self.nixosModules.tailscaleConfiguration
         self.nixosModules.thunderboltRuntimePm
+        self.nixosModules.waydroid
         self.nixosModules.tarsonisDisko
         self.nixosModules.tarsonisHardware
       ];
