@@ -181,6 +181,19 @@
           done
           ln -s "$realRuntime" $out/runtime/.firefox-real
           cp ${runtimeShim} $out/runtime/firefox
+
+          # TEMPORARY: Firefox 158 moved WebProtocolHandlerRegistrar to
+          # moz-src:///, so PWAsForFirefox 2.20.0's static import of the old
+          # resource:/// URL fails, boot.sys.mjs never loads, and the runtime
+          # aborts with NS_ERROR_OMNIJAR_CORRUPT. --replace-fail breaks the
+          # build once upstream fixes it; drop this then.
+          chmod -R u+w $out/userchrome
+          boot=$out/userchrome/profile/chrome/pwa/boot.sys.mjs
+          bootSrc=$(readlink -f $boot)
+          rm $boot
+          substitute "$bootSrc" $boot --replace-fail \
+            "resource:///modules/WebProtocolHandlerRegistrar.sys.mjs" \
+            "moz-src:///browser/components/protocolhandler/WebProtocolHandlerRegistrar.sys.mjs"
         '';
 
       mkLauncher =
