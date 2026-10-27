@@ -26,6 +26,14 @@
         asdbctl
       ];
 
+      # kscreenlocker 6.8.0 never shows its implicit fingerprint prompt: it only
+      # flags fingerprint as usable when availability *changes*, which a working
+      # reader never does. Listing it as an explicit authenticator makes it
+      # selectable on the lock screen instead. Drop once a release carries
+      # upstream commit 0cf75b9 ("pamauthenticators: refactor fingerprint
+      # detection"), which only exists on the work/sitter/fingers branch.
+      programs.plasma.configFile.kscreenlockerrc.Authenticators.Fingerprint = true;
+
       # Mark bulky, re-creatable data as cache so the Restic backup skips it
       # (it runs with --exclude-caches). tmpfiles recreates a tag if an app
       # wipes its directory, and the d lines keep it from failing when the
