@@ -26,6 +26,17 @@
           Value = true;
           Status = "default";
         };
+
+        # No "Quit?" / "Close N windows?" confirmations, in Firefox and the
+        # PWAs alike.
+        policies.Preferences."browser.warnOnQuit" = {
+          Value = false;
+          Status = "default";
+        };
+        policies.Preferences."browser.warnOnQuitShortcut" = {
+          Value = false;
+          Status = "default";
+        };
       };
     };
 }
