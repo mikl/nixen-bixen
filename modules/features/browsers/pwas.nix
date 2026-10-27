@@ -218,13 +218,16 @@
       # global to every PWA: it keeps login redirects inside the app that
       # started them.
       #
-      # linksTarget 2 opens in-scope target="_blank" links in a new PWA
-      # window; the runtime's default (1) forces them into the current tab,
-      # replacing the app.
+      # linksTarget 1 (the runtime's default) forces target="_blank" links
+      # into the current tab. Don't use 2 (new window): the window opens
+      # before the out-of-scope check cancels the load and hands the URL to
+      # the default browser, so every external link leaves an empty PWA
+      # window behind. It's set explicitly to overwrite a 2 that an earlier
+      # user.js left in prefs.js.
       pwaPrefs = {
         "firefoxpwa.openOutOfScopeInDefaultBrowser" = true;
         "firefoxpwa.allowedDomains" = "accounts.google.com,id.getharvest.com";
-        "firefoxpwa.linksTarget" = 2;
+        "firefoxpwa.linksTarget" = 1;
       };
       pwaUserJs = lib.concatLines (
         lib.mapAttrsToList (
