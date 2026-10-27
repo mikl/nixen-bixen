@@ -196,6 +196,34 @@
             "moz-src:///browser/components/protocolhandler/WebProtocolHandlerRegistrar.sys.mjs"
         '';
 
+      # Runtime prefs, written as user.js into every PWA profile. They can't
+      # go in the Firefox enterprise policy: its Preferences policy only
+      # accepts a fixed set of prefixes and rejects firefoxpwa.*
+      # ("not allowed for stability reasons", visible in about:policies).
+      # user.js is reapplied on every start, which also matters because the
+      # runtime resets these prefs' *default* values on every launch.
+      #
+      # openOutOfScopeInDefaultBrowser hands links outside a PWA's manifest
+      # scope to the default browser (xdg-open) instead of loading them in
+      # the PWA. The scope check is prefix + path, so e.g. facebook.com/foo
+      # escapes Messenger's /messages/. allowedDomains is host-only and
+      # global to every PWA: it keeps login redirects inside the app that
+      # started them.
+      #
+      # linksTarget 2 opens in-scope target="_blank" links in a new PWA
+      # window; the runtime's default (1) forces them into the current tab,
+      # replacing the app.
+      pwaPrefs = {
+        "firefoxpwa.openOutOfScopeInDefaultBrowser" = true;
+        "firefoxpwa.allowedDomains" = "accounts.google.com,id.getharvest.com";
+        "firefoxpwa.linksTarget" = 2;
+      };
+      pwaUserJs = lib.concatLines (
+        lib.mapAttrsToList (
+          name: value: "user_pref(${builtins.toJSON name}, ${builtins.toJSON value});"
+        ) pwaPrefs
+      );
+
       mkLauncher =
         id: app:
         let
@@ -241,7 +269,12 @@
       };
 
       xdg.dataFile = lib.mkMerge (
-        lib.mapAttrsToList (
+        [
+          (lib.genAttrs' [ defaultProfileUlid reloadProfileUlid ] (
+            ulid: lib.nameValuePair "firefoxpwa/profiles/${ulid}/user.js" { text = pwaUserJs; }
+          ))
+        ]
+        ++ lib.mapAttrsToList (
           id: app:
           let
             svg = mkIcon app;
@@ -278,25 +311,5 @@
 
       # Lets the PWAsForFirefox extension talk to the native host.
       programs.firefox.nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
-
-      # Hand links outside a PWA's manifest scope to the default browser
-      # (xdg-open) instead of loading them in the PWA. The scope check is
-      # prefix + path, so e.g. facebook.com/foo escapes Messenger's /messages/.
-      # allowedDomains is host-only and global to every PWA: it keeps login
-      # redirects inside the app that started them.
-      #
-      # Status must be "user": the runtime resets the *default* value of
-      # openOutOfScopeInDefaultBrowser to false on every launch, which would
-      # clobber a "default" policy. Plain Firefox ignores these prefs.
-      programs.firefox.policies.Preferences = {
-        "firefoxpwa.openOutOfScopeInDefaultBrowser" = {
-          Value = true;
-          Status = "user";
-        };
-        "firefoxpwa.allowedDomains" = {
-          Value = "accounts.google.com,id.getharvest.com";
-          Status = "user";
-        };
-      };
     };
 }
