@@ -139,6 +139,14 @@
           icon = mkIcon app;
         };
         settings.config.icon_url = app.iconUrl;
+        # Home Manager stores only name and start_url as the site's manifest,
+        # but the runtime reads manifest.scope from config.json to decide
+        # what's in scope. Without it that check throws, and out-of-scope
+        # links load inside the PWA instead of the default browser. The
+        # spec's default scope -- the start URL's directory -- matches every
+        # app here, including the manifests that declare one (Gmail's /mail/,
+        # Calendar's /calendar/).
+        settings.manifest.scope = lib.head (builtins.match "(.*/)[^/]*" app.url);
       };
 
       sitesFor =
