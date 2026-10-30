@@ -14,6 +14,12 @@
       programs.delta = {
         enable = true;
         enableGitIntegration = true;
+        # Zed’s Delta app also ships a `delta` binary, so put this one on
+        # PATH as `delta-diff`. Git and lazygit call it by store path anyway.
+        package = pkgs.runCommand "delta-diff" { meta.mainProgram = "delta-diff"; } ''
+          mkdir -p $out/bin
+          ln -s ${lib.getExe pkgs.delta} $out/bin/delta-diff
+        '';
       };
 
       programs.difftastic = {
@@ -130,7 +136,7 @@
           git = {
             diffRenderers = [
               {
-                command = "delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
+                command = "${lib.getExe pkgs.delta} --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format='lazygit-edit://{path}:{line}'";
               }
               {
                 command = "difft --color=always";
