@@ -4,7 +4,7 @@
 { inputs, ... }:
 {
   flake.homeModules.devAiHomeManager =
-    { config, pkgs, ... }:
+    { config, lib, pkgs, ... }:
     let
       nixEnvironmentRule = ''
         # Environment
@@ -62,6 +62,16 @@
           pr = claudeAttributionTrailer;
           sessionUrl = false;
         };
+      }
+      # Plugins have to be declared here, since `claude plugin` cannot write
+      # to the read-only settings file. Delta itself is only installed on
+      # Linux desktops, see linux-desktop/develop.nix.
+      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+        extraKnownMarketplaces.zed-industries.source = {
+          source = "github";
+          repo = "zed-industries/delta-claude";
+        };
+        enabledPlugins."delta@zed-industries" = true;
       };
     in
     {
