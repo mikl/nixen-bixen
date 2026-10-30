@@ -69,6 +69,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Zed’s Delta, a multiplayer environment for coding with agents. Not to
+    # be confused with git-delta, which is why the git module renames that.
+    zed-delta = {
+      url = "github:zed-industries/delta-nix";
+      # Delta loads the host’s Mesa, so it must share our glibc.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake/beta";
       inputs = {

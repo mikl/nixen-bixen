@@ -552,6 +552,7 @@
         "nvf": "nvf",
         "plasma-manager": "plasma-manager",
         "sidra": "sidra",
+        "zed-delta": "zed-delta",
         "zen-browser": "zen-browser"
       }
     },
@@ -587,6 +588,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "zed-delta": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793213750,
+        "narHash": "sha256-AEn+sidGsd0GVcnTZVKDxYiKZeEoqmA+aIQPUIFfnAQ=",
+        "owner": "zed-industries",
+        "repo": "delta-nix",
+        "rev": "6b18003d156e93c65dbd44d9087254dc616ac780",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zed-industries",
+        "repo": "delta-nix",
         "type": "github"
       }
     },
