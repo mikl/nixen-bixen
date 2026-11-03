@@ -3,9 +3,7 @@
 
   Plymouth draws over the console from early initrd until the login manager
   takes over, which also means the LUKS passphrase prompt becomes a proper
-  graphical dialog instead of a bare text prompt. That upgrade needs systemd
-  in the initrd — the old scripted initrd asks for the passphrase itself and
-  only gets Plymouth's plain text mode.
+  graphical dialog instead of a bare text prompt.
 
   Plymouth is a cosmetic layer over the console, not a replacement for it, so
   it only looks clean if the kernel and udev stop writing there while it draws.
@@ -38,10 +36,7 @@
         themePackages = [ pkgs.nixos-bgrt-plymouth ];
       };
 
-      boot.initrd.systemd.enable = true;
-
       boot.consoleLogLevel = 0;
-      boot.initrd.verbose = false;
       boot.kernelParams = [
         "quiet"
         "udev.log_level=3"

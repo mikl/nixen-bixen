@@ -40,10 +40,6 @@
   flake.nixosModules.luksAutoLogin =
     { config, ... }:
     {
-      # Only systemd-cryptsetup puts the passphrase in the keyring; the
-      # scripted initrd has nowhere to leave it.
-      boot.initrd.systemd.enable = true;
-
       # Without this systemd gives the login manager a fresh session keyring
       # and the passphrase is invisible to it.
       systemd.services.plasmalogin.serviceConfig.KeyringMode = "inherit";
