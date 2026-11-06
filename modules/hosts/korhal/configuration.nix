@@ -42,6 +42,15 @@
         shell = pkgs.fish;
       };
 
+      # Firefox itself is installed by hand, but on macOS it reads enterprise
+      # policies from the org.mozilla.firefox defaults domain, once
+      # EnterprisePoliciesEnabled is set. Same policy as the NixOS
+      # browsersFirefox module: no "make Firefox your default browser" nag.
+      system.defaults.CustomUserPreferences."org.mozilla.firefox" = {
+        EnterprisePoliciesEnabled = true;
+        DontCheckDefaultBrowser = true;
+      };
+
       home-manager.users.mikl = self.homeModules.korhalHomeManager;
 
       home-manager.useGlobalPkgs = true;

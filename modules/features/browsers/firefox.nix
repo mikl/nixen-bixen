@@ -37,6 +37,10 @@
           Value = false;
           Status = "default";
         };
+
+        # Stop the "make Firefox your default browser" nagging. Locks
+        # browser.shell.checkDefaultBrowser to false.
+        policies.DontCheckDefaultBrowser = true;
       };
     };
 }

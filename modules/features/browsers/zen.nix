@@ -19,6 +19,10 @@
           Value = true;
           Status = "default";
         };
+
+        # No "make Zen your default browser" nag, as in the browsersFirefox
+        # module.
+        policies.DontCheckDefaultBrowser = true;
       };
     };
 }
