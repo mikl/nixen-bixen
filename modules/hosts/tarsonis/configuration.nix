@@ -15,6 +15,7 @@
         inputs.home-manager.nixosModules.default # import official home-manager NixOS module
         inputs.ldddns.nixosModules.default
         inputs.nix-weiter.nixosModules.resticBackup
+        self.nixosModules.browsersChromium
         self.nixosModules.browsersFirefox
         self.nixosModules.browsersPwas
         self.nixosModules.common
