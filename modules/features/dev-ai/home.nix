@@ -83,6 +83,11 @@
       home.file.".grok/rules/environment.md".text = nixEnvironmentRule;
       home.file.".grok/rules/git-attribution.md".text = gitAttributionRule "Grok";
 
+      # Teach the agents to drive the marskal CLI. Grok also reads
+      # ~/.claude/skills, but its own directory takes precedence.
+      home.file.".claude/skills/marskal/SKILL.md".source = ./marskal-skill.md;
+      home.file.".grok/skills/marskal/SKILL.md".source = ./marskal-skill.md;
+
       home.packages = [
         unstable.claude-code
         unstable.grok-build
