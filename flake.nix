@@ -2,7 +2,7 @@
   description = "Nix setup by Mikkel T. Hoegh";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
