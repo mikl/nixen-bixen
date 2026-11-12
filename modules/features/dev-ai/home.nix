@@ -43,6 +43,8 @@
 
       claudeAttributionTrailer = attributionTrailer "Claude";
 
+      modernWebGuidance = pkgs.callPackage ./_modern-web-guidance.nix { };
+
       # User-level Claude Code settings, shared across all machines.
       #
       # Managing this file declaratively means changes made from within
@@ -87,10 +89,14 @@
       # ~/.claude/skills, but its own directory takes precedence.
       home.file.".claude/skills/marskal/SKILL.md".source = ./marskal-skill.md;
       home.file.".grok/skills/marskal/SKILL.md".source = ./marskal-skill.md;
+      # Grok also loads ~/.claude/skills, so this covers both agents.
+      home.file.".claude/skills/modern-web-guidance".source =
+        "${modernWebGuidance}/share/modern-web-guidance/skill";
 
       home.packages = [
         unstable.claude-code
         unstable.grok-build
+        modernWebGuidance
       ];
     };
 
