@@ -18,7 +18,7 @@
         settings = {
           theme = "Eldritch";
           background-blur = true;
-          background-opacity = "0.95";
+          background-opacity = "1";
           font-family = "Iosevka Term Slab";
           font-size = 11;
 
