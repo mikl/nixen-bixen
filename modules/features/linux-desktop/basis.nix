@@ -5,6 +5,12 @@
 {
   flake.homeModules.linuxDesktopBasis =
     { pkgs, ... }:
+    let
+      unstable = import inputs.nixpkgs-unstable {
+        system = pkgs.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+      };
+    in
     {
       imports = [
         self.homeModules.dictionaries
@@ -30,7 +36,8 @@
         wireguard-tools
 
         # Browsers.
-        brave-origin
+        # Removed from nixpkgs (unmaintained); unstable still carries it for now.
+        unstable.brave-origin
         browsers
         firefox
 
