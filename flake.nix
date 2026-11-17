@@ -26,7 +26,7 @@
     };
 
     marskal-terminal = {
-      url = "git+ssh://forgejo@gitte.hoegh.digital/hoeghdigital/marskal.git?dir=clients/terminal";
+      url = "github:marskal/marskal?dir=clients/terminal";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

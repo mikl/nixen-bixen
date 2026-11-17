@@ -213,11 +213,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794715309,
-        "narHash": "sha256-awkBBs5ctFKgEYjpNGpi3t/VqF589n5EWfdinRb2gNI=",
+        "lastModified": 1794897420,
+        "narHash": "sha256-hMI9Xg+lxS8kbnxIxL/jPQn688dstoxQAcMEbCb1ax0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a1293da7dd8e497e08d26173f97e2976b36a31ea",
+        "rev": "5b76c5b8eec25fdbce4f43309b3ee10584374a26",
         "type": "github"
       },
       "original": {
@@ -271,18 +271,18 @@
       },
       "locked": {
         "dir": "clients/terminal",
-        "lastModified": 1794100469,
-        "narHash": "sha256-mH6iB05/ydAYqDqi6z4VQ9FCueaXn0ro7Tbxiq46t/s=",
-        "ref": "refs/heads/master",
-        "rev": "b765d275d86f9a5ebe82ffbf75c44d37a697f72f",
-        "revCount": 428,
-        "type": "git",
-        "url": "ssh://forgejo@gitte.hoegh.digital/hoeghdigital/marskal.git"
+        "lastModified": 1794877858,
+        "narHash": "sha256-v8msIG5+5GqSdpi3VfLqBihWpaS53BCYJoskx4eC5js=",
+        "owner": "marskal",
+        "repo": "marskal",
+        "rev": "828a5136368723a42f00b2335942fa927d77fb39",
+        "type": "github"
       },
       "original": {
         "dir": "clients/terminal",
-        "type": "git",
-        "url": "ssh://forgejo@gitte.hoegh.digital/hoeghdigital/marskal.git"
+        "owner": "marskal",
+        "repo": "marskal",
+        "type": "github"
       }
     },
     "mnw": {
@@ -373,11 +373,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794597451,
-        "narHash": "sha256-bUkc9dMpCFiJuuf5Efr7pnCDs5q18aA8zJah+MYZl9w=",
+        "lastModified": 1794906521,
+        "narHash": "sha256-B3ox9O5jQ7/RU2IECjP6MtA0BRqL9+yunGJRow0c1gA=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "eb3c90bd715f7a9a28719bb014f53d309ccb2fc8",
+        "rev": "d9da8426d86bd7e937226f5ecef1df1504ead2e8",
         "type": "github"
       },
       "original": {
@@ -478,12 +478,12 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1793540411,
-        "narHash": "sha256-fiPJ88izTVucjeo2EQ3jk4aWmLg03I1D4vxnX2QjEgE=",
-        "rev": "0bb2eedc20e4739f29e8045034f2828ad7054f8f",
-        "revCount": 1106360,
+        "lastModified": 1794042290,
+        "narHash": "sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U=",
+        "rev": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+        "revCount": 1113206,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nixpkgs-weekly/0.1.1106360%2Brev-0bb2eedc20e4739f29e8045034f2828ad7054f8f/01a1c3f2-e148-76b0-8164-649ce64c7e5b/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nixpkgs-weekly/0.1.1113206%2Brev-f4a03c008967841f2a0b3cb7c436fc6fc31671f6/01a1e7ff-6305-7ad2-bb1f-9855526cb446/source.tar.gz"
       },
       "original": {
         "type": "tarball",
