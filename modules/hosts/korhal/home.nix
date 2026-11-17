@@ -8,7 +8,7 @@
     { pkgs, ... }:
     {
       imports = [
-        inputs.nvf.homeManagerModules.default
+        inputs.nvf.homeModules.default
         self.homeModules.common
         self.homeModules.devAiHomeManager
         self.homeModules.ghosttyHomeConfig

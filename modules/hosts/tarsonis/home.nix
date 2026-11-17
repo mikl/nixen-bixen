@@ -7,7 +7,7 @@
     { lib, pkgs, ... }:
     {
       imports = [
-        inputs.nvf.homeManagerModules.default
+        inputs.nvf.homeModules.default
         self.homeModules.browsersPwas
         self.homeModules.browsersZen
         self.homeModules.common
