@@ -139,11 +139,11 @@
       services.avahi = {
         enable = true;
         nssmdns4 = true; # plugs avahi into NSS for .local lookups.
-        publish = {
-          # lddds needs user services enabled.
-          enable = true;
-          addresses = true;
-          userServices = true;
+        # ldddns needs user services published.
+        settings.publish = {
+          disable-publishing = false;
+          disable-user-service-publishing = false;
+          publish-addresses = true;
         };
       };
 
