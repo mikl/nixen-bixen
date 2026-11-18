@@ -271,11 +271,11 @@
       },
       "locked": {
         "dir": "clients/terminal",
-        "lastModified": 1794877858,
-        "narHash": "sha256-v8msIG5+5GqSdpi3VfLqBihWpaS53BCYJoskx4eC5js=",
+        "lastModified": 1794994115,
+        "narHash": "sha256-Zgr+E4zNk7btQ+vS3qgTP/CPonsFp35Jwqr3qxL6qKI=",
         "owner": "marskal",
         "repo": "marskal",
-        "rev": "828a5136368723a42f00b2335942fa927d77fb39",
+        "rev": "af3738c1547acb03716c934897a039b114fa1de7",
         "type": "github"
       },
       "original": {

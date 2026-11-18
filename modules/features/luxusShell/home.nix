@@ -73,15 +73,6 @@
 
       programs.marskal = {
         enable = true;
-        # nixpkgs' cargo hook now links rusqlite against system SQLite, which
-        # the package doesn't depend on yet. Drop once the Marskal package
-        # adds these inputs itself.
-        package =
-          inputs.marskal-terminal.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
-            (old: {
-              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
-              buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
-            });
         settings.server = "https://preview.marskal.app";
         # keychain = false;  # headless: tokens in a file
       };
