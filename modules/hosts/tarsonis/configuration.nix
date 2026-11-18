@@ -128,7 +128,12 @@
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       environment.systemPackages = with pkgs; [
-        framework-tool-tui
+        # nixpkgs' cargo hook now sets LIBGIT2_NO_VENDOR=1, but the package
+        # doesn't list libgit2, so libgit2-sys fails to build. Drop the
+        # override once nixpkgs adds it.
+        (framework-tool-tui.overrideAttrs (old: {
+          buildInputs = old.buildInputs ++ [ libgit2 ];
+        }))
       ];
 
       programs.fish.enable = true;
