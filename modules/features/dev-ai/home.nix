@@ -86,6 +86,8 @@
       home.packages = [
         unstable.claude-code
         unstable.grok-build
+        # Agent multiplexer; attaches to sessions on remote hosts over SSH.
+        pkgs.herdr
         modernWebGuidance
       ];
     };
