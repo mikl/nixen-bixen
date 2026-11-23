@@ -46,15 +46,17 @@
         firefoxWork = [
           "**.atlassian.net"
           "**.github.com"
+          "**.gitlab.com"
           "**.harvestapp.com"
           "**.mynixos.com"
           "**.nixos.org"
           "**.reload.dk"
+          "**.sentry.io"
           # Local development.
-          "*.ddev.site"
-          "*.local"
+          "**.ddev.site"
+          "**.local"
           "**.localhost"
-          "*.test"
+          "**.test"
         ];
         vivaldi = [
           "drive.google.com"
