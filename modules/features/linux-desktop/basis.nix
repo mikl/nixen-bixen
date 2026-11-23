@@ -38,7 +38,6 @@
         # Browsers.
         # Removed from nixpkgs (unmaintained); unstable still carries it for now.
         unstable.brave-origin
-        browsers
         firefox
 
         # Communication.

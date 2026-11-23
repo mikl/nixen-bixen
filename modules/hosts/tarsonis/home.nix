@@ -9,6 +9,7 @@
       imports = [
         inputs.nvf.homeModules.default
         self.homeModules.browsersPwas
+        self.homeModules.browsersPicker
         self.homeModules.browsersZen
         self.homeModules.common
         self.homeModules.devAiHomeManager
