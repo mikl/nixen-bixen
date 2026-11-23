@@ -28,6 +28,8 @@
       };
 
       home.packages = with pkgs; [
+        bruno
+        bruno-cli
         caligula # Disk imaging TUI.
         cloc
         gh
