@@ -271,11 +271,11 @@
       },
       "locked": {
         "dir": "clients/terminal",
-        "lastModified": 1795280143,
-        "narHash": "sha256-zrEBWzV/vKR16mwPq4YbPDZnuJ+ttsqKFw6E6xTfsg4=",
+        "lastModified": 1795515267,
+        "narHash": "sha256-JnLtfx4GhnSD+ltb83Ji+7C1RGggiMOFFn7PmkVfVFM=",
         "owner": "marskal",
         "repo": "marskal",
-        "rev": "fa378bed0364d2e6a531c7e083c934d24995b599",
+        "rev": "428defe9c05f6df99fab8db92f1c32aec4e89d94",
         "type": "github"
       },
       "original": {
@@ -373,11 +373,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795018746,
-        "narHash": "sha256-glQAHvZGgBVjzGIWgIZYSf3X10gvtO2LPR4rtyP/Soc=",
+        "lastModified": 1795505195,
+        "narHash": "sha256-HoBMYHQYxai9NTe3ED6MrZwo2S56ocxgMwTgwmybjJM=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "33475966110df258f52d05ec4d4cd6394637cbb9",
+        "rev": "ff49dbf39553717ac8e0f4d5085fa0ca10c1031f",
         "type": "github"
       },
       "original": {
@@ -478,12 +478,12 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1794042290,
-        "narHash": "sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U=",
-        "rev": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
-        "revCount": 1113206,
+        "lastModified": 1794537146,
+        "narHash": "sha256-Wpz/7x/YWnDIBu7yj6ixe8j6fIMsidd9Y+o1PqPF3iM=",
+        "rev": "d5cc6833999746cffdfe0598f7bc801a57b887a9",
+        "revCount": 1119549,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nixpkgs-weekly/0.1.1113206%2Brev-f4a03c008967841f2a0b3cb7c436fc6fc31671f6/01a1e7ff-6305-7ad2-bb1f-9855526cb446/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nixpkgs-weekly/0.1.1119549%2Brev-d5cc6833999746cffdfe0598f7bc801a57b887a9/01a20c0b-f466-73a3-a47a-6ecabb444d60/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -598,11 +598,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795187763,
-        "narHash": "sha256-Jn9AIfi2DZNzJi5gTTcXzsC+H0LUDujwUpQWXpb567I=",
+        "lastModified": 1795438681,
+        "narHash": "sha256-MR4Clm1jd6yIc0ZNO9J67VS+F6KX5NicF+77e9AuxvI=",
         "owner": "zed-industries",
         "repo": "delta-nix",
-        "rev": "8df460e37d538687342165f42e326cc9384c3e82",
+        "rev": "0448cbb91eea4e50ac976ef74e1b3fa5e6fee031",
         "type": "github"
       },
       "original": {
