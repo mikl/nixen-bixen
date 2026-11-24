@@ -45,6 +45,7 @@
       routes = {
         firefoxWork = [
           "**.atlassian.net"
+          "**.claude.ai"
           "**.github.com"
           "**.gitlab.com"
           "**.harvestapp.com"
