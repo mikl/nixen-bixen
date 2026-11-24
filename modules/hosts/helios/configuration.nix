@@ -37,6 +37,10 @@
         # Keeps the Microsoft keys, which the firmware may need to load
         # option ROMs such as the network card's.
         autoEnrollKeys.enable = true;
+        # TODO: Once Secure Boot and TPM unlocking work, set
+        # `settings.editor = false`. With the editor on, anyone at the
+        # keyboard can edit the kernel command line (e.g. init=/bin/sh),
+        # which PCR 7 doesn't measure, so the TPM would still unlock.
       };
 
       boot.kernelPackages = pkgs.linuxPackages_latest;
