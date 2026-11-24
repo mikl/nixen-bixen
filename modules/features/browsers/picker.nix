@@ -53,6 +53,9 @@
           "**.nixos.org"
           "**.reload.dk"
           "**.sentry.io"
+          "127.0.0.1"
+          "git.*"
+          "gitte.hoegh.digital"
           # Local development.
           "**.ddev.site"
           "**.local"
