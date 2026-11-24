@@ -20,6 +20,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Secure Boot for NixOS. Pinned to a release tag, as upstream recommends.
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.2.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ldddns = {
       url = "github:mikl/ldddns/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
