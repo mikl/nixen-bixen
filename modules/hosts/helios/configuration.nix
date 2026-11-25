@@ -43,8 +43,6 @@
         settings.editor = false;
       };
 
-      boot.kernelPackages = pkgs.linuxPackages_latest;
-
       networking.hostName = "helios";
       networking.networkmanager.enable = true;
 
