@@ -43,9 +43,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Private modules, kept out of this public repo. Only Tarsonis uses it,
-    # and inputs are fetched lazily, so the rest of the flake still
-    # evaluates without access to it.
+    # Private modules, kept out of this public repo. Only Tarsonis and
+    # Helios use it, and inputs are fetched lazily, so the rest of the
+    # flake still evaluates without access to it.
     nix-weiter = {
       url = "git+ssh://forgejo@gitte.hoegh.digital/mikl/nix-weiter.git";
       inputs = {

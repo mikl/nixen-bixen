@@ -2,7 +2,12 @@
 {
 
   flake.nixosModules.heliosConfiguration =
-    { lib, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       sshKeys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKtcZZdYqj0PaP8VaZ9Rz/ubSJf1OW2WBHc5o3Ifcagt"
@@ -12,6 +17,7 @@
       imports = [
         inputs.home-manager.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote
+        inputs.nix-weiter.nixosModules.resticBackup
         self.nixosModules.common
         self.nixosModules.en_DA_locale
         self.nixosModules.keyboard
@@ -85,6 +91,16 @@
           PermitRootLogin = "prohibit-password";
         };
       };
+
+      # Home directories, and the SSH host keys so a reinstall keeps Helios's
+      # identity for machines that SSH into it.
+      services.restic.backups.mar-sara.paths = [
+        "/home"
+      ]
+      ++ lib.concatMap (k: [
+        k.path
+        "${k.path}.pub"
+      ]) config.services.openssh.hostKeys;
 
       # HP's BIOS isn't on LVFS, but the Secure Boot dbx and the SSD
       # firmware are.
