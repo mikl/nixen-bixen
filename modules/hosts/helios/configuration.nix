@@ -22,6 +22,7 @@
         self.nixosModules.en_DA_locale
         self.nixosModules.keyboard
         self.nixosModules.localdev
+        self.nixosModules.syncthing
         self.nixosModules.tailscaleConfiguration
         self.nixosModules.heliosDisko
         self.nixosModules.heliosHardware
@@ -63,6 +64,8 @@
         ];
         shell = pkgs.fish;
         openssh.authorizedKeys.keys = sshKeys;
+        # Keeps the user manager, and so Syncthing, running without a login.
+        linger = true;
       };
 
       # Root gets the same key so a fresh install can be reached to set a
