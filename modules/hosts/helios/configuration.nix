@@ -102,6 +102,10 @@
         "${k.path}.pub"
       ]) config.services.openssh.hostKeys;
 
+      # The last snapshot of the previous Helios install, copied over from its
+      # old repository, is tagged to survive pruning.
+      services.restic.backups.mar-sara.pruneOpts = [ "--keep-tag old-helios" ];
+
       # HP's BIOS isn't on LVFS, but the Secure Boot dbx and the SSD
       # firmware are.
       services.fwupd.enable = true;
