@@ -109,6 +109,26 @@
       # old repository, is tagged to survive pruning.
       services.restic.backups.mar-sara.pruneOpts = [ "--keep-tag old-helios" ];
 
+      # The Syncthing web UI at https://helios.tail23b06e.ts.net/syncthing/,
+      # reachable only from the tailnet, with a certificate Tailscale
+      # provides. Syncthing itself still listens on localhost only. The
+      # serve config persists in tailscaled's state; this just reapplies it.
+      # Syncthing's GUI needs "Skip host check" turned on, or it rejects
+      # the proxied requests' Host header.
+      systemd.services.tailscale-serve-syncthing = {
+        description = "Serve the Syncthing web UI on the tailnet";
+        after = [ "tailscaled.service" ];
+        wants = [ "tailscaled.service" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          Restart = "on-failure";
+          RestartSec = 5;
+          ExecStart = "${lib.getExe config.services.tailscale.package} serve --bg --https=443 --set-path=/syncthing http://127.0.0.1:8384";
+        };
+      };
+
       # HP's BIOS isn't on LVFS, but the Secure Boot dbx and the SSD
       # firmware are.
       services.fwupd.enable = true;
