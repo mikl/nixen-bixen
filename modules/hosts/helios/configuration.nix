@@ -31,7 +31,8 @@
       boot.lanzaboote = {
         enable = true;
         pkiBundle = "/var/lib/sbctl";
-        # Each generation costs ~90 MB on the 1 GB ESP.
+        # Lanzaboote stores each distinct kernel and initrd once (~60 MB a
+        # pair on the 1 GB ESP); a generation itself is only a ~200 kB stub.
         configurationLimit = 10;
         autoGenerateKeys.enable = true;
         # Keeps the Microsoft keys, which the firmware may need to load
