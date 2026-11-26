@@ -57,10 +57,9 @@
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "bak";
 
-      # Whatever is not reasonably available from nixpkgs. Cleanup is “none”, so
-      # nix-darwin installs what is listed here but never uninstalls anything
-      # else — removing the packages that moved to Nix is a deliberate manual
-      # `brew uninstall`.
+      # Whatever is not reasonably available from nixpkgs. Cleanup is
+      # “uninstall”, so Nix owns the Homebrew package set: activation removes
+      # any formula or cask not listed here (caches and app data are kept).
       homebrew = {
         enable = true;
 
