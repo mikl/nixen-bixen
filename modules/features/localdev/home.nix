@@ -11,7 +11,6 @@
     {
       imports = [
         self.homeModules.gitHomeConfig
-        self.homeModules.jujutsuHomeConfig
       ];
 
       # Add NVM stub files for projects that assume NVM is available.
