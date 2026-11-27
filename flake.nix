@@ -23,7 +23,11 @@
     # Secure Boot for NixOS. Pinned to a release tag, as upstream recommends.
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.2.0";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        # Only used by its own checks and dev shell.
+        pre-commit.follows = "";
+      };
     };
 
     ldddns = {
@@ -61,7 +65,11 @@
 
     nvf = {
       url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        # Only used by its default.nix shim, never by the flake.
+        flake-compat.follows = "";
+      };
     };
 
     plasma-manager = {
