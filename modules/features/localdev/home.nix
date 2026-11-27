@@ -1,15 +1,15 @@
-{ self, inputs, ... }:
+{ self, ... }:
 {
   flake.homeModules.localdevHomeManager =
-    { config, pkgs, ... }:
-    let
-      unstable = import inputs.nixpkgs-unstable {
-        system = pkgs.stdenv.hostPlatform.system;
-        config.allowUnfree = true;
-      };
-    in
+    {
+      config,
+      pkgs,
+      unstable,
+      ...
+    }:
     {
       imports = [
+        self.homeModules.unstablePkgs
         self.homeModules.gitHomeConfig
       ];
 

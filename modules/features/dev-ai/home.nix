@@ -1,10 +1,15 @@
 /**
   AI coding agents feature.
 */
-{ inputs, ... }:
+{ self, ... }:
 {
   flake.homeModules.devAiHomeManager =
-    { config, pkgs, ... }:
+    {
+      config,
+      pkgs,
+      unstable,
+      ...
+    }:
     let
       nixEnvironmentRule = ''
         # Environment
@@ -23,11 +28,6 @@
         Do not install packages persistently (`nix profile install`) or add
         them to a flake/home-manager config to satisfy a temporary need.
       '';
-
-      unstable = import inputs.nixpkgs-unstable {
-        system = pkgs.stdenv.hostPlatform.system;
-        config.allowUnfree = true;
-      };
 
       # Kernel/LLVM-style trailer. Claude Code still injects Co-Authored-By
       # via its git prompt, so git-attribution.md repeats the same wording.
@@ -67,6 +67,7 @@
       };
     in
     {
+      imports = [ self.homeModules.unstablePkgs ];
 
       home.file.".claude/settings.json".text = builtins.toJSON claudeSettings;
 

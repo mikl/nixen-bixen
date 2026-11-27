@@ -1,17 +1,13 @@
 /**
   Software development tools.
 */
-{ inputs, ... }:
+{ self, inputs, ... }:
 {
   flake.homeModules.linuxDesktopDevelop =
-    { pkgs, ... }:
-    let
-      unstable = import inputs.nixpkgs-unstable {
-        system = pkgs.stdenv.hostPlatform.system;
-        config.allowUnfree = true;
-      };
-    in
+    { pkgs, unstable, ... }:
     {
+      imports = [ self.homeModules.unstablePkgs ];
+
       home.packages = with pkgs; [
         # TODO: lagoon CLI
         _1password-cli

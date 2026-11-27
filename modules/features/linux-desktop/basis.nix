@@ -4,15 +4,10 @@
 { self, inputs, ... }:
 {
   flake.homeModules.linuxDesktopBasis =
-    { pkgs, ... }:
-    let
-      unstable = import inputs.nixpkgs-unstable {
-        system = pkgs.stdenv.hostPlatform.system;
-        config.allowUnfree = true;
-      };
-    in
+    { pkgs, unstable, ... }:
     {
       imports = [
+        self.homeModules.unstablePkgs
         self.homeModules.dictionaries
         self.homeModules.ghosttyHomeConfig
         self.homeModules.linuxDesktopTypography
