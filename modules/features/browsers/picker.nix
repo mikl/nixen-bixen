@@ -129,6 +129,12 @@
         # Changes made there last until the next switch.
         home.activation.browsersPickerConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
           run install -Dm644 ${configFile} ${lib.escapeShellArg "${config.xdg.configHome}/software.Browsers/config.json"}
+
+          # Browsers caches the installed browsers, store paths included, and
+          # only rescans when the cache is missing. A stale one lists the old
+          # executables, so rules naming the current ones find no browser and
+          # fall back to the picker. Drop it so the next launch rescans.
+          run rm -f ${lib.escapeShellArg "${config.xdg.cacheHome}/software.Browsers/installed_browsers.json"}
         '';
 
         # Make Browsers the default browser again on every switch, in case
